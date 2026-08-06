@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "a67e4c00-9d9c-4e73-be54-36114c1664f4",
+      "question": "온톨로지 설계에서 가장 중요한 결정은 무엇이며 왜인가?",
+      "answer": "naming(이름 짓기)이다. entity type과 property 이름은 사람과 기계가 모두 읽으므로, 명확한 이름일수록 자연어 쿼리 정확도가 높아진다."
+    },
+    {
+      "id": "b090445b-7a02-4c82-b972-a0b25ac0bed9",
+      "question": "entity type, property, relationship의 권장 naming convention은?",
+      "answer": "entity type은 단수 명사(`Customer`, `Product`), property는 camelCase(`firstName`, `totalAmount`), relationship은 동사구(`placedBy`, `worksAt`, `contains`)를 쓴다."
+    },
+    {
+      "id": "22d4275d-8afb-43de-9285-aa28f4520220",
+      "question": "naming에서 피해야 할 세 가지 패턴은?",
+      "answer": "내부 테이블명 사용(`tbl_cust_v2`, `DIM_PRODUCT`), 약어 사용(`qty`, `amt`, `dt`), 지나치게 일반적인 이름(`Item`, `Record`, `Thing`)이다."
+    },
+    {
+      "id": "60d4215c-e740-4ad8-9689-d2e5e782d9d2",
+      "question": "\"one entity, one concept\" 원칙이란?",
+      "answer": "각 entity type은 하나의 비즈니스 개념만 표현해야 한다는 원칙이다. 서로 무관한 property를 계속 추가하고 있다면 엔티티를 분리해야 한다는 신호다."
+    },
+    {
+      "id": "cba30aec-6fd4-4da0-a202-b2f92d8cdf14",
+      "question": "`Person` 엔티티에 `salary`, `patientId`, `courseGrade`, `accountBalance`가 함께 있으면 무엇이 문제인가?",
+      "answer": "Employee, Patient, Student, Customer라는 네 개의 서로 다른 개념을 하나에 억지로 넣은 anti-pattern이다. 각각을 별도 entity type으로 분리하고 필요하면 relationship으로 연결해야 한다."
+    },
+    {
+      "id": "05b5e1bd-4ee2-4a1c-badf-8b4e134b67cd",
+      "question": "좋은 identifier의 세 가지 조건은?",
+      "answer": "모든 인스턴스에 대해 unique하고, 시간이 지나도 변하지 않는 stable한 값이며, 내부 auto-increment보다는 business key인 meaningful한 값이어야 한다."
+    },
+    {
+      "id": "da33b652-d1b6-4458-ad5f-52bcd1e9e8e4",
+      "question": "좋은 identifier의 실제 예시는?",
+      "answer": "책의 `isbn`, 사용자의 `email`, 주문의 `orderId` 등이다."
+    },
+    {
+      "id": "6b38e86a-5e88-419a-a9e3-ab834c825dfe",
+      "question": "compound identifier를 피해야 하는 이유는?",
+      "answer": "대부분의 온톨로지 도구는 엔티티당 하나의 identifier를 기대하기 때문이다. 여러 필드를 합쳐 키로 쓰는 방식은 지원되지 않는 경우가 많다."
+    },
+    {
+      "id": "afacb7ba-20d3-453c-b2e9-9bd95e750fa7",
+      "question": "\"foreign key가 아니라 relationship을 모델링하라\"는 것은 무슨 뜻인가?",
+      "answer": "관계형 DB에서는 foreign key로 테이블을 연결하지만, 온톨로지에서는 명시적 의미를 가진 named relationship을 쓴다는 뜻이다. `orders.customer_id → customers.id`는 `Order → placedBy → Customer`가 된다."
+    },
+    {
+      "id": "53194540-77ec-42b2-8888-1001dc00ba32",
+      "question": "relationship 이름이 중요한 이유는?",
+      "answer": "쿼리 엔진과 사람 모두에게 연결의 의미를 알려주기 때문이다. `placedBy`는 `fk_cust_id`라는 컬럼명보다 훨씬 명확하다."
+    },
+    {
+      "id": "251578b8-8ac1-43f5-9ba8-d4148809e353",
+      "question": "cardinality를 정할 때 스스로에게 던져야 할 질문은?",
+      "answer": "\"A의 인스턴스 하나에 대해 B의 인스턴스가 몇 개 있을 수 있는가?\"다. cardinality가 틀리면 aggregation 결과가 틀어진다."
+    },
+    {
+      "id": "bb141a0c-35dd-4e94-8fec-5d22425d7f3d",
+      "question": "cardinality 판단 예시 세 가지를 들면?",
+      "answer": "고객은 여러 주문을 낼 수 있으니 one-to-many, 주문은 한 store에서 발생하니 many-to-one, 학생은 여러 강좌를 듣고 강좌도 여러 학생을 가지므로 many-to-many다."
+    },
+    {
+      "id": "ebd387ba-42c9-48d1-b98d-fdbbedf0702b",
+      "question": "\"God entity\" 실수는 무엇이며 어떻게 고치는가?",
+      "answer": "하나의 엔티티에 30개 이상의 property가 몰린 경우다. 초점이 명확한 여러 엔티티로 분리해야 한다."
+    },
+    {
+      "id": "6c8c04dd-ccad-43bb-b658-3167e0ed6a8d",
+      "question": "identifier가 없는 온톨로지의 문제와 해결책은?",
+      "answer": "인스턴스를 count하거나 group할 수 없다. unique identifier property를 추가해야 한다."
+    },
+    {
+      "id": "7aa496f0-929f-4dd3-b45c-1352767d854b",
+      "question": "모호한 relationship 이름의 문제와 해결책은?",
+      "answer": "`relatedTo`, `hasLink` 같은 이름은 의미를 전달하지 못한다. `prescribes`, `enrolledIn` 같은 구체적 동사를 써야 한다."
+    },
+    {
+      "id": "2031dc12-4f1b-4f05-816d-794978f02ab6",
+      "question": "circular one-to-one 문제란 무엇이며 해결책은?",
+      "answer": "A → B와 B → A가 모두 1:1인 경우다. 사실상 같은 엔티티일 가능성이 높으므로 병합(merge)해야 한다."
+    },
+    {
+      "id": "7fddd00f-4491-429e-b9ca-7907b9e44973",
+      "question": "over-modelling 실수란 무엇이며 해결책은?",
+      "answer": "내부 테이블마다 엔티티를 만드는 것이다. 스키마가 아니라 사용자가 실제로 질문할 대상만 모델링해야 한다."
+    },
+    {
+      "id": "7be3b996-8bf5-4b85-9be6-aa4eda23f4bc",
+      "question": "description은 어떤 경우에 추가해야 하는가?",
+      "answer": "이름만으로 모호할 때(`status`), 도메인 특수 개념일 때(`formulary`, `SKU`, `yield`), 자연어 쿼리 해석을 유도하고 싶을 때다."
+    }
+  ]
+}

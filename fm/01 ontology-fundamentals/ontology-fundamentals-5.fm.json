@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "35682f0d-1a13-4996-b013-c5b1b767d655",
+      "question": "Healthcare 온톨로지가 cardinality 학습에 좋은 예인 이유는?",
+      "answer": "환자는 여러 appointment를 갖지만 각 appointment는 provider가 한 명이고, diagnosis는 한 환자에 속하지만 여러 prescription과 연결될 수 있다."
+    },
+    {
+      "id": "873c37ec-b542-46a7-8e85-8f6a7c194fa3",
+      "question": "Ontology Playground의 catalogue는 어떻게 구성되어 있는가?",
+      "answer": "프로젝트 팀이 관리하는 \"official\" 온톨로지와 커뮤니티가 기여한 온톨로지로 구성된다. 누구나 pull request로 온톨로지를 제출할 수 있다."
+    },
+    {
+      "id": "060d90ed-732c-43da-8550-3bc94f6868b0",
+      "question": "catalogue에 기여하는 두 가지 방법은?",
+      "answer": "Option A는 designer의 one-click PR 방식이고, Option B는 Git을 직접 다루는 manual PR 방식이다."
+    },
+    {
+      "id": "a4997b4c-3c26-4860-942b-b137290dda7a",
+      "question": "designer의 one-click PR 기여 절차는?",
+      "answer": "Designer에서 온톨로지를 만들고 Submit to Catalogue 클릭, 메타데이터(name, description, category, tags) 입력, GitHub device flow로 로그인하면, 도구가 자동으로 repo를 fork하고 브랜치를 만들어 RDF와 메타데이터를 커밋한 뒤 PR을 연다."
+    },
+    {
+      "id": "19eb64c2-f5ac-48d8-aa5c-8d71b2fa582e",
+      "question": "one-click PR에서 GitHub 인증은 어떤 방식인가?",
+      "answer": "device flow로 로그인하며 비밀번호는 저장되지 않는다."
+    },
+    {
+      "id": "ffd39cc5-3df6-479b-aade-d416dcf32d17",
+      "question": "PR이 열린 뒤 CI 파이프라인은 무엇을 하는가?",
+      "answer": "RDF를 검증하고 metadata schema를 확인하고 테스트를 실행한다. 이후 maintainer가 리뷰하고 merge한다."
+    },
+    {
+      "id": "667873bc-8b58-4088-99ca-b310920dd05e",
+      "question": "manual PR 방식의 절차는?",
+      "answer": "GitHub에서 repo를 fork하고, `catalogue/community/<your-github-username>/<ontology-slug>/` 디렉터리를 만들어 `ontology.rdf`와 `metadata.json` 두 파일을 추가한다."
+    },
+    {
+      "id": "1d483cd1-c85e-4829-8a2b-cfb21c3103a7",
+      "question": "catalogue 기여에 반드시 필요한 두 파일은?",
+      "answer": "`ontology.rdf`(RDF/OWL 온톨로지)와 `metadata.json`(name, description, category, tags 등 목록용 메타데이터)이다."
+    },
+    {
+      "id": "8bbae14c-fe6d-45a5-96ad-5337771290b6",
+      "question": "`metadata.json`의 필수 필드는 무엇인가?",
+      "answer": "`name`(카탈로그 표시 이름), `description`(한 문장 요약), `category`(유효한 카테고리 중 하나)가 필수다."
+    },
+    {
+      "id": "639db025-01a6-4083-8fea-edbd1136245f",
+      "question": "`metadata.json`의 선택 필드는 무엇인가?",
+      "answer": "`icon`(카드에 쓰는 단일 emoji), `tags`(검색용 소문자 키워드 배열), `author`(GitHub username, one-click flow에서는 자동 입력)이다."
+    },
+    {
+      "id": "cd5039aa-aad5-4cf3-b99f-5662d3bf10ef",
+      "question": "`metadata.json`의 `category`에 허용되는 값은?",
+      "answer": "`retail`, `healthcare`, `finance`, `manufacturing`, `education`, `technology`, `general` 중 하나다."
+    },
+    {
+      "id": "5fe8dc79-308d-4fe5-96ea-d0212ba6ca1e",
+      "question": "catalogue PR의 자동 검증 규칙 5가지는?",
+      "answer": "①유효한 RDF/OWL(파싱 오류 없음) ②round-trip fidelity(`parse(serialize(ontology))`가 동등한 결과) ③metadata schema 충족 ④디렉터리 이름은 소문자 영숫자·하이픈·언더스코어만 ⑤symlink 금지(보안)."
+    },
+    {
+      "id": "eda69679-6e4b-48d1-8bb9-9e0306476683",
+      "question": "round-trip fidelity 검증이란 무엇인가?",
+      "answer": "온톨로지를 serialize한 뒤 다시 parse했을 때 동등한 결과가 나와야 한다는 규칙이다. 즉 `parse(serialize(ontology))`가 원본과 같아야 한다."
+    },
+    {
+      "id": "053a4b1e-55da-4d30-8cb6-a9563b63986b",
+      "question": "catalogue에서 symlink를 거부하는 이유는?",
+      "answer": "보안 때문이다. catalogue 안의 symbolic link는 검증 단계에서 거부된다."
+    },
+    {
+      "id": "9c4be940-a17f-4c47-bb17-7a1cb5fc51bc",
+      "question": "PR이 merge된 후 빌드 파이프라인은 무엇을 하는가?",
+      "answer": "`npm run catalogue:build`로 모든 RDF를 `catalogue.json`으로 컴파일하고, 사이트를 재배포해 Gallery에 노출시킨다. 이후 embedding·deep-linking·playground 로딩에 바로 사용할 수 있다."
+    },
+    {
+      "id": "87ec3356-f28d-4ec2-bb0b-deb2a514348d",
+      "question": "기여 전 로컬에서 RDF를 검증하는 명령은?",
+      "answer": "`npm run validate -- catalogue/community/<you>/<slug>/ontology.rdf`를 push 전에 실행한다."
+    },
+    {
+      "id": "1fed1618-3355-4ca6-aeac-a1b2c92b1d05",
+      "question": "리뷰를 원활하게 통과하기 위한 팁은?",
+      "answer": "어떤 도메인을 모델링했고 누구를 위한 것인지 설명하는 좋은 description 작성, 검색에 도움되는 의미 있는 tag 추가, 로컬 검증 실행, 그리고 범위를 좁게 유지하는 것이다."
+    },
+    {
+      "id": "e4e6bf29-91d9-49b8-b672-f8de57ba7cbe",
+      "question": "카탈로그에 유용한 온톨로지의 적정 규모는?",
+      "answer": "entity type 3~8개로 범위가 잘 잡힌 온톨로지가 30개 이상으로 방대한 것보다 유용하다."
+    }
+  ]
+}

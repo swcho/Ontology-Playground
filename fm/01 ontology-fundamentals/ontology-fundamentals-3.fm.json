@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "5b318dd9-5758-4c2d-a866-42a15c0215ca",
+      "question": "`integer`와 `decimal` 타입의 사용 예는?",
+      "answer": "`integer`는 quantity, year 같은 정수에, `decimal`은 price, rating 같은 소수 값에 쓴다."
+    },
+    {
+      "id": "d8bb888f-5f9a-4913-8f6e-d0a4b0c7c034",
+      "question": "`date`와 `datetime` 타입의 차이는?",
+      "answer": "`date`는 order date, birth date 같은 달력 날짜만 담고, `datetime`은 created timestamp처럼 시간까지 포함한다."
+    },
+    {
+      "id": "98505eba-50be-4013-b42d-9d3cddda5ce3",
+      "question": "relationship을 정의할 때 지정해야 하는 세 가지는?",
+      "answer": "source/target entity type, 이름(동사: \"places\", \"contains\", \"worksAt\"), 그리고 cardinality다."
+    },
+    {
+      "id": "959aaa9e-82a1-4f04-a55d-51c6ee21a1ea",
+      "question": "cardinality 네 가지 종류와 각 예시는?",
+      "answer": "one-to-one(`Employee → Badge`), one-to-many(`Customer → Order`), many-to-one(`Order → Store`), many-to-many(`Student → Course`)다."
+    },
+    {
+      "id": "bf1fae25-303a-4c9d-81a5-1140e70af667",
+      "question": "Fabric IQ는 cardinality를 무엇에 사용하는가?",
+      "answer": "올바른 aggregation과 join(GROUP BY, JOIN) 생성에 사용한다. Customer와 Order가 one-to-many이면 \"고객당 주문 수\"는 유효하고 \"주문당 고객 수\"는 보통 1이 된다."
+    },
+    {
+      "id": "ce1ac204-7426-4ce0-9c3c-b94d4e54cc32",
+      "question": "Fabric IQ용 온톨로지 설계 가이드라인 5가지는?",
+      "answer": "①비즈니스 용어로 명확히 이름 짓기(\"Customer\", not \"tbl_cust\") ②description 추가 ③identifier 표시 ④cardinality 설정 ⑤사용자가 질문할 개념만 focused하게 모델링."
+    },
+    {
+      "id": "8b40f45c-2e15-4d2f-acb4-dfc3aa7d58f2",
+      "question": "Fabric IQ 온톨로지에 description을 추가하면 어떤 이점이 있는가?",
+      "answer": "IQ가 비슷한 개념을 구분(disambiguate)하는 데 사용하므로 질문 응답 정확도가 올라간다."
+    },
+    {
+      "id": "d31185c6-b0ba-4d32-beff-166cacfe9036",
+      "question": "Fabric IQ 온톨로지의 네 가지 pillar는?",
+      "answer": "entity type, property, relationship, cardinality다."
+    },
+    {
+      "id": "e58d83a2-c1c2-4c97-8bee-df040976aa23",
+      "question": "Library 온톨로지 튜토리얼에서 만드는 세 entity type은?",
+      "answer": "`Book`, `Author`, `Member`이며, relationship으로 서로 연결한다. 최종 산출물은 Fabric IQ나 다른 semantic 도구에서 쓸 수 있는 유효한 RDF 파일이다."
+    },
+    {
+      "id": "38b3840b-7406-44a7-9932-801f5aa7c8a3",
+      "question": "Library 튜토리얼의 `Book` 엔티티는 어떤 property를 갖는가?",
+      "answer": "`isbn`(string, identifier), `title`(string), `publishedYear`(integer)다."
+    },
+    {
+      "id": "b9a78543-5b5e-4dda-8169-a8aac53deca0",
+      "question": "Library 튜토리얼의 `Author` 엔티티는 어떤 property를 갖는가?",
+      "answer": "`authorId`(string, identifier), `name`(string), `nationality`(string)다."
+    },
+    {
+      "id": "83675900-a4be-432d-a171-478ae2597722",
+      "question": "Library 튜토리얼의 `Member` 엔티티는 어떤 property를 갖는가?",
+      "answer": "`memberId`(string, identifier), `name`(string), `joinDate`(date)다."
+    },
+    {
+      "id": "9f0caa28-465a-4759-a2f3-2b131fcf1199",
+      "question": "designer에서 엔티티를 추가하는 동안 어떤 피드백을 볼 수 있는가?",
+      "answer": "오른쪽 graph preview가 실시간으로 갱신된다. 왼쪽에는 entity form, 오른쪽에는 라이브 그래프 미리보기가 배치된다."
+    },
+    {
+      "id": "ba64ea38-91ba-4893-aaac-0457e9282952",
+      "question": "Library 튜토리얼에서 `writtenBy` relationship의 cardinality와 이유는?",
+      "answer": "Book → Author의 many-to-one이다. 여러 책이 한 저자를 공유할 수 있지만 각 책은 하나의 주 저자를 갖기 때문이다."
+    },
+    {
+      "id": "804aff6a-b540-4eab-8c85-80b7a33b6371",
+      "question": "Library 튜토리얼에서 `borrowedBy` relationship의 cardinality와 이유는?",
+      "answer": "Book → Member의 many-to-many다. 한 책이 여러 회원에게 대출될 수 있고, 한 회원도 여러 책을 대출할 수 있기 때문이다."
+    },
+    {
+      "id": "9d1ad7ec-82dc-402e-b7f3-1ebae21f1c2b",
+      "question": "designer의 Validate 버튼은 무엇을 검사하는가?",
+      "answer": "모든 엔티티가 최소 하나의 identifier property를 갖는지, relationship이 존재하는 entity type을 참조하는지, 중복 ID가 없는지를 검사한다. 문제가 없으면 초록색 \"No issues found\" 배너가 표시된다."
+    },
+    {
+      "id": "adb74843-bc77-4fd2-845b-5f6e8a3ef35e",
+      "question": "designer의 RDF 탭은 무엇을 보여주는가?",
+      "answer": "syntax highlighting이 적용된 라이브 RDF/OWL 출력을 보여준다. 이것이 Fabric IQ 같은 도구가 실제로 소비하는 파일이다."
+    },
+    {
+      "id": "992dd42c-d677-4d8e-be95-37976158554c",
+      "question": "designer에서 완성한 온톨로지를 export하는 세 가지 방법은?",
+      "answer": "①Download RDF로 `.rdf` 파일 저장 ②Submit to Catalogue로 one-click PR 제출(GitHub 로그인 필요) ③Copy JSON으로 JSON 표현 복사."
+    }
+  ]
+}

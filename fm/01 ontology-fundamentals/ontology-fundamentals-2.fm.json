@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "ad3afcc1-f10b-4413-98f2-002bf17e6813",
+      "question": "`owl:DatatypeProperty`와 `owl:ObjectProperty`의 차이는?",
+      "answer": "DatatypeProperty는 문자열·숫자 같은 primitive 값을 가리키고, ObjectProperty는 두 엔티티 타입 사이의 관계를 가리킨다."
+    },
+    {
+      "id": "a2c1b385-119d-4df4-a63a-bbc0fb58e3bc",
+      "question": "`rdfs:domain`과 `rdfs:range`는 각각 무엇을 지정하는가?",
+      "answer": "`rdfs:domain`은 property가 어떤 엔티티에 속하는지를, `rdfs:range`는 그 값의 타입을 지정한다. 예: `price`는 domain이 `Product`, range가 `xsd:decimal`."
+    },
+    {
+      "id": "5f74b76e-610f-4b10-ac02-f1161610f773",
+      "question": "RDF에서 namespace prefix를 쓰는 이유는?",
+      "answer": "RDF의 모든 리소스는 전역적으로 유일한 URI를 갖는데, 긴 URI를 매번 쓰지 않기 위해 prefix로 축약한다. namespace는 URI를 짧고 모호하지 않게 유지해 준다."
+    },
+    {
+      "id": "869ea0c8-4f6f-4b8a-914f-a83486551134",
+      "question": "RDF/XML에서 `xmlns=` 기본 namespace의 역할은?",
+      "answer": "prefix 없는 이름의 기준 URI를 정한다. 기본 namespace가 `https://mycompany.com/ontology/`이면 `<owl:Class rdf:about=\"Customer\">`는 실제로 `https://mycompany.com/ontology/Customer`를 의미한다."
+    },
+    {
+      "id": "1f370a33-b479-46e9-8cf7-3f83406d2ddf",
+      "question": "RDF/OWL에서 자주 쓰이는 표준 namespace URI 세 가지는?",
+      "answer": "rdf는 `http://www.w3.org/1999/02/22-rdf-syntax-ns#`, rdfs는 `http://www.w3.org/2000/01/rdf-schema#`, owl은 `http://www.w3.org/2002/07/owl#`이다. XML Schema 타입은 `http://www.w3.org/2001/XMLSchema#`를 쓴다."
+    },
+    {
+      "id": "fddfdd96-95b0-46c1-9991-a1d6f5fe8d3f",
+      "question": "최소 온톨로지 하나를 RDF/XML로 작성하면 어떤 요소가 필요한가?",
+      "answer": "entity type을 위한 `owl:Class` 선언과, `rdfs:domain`·`rdfs:range`·`rdfs:label`을 가진 `owl:DatatypeProperty` 선언이 필요하다. 여기에 namespace 선언이 함께 들어간다."
+    },
+    {
+      "id": "c4cc077a-dfaf-411e-8e49-cd26f26cbbda",
+      "question": "JSON과 RDF/OWL 중 사람이 읽고 편집하기 쉬운 쪽은?",
+      "answer": "JSON이 읽고 편집하기 쉽다. RDF/OWL은 verbose하지만 더 정확(precise)하다."
+    },
+    {
+      "id": "b18ee517-6d1a-43a4-a362-5f847bf2c007",
+      "question": "JSON과 RDF/OWL의 tooling 차이는?",
+      "answer": "JSON은 아무 텍스트 에디터로도 다룰 수 있고, RDF/OWL은 semantic web 도구와 SPARQL endpoint를 활용할 수 있다."
+    },
+    {
+      "id": "adb5723e-abac-4736-8304-e4341b92b7ee",
+      "question": "JSON과 RDF/OWL의 interoperability 차이는?",
+      "answer": "JSON은 애플리케이션에 특화되어 있고, RDF/OWL은 W3C 표준이라 시스템 간에 보편적으로 이해된다."
+    },
+    {
+      "id": "7f2674bd-33bf-4c2d-9f9f-880872e54799",
+      "question": "JSON 포맷이 적합한 경우와 RDF/OWL이 적합한 경우는?",
+      "answer": "JSON은 빠른 프로토타이핑과 앱 설정에 적합하고, RDF/OWL은 형식적 데이터 모델과 시스템 간 통합에 적합하다."
+    },
+    {
+      "id": "a10a1484-18ed-4a7b-b7e7-9323107ac106",
+      "question": "Microsoft Fabric이란 무엇인가?",
+      "answer": "data engineering, data science, real-time analytics, business intelligence를 하나로 묶은 통합 분석 플랫폼이다."
+    },
+    {
+      "id": "b29ac5e9-a388-4ef9-80fa-9d0ff6f84802",
+      "question": "Fabric IQ는 어떤 기능인가?",
+      "answer": "사용자가 자연어로 질문하면 구조화된 데이터에서 답을 얻게 해 주는 Fabric의 기능이다. SQL을 작성할 필요가 없다."
+    },
+    {
+      "id": "4311fc4f-1321-45b9-9e45-5e03348f6b54",
+      "question": "Fabric IQ가 자연어 질문을 처리할 때 온톨로지가 하는 역할은?",
+      "answer": "IQ가 온톨로지를 읽어 데이터의 형태를 이해하고, 평문 질문을 올바른 쿼리로 번역하는 근거로 사용한다."
+    },
+    {
+      "id": "01b12267-e7e3-4532-a195-73701f970735",
+      "question": "\"지난달 지역별 총매출은?\" 같은 질문을 처리하려면 IQ가 온톨로지에서 무엇을 알아야 하는가?",
+      "answer": "entity type(`Order`, `Store`, `Region`), property(`Order.totalAmount`, `Order.date`, `Store.region`), relationship(`Order → placedAt → Store` 등), 그리고 identifier property다."
+    },
+    {
+      "id": "34500b7c-9911-49c8-937e-25f55dfc6d11",
+      "question": "온톨로지가 없으면 Fabric IQ에 어떤 문제가 생기는가?",
+      "answer": "\"store\"와 \"product\"를 구분할 수 없고, 그것들을 어떻게 join해야 하는지도 알 수 없다."
+    },
+    {
+      "id": "08823dcb-1baf-42bf-97b9-f84a2f437fa8",
+      "question": "Fabric IQ에서 entity type이 반드시 갖춰야 할 조건은?",
+      "answer": "이름(name)과 선택적 description을 가지고, 하나 이상의 property를 포함하며, 인스턴스를 유일하게 식별하는 identifier property를 최소 하나 가져야 한다."
+    },
+    {
+      "id": "e87b20a5-11f4-4432-a519-d7e5d75b55af",
+      "question": "entity type을 관계형 개념으로 비유하면?",
+      "answer": "테이블 정의와 같다. 예: `Customer(customerId, name, email, tier)`."
+    },
+    {
+      "id": "e9a20833-459e-4b25-a37c-5261edf774f9",
+      "question": "Fabric IQ의 property 데이터 타입 6가지는?",
+      "answer": "`string`, `integer`, `decimal`, `date`, `datetime`, `boolean`이다."
+    }
+  ]
+}

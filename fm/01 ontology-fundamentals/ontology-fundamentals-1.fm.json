@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "3dfae90d-5e34-4d28-a29c-254fe0f51a81",
+      "question": "온톨로지(ontology)란 무엇인가?",
+      "answer": "특정 도메인에 존재하는 사물의 유형(type)과 그것들이 서로 어떻게 관계를 맺는지를 형식적으로 기술한 것이다. 데이터 자체가 아니라 데이터의 '형태(shape)'를 정의하는 청사진이다."
+    },
+    {
+      "id": "b65ce721-c79f-4180-bc5f-f5a3cfd7994b",
+      "question": "온톨로지를 구성하는 세 가지 기본 building block은 무엇인가?",
+      "answer": "Entity type(사물의 범주), Property(엔티티에 대한 사실), Relationship(엔티티 간의 연결)이다. 예: `Customer`, `Customer.name`, `Customer → places → Order`."
+    },
+    {
+      "id": "2e3cc5e7-9cbb-45bb-bc46-e3fb9282b595",
+      "question": "Entity type의 정의와 예시는?",
+      "answer": "사물의 범주(category of thing)를 나타내는 개념이다. `Customer`, `Product`, `Store` 같은 비즈니스 객체 유형이 해당한다."
+    },
+    {
+      "id": "73e6cc5e-a7a4-4f41-a2f8-5b892084981b",
+      "question": "Property의 정의와 예시는?",
+      "answer": "엔티티에 대한 하나의 사실(fact)이다. `Customer.name`, `Product.price`처럼 엔티티가 가지는 값을 표현한다."
+    },
+    {
+      "id": "e4eb5884-135c-4ea6-be86-ffaaed96eef3",
+      "question": "Relationship의 정의와 예시는?",
+      "answer": "엔티티들 사이의 연결이다. `Customer → places → Order`처럼 방향과 의미를 가진 연결로 표현된다."
+    },
+    {
+      "id": "1b10cda4-f87c-4cb8-828e-7245fafe52e6",
+      "question": "Property가 가질 수 있는 타입에는 어떤 것들이 있는가?",
+      "answer": "텍스트(text), 숫자(number), 날짜(date), 불리언(boolean) 등이다. 각 property는 반드시 타입을 가진다."
+    },
+    {
+      "id": "7a77ad4a-a799-4642-ba28-719027413b05",
+      "question": "identifier property란 무엇이며 왜 필요한가?",
+      "answer": "customer ID처럼 엔티티의 각 인스턴스를 유일하게 구별해 주는 property다. 모든 엔티티는 최소 하나의 identifier property를 가져야 하며, 이것이 있어야 시스템이 count·group·join을 올바르게 수행할 수 있다."
+    },
+    {
+      "id": "81150a8e-e5f1-426b-a63a-d62b66555d0a",
+      "question": "온톨로지가 없는 데이터와 있는 데이터의 차이는?",
+      "answer": "온톨로지가 없으면 데이터는 그냥 테이블과 컬럼일 뿐이다. 온톨로지가 있으면 시스템이 \"revenue는 `Store.city`로 그룹핑한 `Order.totalAmount`의 합\"이라는 것을 이해할 수 있다."
+    },
+    {
+      "id": "e5012d9c-edc2-4edd-ba8b-84a2792ac456",
+      "question": "semantic data model의 핵심 아이디어는?",
+      "answer": "SQL을 직접 작성하는 대신 원하는 것을 자연어로 기술하면, 시스템이 온톨로지를 이용해 올바른 쿼리를 생성해 준다는 것이다."
+    },
+    {
+      "id": "799b2b82-2a1b-47ee-9fda-6147295274b9",
+      "question": "온톨로지의 표준 표현 형식은 무엇인가?",
+      "answer": "RDF/OWL이다. 클래스, property, relationship을 기술하는 XML 기반 표준이며, JSON 표현으로도 다룰 수 있다."
+    },
+    {
+      "id": "499902c2-682a-480d-8336-92599710563a",
+      "question": "RDF/OWL 파일을 손으로 작성해야 하는가?",
+      "answer": "아니다. Ontology Designer 같은 도구로 시각적으로 설계하고 유효한 RDF로 export할 수 있다."
+    },
+    {
+      "id": "c62845fe-38e7-4806-8f76-4c4a2bc4d095",
+      "question": "SQL query는 온톨로지의 building block인가?",
+      "answer": "아니다. 온톨로지는 entity type, property, relationship으로 구성되며, SQL query는 데이터를 조회하는 방법일 뿐 온톨로지 정의의 일부가 아니다."
+    },
+    {
+      "id": "353036ad-4859-48f5-98a4-3fb4deabcdf4",
+      "question": "RDF(Resource Description Framework)란 무엇인가?",
+      "answer": "정보를 연결된 리소스의 그래프로 기술하는 W3C 표준이다. 모든 정보를 triple(subject → predicate → object)로 표현한다."
+    },
+    {
+      "id": "4403c2fc-ef34-447b-83b1-d0864209c476",
+      "question": "RDF의 triple 구조는 무엇인가?",
+      "answer": "subject → predicate → object의 세 부분으로 이루어진 진술이다. 예: `:name rdfs:domain :Customer`는 name property가 Customer에 속한다는 뜻이다."
+    },
+    {
+      "id": "7862b692-6f0d-4fa2-821b-0fe9124aa1b7",
+      "question": "`:Customer rdf:type owl:Class`라는 triple의 의미는?",
+      "answer": "Customer라는 이름의 클래스가 존재한다는 것을 선언한다. 여기에 `:name rdf:type owl:DatatypeProperty`를 더하면 Customer가 문자열 name property를 갖는다는 의미가 된다."
+    },
+    {
+      "id": "5cf22cde-fbb1-4e5e-8f2c-8eda589f4032",
+      "question": "OWL(Web Ontology Language)은 RDF와 어떤 관계인가?",
+      "answer": "OWL은 RDF를 확장해 cardinality 제약, 클래스 계층, 논리적 axiom 등 더 풍부한 모델링을 제공한다."
+    },
+    {
+      "id": "bd4e487d-e7b3-470d-9cbb-eb2bfd50cc9c",
+      "question": "`owl:Class`는 온톨로지 모델링에서 무엇에 대응하는가?",
+      "answer": "entity type에 대응한다. `Customer`, `Product` 같은 엔티티 유형이 `owl:Class`로 선언된다."
+    },
+    {
+      "id": "e6e66fb1-4638-4cc8-a7fa-fc72524b1dce",
+      "question": "`owl:DatatypeProperty`는 무엇을 표현하는가?",
+      "answer": "primitive 값을 갖는 property를 표현한다. 예: string 타입의 `name`, decimal 타입의 `price`."
+    },
+    {
+      "id": "da760516-7120-4b9b-95e5-88b4617f20b4",
+      "question": "`owl:ObjectProperty`는 무엇을 표현하는가?",
+      "answer": "두 entity type(클래스) 사이의 relationship을 표현한다. 예: Order에서 Customer로 연결되는 `placedBy`."
+    }
+  ]
+}
