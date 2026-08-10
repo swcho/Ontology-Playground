@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "243fa59b-9aa0-447a-b79c-15947129931d",
+      "question": "모든 마켓플레이스가 공유하는 세 가지 핵심 개념은?",
+      "answer": "Buyer(누가 구매하는가), Product(무엇이 팔리는가), Order(완료된 거래는 무엇인가)다. 이 셋이 본질적인 구매 흐름을 담고, 나머지는 모두 이 기반을 풍부하게 만드는 확장이다."
+    },
+    {
+      "id": "ea1a0ee3-cf3f-497d-bbe5-40467a2968e3",
+      "question": "Buyer 엔티티의 속성 5가지와 식별자는?",
+      "answer": "`buyerId`(string, 식별자 ✓), `email`(string), `memberSince`(date), `loyaltyTier`(string), `totalSpent`(decimal, USD)이다."
+    },
+    {
+      "id": "1ef9ec3b-1afe-491d-88a8-d67ba6fe1657",
+      "question": "Buyer의 `totalSpent` 속성은 어떤 분석을 가능하게 하는가?",
+      "answer": "생애 가치(lifetime-value) 기반 고객 세그먼테이션을 가능하게 한다. 누적 지출액으로 구매자를 등급화하거나 고가치 고객을 식별할 수 있다."
+    },
+    {
+      "id": "94e58633-da48-40c5-b5ed-ea3f822b431d",
+      "question": "e-commerce Buyer가 물리 소매 고객과 결정적으로 다른 점은?",
+      "answer": "온라인 구매자는 항상 `email`을 기본 연락 수단으로 갖는다는 점이다. 물리 매장 고객은 익명 결제가 가능하지만 e-commerce 구매자는 계정 식별이 전제된다."
+    },
+    {
+      "id": "99bb1d2a-95c7-4085-be77-5d3bb038f5ca",
+      "question": "Product 엔티티의 속성 5가지와 식별자는?",
+      "answer": "`sku`(string, 식별자 ✓), `name`(string), `category`(string), `price`(decimal, USD), `stockQty`(integer)이다."
+    },
+    {
+      "id": "882df349-6590-47d5-835a-4c7be276114d",
+      "question": "SKU는 무엇의 약자이며 왜 Product의 식별자로 쓰이는가?",
+      "answer": "Stock Keeping Unit의 약자다. 재고 관리·창고·e-commerce 시스템 전반에서 각 품목을 고유하게 식별하는 업계 표준 식별자이기 때문에 `productId` 대신 사용한다."
+    },
+    {
+      "id": "35063415-a3dd-444b-a496-42f4b8b98e9f",
+      "question": "Product의 `stockQty` 속성의 역할은?",
+      "answer": "실시간 재고 수량을 추적한다. integer 타입이므로 \"재고 10개 미만 상품\" 같은 수치 비교 기반 재고 질의가 가능해진다."
+    },
+    {
+      "id": "c4c5891e-aa8d-4287-9db1-704a937d3415",
+      "question": "Order 엔티티의 속성 5가지와 식별자는?",
+      "answer": "`orderId`(string, 식별자 ✓), `orderDate`(datetime), `status`(string), `total`(decimal, USD), `shippingMethod`(string)이다."
+    },
+    {
+      "id": "79e6d310-794a-41d7-95dd-b2f01b6e6ae9",
+      "question": "Order의 `orderDate`가 date가 아니라 datetime인 이유는?",
+      "answer": "주문은 하루 중 특정 시각에 발생하는 이벤트이기 때문이다. 시각까지 기록해야 시간대별 주문 패턴, 처리 지연, 세션-주문 연결 같은 분석이 가능하다."
+    },
+    {
+      "id": "cedd83dd-6945-4562-88c0-4bfbff916729",
+      "question": "**places** 관계의 방향과 카디널리티는?",
+      "answer": "`Buyer` → `Order` 방향의 일대다(one-to-many) 관계다. 한 구매자는 시간이 지나며 여러 주문을 낼 수 있다."
+    },
+    {
+      "id": "e1929a48-14e4-40d5-82b5-ff083bd254b0",
+      "question": "**includes** 관계의 방향과 카디널리티는?",
+      "answer": "`Order` → `Product` 방향의 다대다(many-to-many) 관계다. 한 주문에 여러 상품이 담길 수 있고, 한 상품은 여러 주문에 걸쳐 등장한다."
+    },
+    {
+      "id": "db6b4972-5d83-4005-be52-bc3fd369806c",
+      "question": "1단계에서 완성되는 기본 구매 흐름 경로는?",
+      "answer": "`Buyer → places → Order → includes → Product`다. 이 backbone이 모든 마켓플레이스 온톨로지의 척추 역할을 한다."
+    },
+    {
+      "id": "06d14231-0d9c-47b9-98d3-2bed5f9aa38a",
+      "question": "왜 `places`는 one-to-many인데 `includes`는 many-to-many인가?",
+      "answer": "주문은 정확히 한 구매자에게 귀속되지만 구매자는 주문을 여러 번 쌓을 수 있어 one-to-many다. 반면 상품은 여러 주문에 반복 등장하고 주문도 여러 상품을 담으므로 양방향으로 다중이라 many-to-many다."
+    },
+    {
+      "id": "26529902-c309-4836-b3fe-367f438b3dda",
+      "question": "Order의 `total`과 Product의 `price`가 모두 decimal(USD)인 이유는?",
+      "answer": "금액은 반올림 오차가 허용되지 않으므로 부동소수점 대신 decimal로 표현해야 하고, 통화 단위를 USD로 명시해야 서로 다른 통화 값이 섞이지 않는다."
+    },
+    {
+      "id": "e2f8daa6-a535-4af8-8f2f-50bd0c8c24ea",
+      "question": "Order의 `status` 속성이 담는 정보와 활용은?",
+      "answer": "주문의 처리 상태(예: 결제 완료, 배송 중, 취소)를 담는다. 상태별 필터링으로 미완료 주문 추적, 취소율 계산, 배송 지연 모니터링을 할 수 있다."
+    },
+    {
+      "id": "6f7ec67a-472d-4b5f-bdc9-3d47cf01f165",
+      "question": "1단계(ecommerce-step-1) 그래프의 구성은?",
+      "answer": "Buyer, Product, Order 3개 엔티티가 `places`와 `includes` 두 관계로 연결된 구매 흐름 그래프다."
+    },
+    {
+      "id": "317367c9-6ed8-4f9b-90c5-9168e43e6d71",
+      "question": "Buyer의 `loyaltyTier`와 `memberSince`는 각각 어떤 질의를 지원하는가?",
+      "answer": "`loyaltyTier`는 등급 기반 세그먼트 질의(예: Gold 구매자의 행동 분석)를, `memberSince`는 가입 코호트 분석(가입 시기별 잔존율·지출 추이)을 지원한다."
+    },
+    {
+      "id": "37d6219c-3451-49c6-974e-d98b144350f0",
+      "question": "Order에 `shippingMethod`를 속성으로 두면 어떤 분석이 가능해지는가?",
+      "answer": "배송 방식별 주문 비중, 배송 방식과 주문 금액·상태의 상관관계, 특정 배송 옵션의 지연률 등을 집계할 수 있다."
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "171672ce-348e-480e-af4d-d42580714318",
+      "question": "E-Commerce Platform 학습 경로에서 모델링하는 대상은 무엇인가?",
+      "answer": "범용 온라인 마켓플레이스(general-purpose e-commerce marketplace)의 데이터 모델이다. 구매자, 상품, 장바구니, 주문, 리뷰를 하나의 온톨로지로 연결한다."
+    },
+    {
+      "id": "78a5f6c9-dce3-41a9-a195-b6f952aa4423",
+      "question": "E-Commerce Platform 시나리오가 다루는 다섯 가지 핵심 요소는?",
+      "answer": "Buyers(상품을 탐색하고 구매하는 사람), Products(재고가 추적되는 상품), Shopping Carts(체크아웃 전 활성 세션), Orders(완료된 구매 거래), Reviews(구매자가 상품을 평가하고 코멘트하는 것)이다."
+    },
+    {
+      "id": "afc27f22-613b-47e1-87d1-671801bac7f3",
+      "question": "이 마켓플레이스에서 데이터는 어떤 시스템들로 흩어져 흐르는가?",
+      "answer": "주문을 처리하는 트랜잭션 데이터베이스, 상품 검색을 담당하는 검색 엔진, 구매자 행동을 분석하는 분석 웨어하우스(analytics warehouse) 세 곳으로 흐른다."
+    },
+    {
+      "id": "22986e67-e572-4a7d-9062-18092cbaea40",
+      "question": "온톨로지가 필요한 이유를 보여주는 대표 질문은 무엇이며, 왜 어려운가?",
+      "answer": "\"구매하지 않은 상품에 평점을 매긴 verified 리뷰어는 누구인가?\"라는 질문이다. buyers·reviews·orders·products를 모두 조인해야 하고 그 데이터가 여러 시스템에 흩어져 있기 때문에 어렵다."
+    },
+    {
+      "id": "9842c7d7-16cb-4eec-b360-a76d8a2e79f1",
+      "question": "\"구매하지 않은 상품을 리뷰한 구매자\" 질문을 온톨로지에서는 어떤 그래프 패턴으로 표현하는가?",
+      "answer": "`Buyer → writes → Review → reviews → Product` 경로는 존재하지만, 같은 Product에 대해 `Buyer → places → Order → includes → Product` 경로는 존재하지 않는 `Buyer` 노드를 찾는 패턴이다."
+    },
+    {
+      "id": "9fac7c19-d519-4c28-bdcc-85da844bae9b",
+      "question": "온톨로지를 쓰면 복잡한 크로스 시스템 질의가 어떻게 바뀌는가?",
+      "answer": "여러 시스템에 걸친 조인 작업이 하나의 그래프 패턴 매칭으로 바뀐다. 시스템 경계가 아니라 엔티티와 관계의 경로로 질문을 표현하게 된다."
+    },
+    {
+      "id": "3115c3ff-7516-4554-ae45-60e5002758d2",
+      "question": "E-Commerce Platform 경로의 3단계 빌드업 순서는?",
+      "answer": "1단계 Buyer·Product·Order(핵심 마켓플레이스 엔티티와 구매 흐름), 2단계 + Shopping-Cart(구매 전 세션과 일대일 관계), 3단계 + Review(고객 피드백 루프로 사이클 닫기)이다."
+    },
+    {
+      "id": "650ad4be-9b82-444d-b068-87b4fce41e0f",
+      "question": "완성된 E-Commerce 온톨로지의 최종 규모는?",
+      "answer": "5개 엔티티, 6개 관계로 구성되며 탐색부터 리뷰까지 구매자 여정 전체를 다룬다."
+    },
+    {
+      "id": "a4966b6e-a06e-4cd2-b195-fa0595e3d084",
+      "question": "이 학습 경로가 강조하는 4가지 핵심 개념은?",
+      "answer": "Purchase flow(탐색에서 구매까지의 여정), One-to-one relationships(양쪽이 정확히 하나씩 대응, Buyer ↔ Cart), Feedback loops(리뷰가 구매자를 상품으로 되돌리는 연결), Session entities(장바구니 같은 임시 객체)이다."
+    },
+    {
+      "id": "ee1190ba-6151-4dac-853f-53e19359726e",
+      "question": "Session entity란 무엇인가?",
+      "answer": "장바구니처럼 진행 중이거나 일시적인 상태를 담는 임시 객체 엔티티다. 확정된 거래 기록(Order)과 달리 가변적이며 세션이 끝나면 사라지거나 전환된다."
+    },
+    {
+      "id": "e1223287-365f-47d5-8f0c-fab35cdab522",
+      "question": "Feedback loop 개념이 e-commerce 온톨로지에서 뜻하는 바는?",
+      "answer": "구매자가 상품을 소비한 뒤 리뷰를 남기고, 그 리뷰가 다시 다른 구매자의 선택에 영향을 주는 순환 구조다. 그래프에서는 Product로 되돌아오는 두 번째 경로로 나타난다."
+    },
+    {
+      "id": "1ff3e878-82b5-456d-bb71-0a95ddb38bec",
+      "question": "E-Commerce 온톨로지에서 one-to-one 관계의 대표 사례는?",
+      "answer": "Buyer ↔ Shopping-Cart다. 각 구매자는 활성 장바구니를 정확히 하나 갖고, 각 장바구니도 정확히 한 구매자에게 속한다."
+    },
+    {
+      "id": "95dede9b-09a3-4c49-8690-d657ae4157d3",
+      "question": "왜 e-commerce 구매자는 물리 매장 고객과 달리 email을 항상 갖는가?",
+      "answer": "온라인 거래는 계정 기반이라 email이 기본 연락 수단이자 사실상의 신원 채널이기 때문이다. 주문 확인·배송 알림·마케팅이 모두 이 채널을 전제로 한다."
+    },
+    {
+      "id": "5f6e21e8-faaf-4f38-80df-56bc5eb77077",
+      "question": "이 온톨로지를 통해 답할 수 있게 되는 분석 유형은?",
+      "answer": "탐색 → 장바구니 → 주문 → 리뷰로 이어지는 퍼널(funnel) 분석이다. 장바구니 이탈률, 장바구니 대비 주문 전환율, 리뷰 신뢰도 기반 상품 랭킹 등을 계산할 수 있다."
+    },
+    {
+      "id": "1b0e4a55-6899-4abc-b820-dfb4e9f55572",
+      "question": "학습 경로가 3단계로 나뉘어 엔티티를 점진적으로 추가하는 이유는?",
+      "answer": "핵심 구매 흐름(Buyer→Order→Product)을 먼저 확립한 뒤 그 위에 기능을 얹는 방식이기 때문이다. 각 단계는 이전 그래프에 새 엔티티와 관계만 더하므로 diff로 변경점을 명확히 볼 수 있다."
+    }
+  ]
+}

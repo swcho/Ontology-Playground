@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "55f83d27-d116-4457-9b01-63823a26b2c5",
+      "question": "Shopping Cart가 온톨로지에서 포착하는 것은 무엇인가?",
+      "answer": "체크아웃 전에 구매자가 고려 중인 상품 목록이다. 임시적이고 가변적인(temporary and mutable) 세션 엔티티로, 모든 탐색 세션이 구매로 이어지지는 않는다는 현실을 모델링한다."
+    },
+    {
+      "id": "4c36e9f3-ac1c-4786-abcf-7ea408b18b1e",
+      "question": "Shopping-Cart를 추가하면 답할 수 있게 되는 질문 3가지는?",
+      "answer": "\"이번 주에 이탈된(abandoned) 장바구니는 몇 개인가?\", \"평균 장바구니 금액 대 평균 주문 금액은?\", \"장바구니에는 자주 담기지만 구매되지 않는 상품은 무엇인가?\"이다."
+    },
+    {
+      "id": "11f8d4b8-f78f-4b76-98f9-40a7248995a6",
+      "question": "Shopping-Cart 엔티티의 속성 4가지와 식별자는?",
+      "answer": "`cartId`(string, 식별자 ✓), `createdAt`(datetime), `itemCount`(integer), `subtotal`(decimal, USD)이다."
+    },
+    {
+      "id": "1e120c75-0321-4391-a374-19689bc1a6a1",
+      "question": "Shopping-Cart의 `itemCount`와 `subtotal`이 denormalized 속성인 이유는?",
+      "answer": "장바구니에 담긴 상품들로부터 계산할 수 있는 값이지만 직접 저장해 두기 때문이다. 저장 공간을 더 쓰는 대신 질의 속도를 얻는 트레이드오프다."
+    },
+    {
+      "id": "a1091a05-e967-4f71-8dfe-374d45ab90b3",
+      "question": "**has_cart** 관계의 방향과 카디널리티는?",
+      "answer": "`Buyer` → `Shopping-Cart` 방향의 일대일(one-to-one) 관계다. 각 구매자는 정확히 하나의 활성 장바구니를 갖고, 각 장바구니는 정확히 한 구매자에게 속한다."
+    },
+    {
+      "id": "e08642c2-67f0-450c-a51d-b51020b264dd",
+      "question": "**contains** 관계의 방향과 카디널리티는?",
+      "answer": "`Shopping-Cart` → `Product` 방향의 다대다(many-to-many) 관계다. 한 장바구니에 여러 상품이 담기고, 한 상품은 여러 장바구니에 들어갈 수 있다."
+    },
+    {
+      "id": "c4c1c6bc-68ad-4be0-8924-2a73ebf3875c",
+      "question": "왜 `has_cart`는 one-to-one인데 `places`는 one-to-many인가?",
+      "answer": "장바구니는 현재 상태(current-state) 엔티티라 어느 시점에든 활성 장바구니가 하나뿐이지만, 주문은 시간이 흐르며 누적되기 때문이다."
+    },
+    {
+      "id": "d928e475-d413-48bc-90c8-51be6ed618bc",
+      "question": "Session entity의 정의와 예시는?",
+      "answer": "임시적이거나 진행 중인 상태를 모델링하는 엔티티다. 장바구니(cart), 작성 중인 초안(draft), 사용자 세션(session) 등이 해당한다."
+    },
+    {
+      "id": "f727be55-7118-463e-a80f-8e6236b78de5",
+      "question": "one-to-one 관계가 온톨로지에서 강제하는 것은?",
+      "answer": "엄격한 짝 맺기(strict pairing)다. 한 구매자에 장바구니 하나라는 배타적 소유 관계를 스키마 수준에서 보장한다."
+    },
+    {
+      "id": "08b953b6-30de-4995-a2e3-b5a8c246a7e0",
+      "question": "장바구니 분석이 열어주는 대표적 인사이트는?",
+      "answer": "전환 퍼널(conversion funnel) 분석이다. 장바구니 대비 주문 비율(cart → order ratio)로 어느 단계에서 구매자가 이탈하는지 파악할 수 있다."
+    },
+    {
+      "id": "bed64d22-87a1-4517-b32d-eadf6671b078",
+      "question": "denormalization의 트레이드오프를 한 문장으로 정리하면?",
+      "answer": "계산 가능한 값을 중복 저장해 질의 속도를 얻는 대신, 저장 공간과 원본-요약 간 정합성 유지 부담을 지는 것이다."
+    },
+    {
+      "id": "13d6cada-2320-4ed8-befb-2c265cf4f14c",
+      "question": "Shopping-Cart의 `createdAt` 속성으로 무엇을 계산할 수 있는가?",
+      "answer": "장바구니 생성 시각을 기준으로 경과 시간을 계산해 이탈 여부를 판정할 수 있다. \"이번 주 생성된 장바구니\" 같은 기간 필터링도 가능해진다."
+    },
+    {
+      "id": "ff875dbb-b107-4f3d-a1c4-3bfaec3c7245",
+      "question": "2단계(ecommerce-step-2) 그래프에서 새로 추가된 것은?",
+      "answer": "Shopping-Cart 엔티티 하나와 `has_cart`·`contains` 관계 두 개다. 누적 4개 엔티티가 되며, diff 뷰가 1단계 대비 변경점을 강조해 준다."
+    },
+    {
+      "id": "6804d015-ef8e-4852-959e-1bbe3c3dcd9a",
+      "question": "Shopping-Cart는 Buyer와 Product 사이에서 어떤 구조적 역할을 하는가?",
+      "answer": "`has_cart`와 `contains` 두 관계를 통해 Buyer를 Product에 연결하는 두 번째 경로를 만든다. Order를 경유하는 확정 구매 경로와 나란히 놓여 \"고려했지만 사지 않은\" 비교 질의가 가능해진다."
+    },
+    {
+      "id": "6108c350-d1e7-4dd2-94ff-f759e0ce75f9",
+      "question": "\"장바구니에 자주 담기지만 구매되지 않는 상품\" 질의는 어떤 두 경로를 비교하는가?",
+      "answer": "`Shopping-Cart → contains → Product` 경로에는 자주 등장하지만 `Order → includes → Product` 경로에는 드물게 등장하는 Product를 찾는다. 두 경로의 빈도 차이가 곧 이탈 신호다."
+    },
+    {
+      "id": "bd4418b5-8a9a-4273-a428-38bbe6fe3fe5",
+      "question": "장바구니가 mutable하다는 성질이 데이터 모델에 주는 함의는?",
+      "answer": "Order처럼 확정된 불변 기록이 아니라 계속 변하는 현재 상태를 담으므로, 이력 추적이 필요하면 별도 스냅샷이나 이벤트 기록이 필요하다는 뜻이다."
+    },
+    {
+      "id": "8a29dd65-3fb2-4d8f-bb0c-68c2e430035f",
+      "question": "평균 장바구니 금액과 평균 주문 금액을 비교하면 무엇을 알 수 있는가?",
+      "answer": "구매자가 담은 금액 대비 실제로 결제한 금액의 격차, 즉 체크아웃 단계에서 얼마나 많은 가치가 이탈하는지를 알 수 있다."
+    }
+  ]
+}
