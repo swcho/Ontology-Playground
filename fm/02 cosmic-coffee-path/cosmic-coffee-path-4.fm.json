@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "5952fd33-4d1f-42ad-9f6e-6c68428002aa",
+      "question": "sourcedFrom relationship의 방향과 cardinality는?",
+      "answer": "`Product` → `Supplier`이며 many-to-one이다. 각 제품의 원두는 하나의 공급업체에서 온다."
+    },
+    {
+      "id": "f822c9a0-fe56-466d-839e-aa1b591c4415",
+      "question": "sentBy relationship의 방향과 cardinality는?",
+      "answer": "`Shipment` → `Supplier`이며 many-to-one이다. 각 배송은 하나의 공급업체에서 출발한다."
+    },
+    {
+      "id": "1610da9e-f621-45f0-a09c-cd15137374d1",
+      "question": "deliveredTo relationship의 방향과 cardinality는?",
+      "answer": "`Shipment` → `Store`이며 many-to-one이다. 각 배송은 하나의 매장에 도착한다."
+    },
+    {
+      "id": "6f9ee7f2-5c92-456e-8478-ef1dec6cf3ee",
+      "question": "carries relationship의 방향과 cardinality는?",
+      "answer": "`Shipment` → `Product`이며 many-to-many다. 한 배송은 여러 제품을 실을 수 있고, 한 제품은 여러 배송에 포함될 수 있다."
+    },
+    {
+      "id": "ae4b06a5-406f-4a52-9da2-f5becf87981e",
+      "question": "3단계의 네 relationship 중 유일하게 many-to-many인 것은 무엇인가?",
+      "answer": "carries(`Shipment` → `Product`)다. sourcedFrom, sentBy, deliveredTo는 모두 many-to-one이다."
+    },
+    {
+      "id": "3dd28609-470d-4f7b-ae5a-0c0892e8c6af",
+      "question": "Shipment를 hub entity라고 부르는 근거는 무엇인가?",
+      "answer": "Supplier(sentBy), Store(deliveredTo), Product(carries)라는 서로 다른 세 엔티티와 relationship을 갖기 때문이다. 소싱·물류·소매 도메인을 하나의 엔티티가 잇는다."
+    },
+    {
+      "id": "8c02cb82-229d-4647-a32d-187b76cab51e",
+      "question": "hub entity pattern이 강력한 이유는 무엇인가?",
+      "answer": "원래는 서로 연결되지 않던 그래프의 부분들을 이어 주기 때문이다. 그 결과 도메인을 넘나드는 순회 질의가 가능해진다."
+    },
+    {
+      "id": "cb73c85e-50d1-4a05-9466-5f4f0b749c2f",
+      "question": "\"어떤 공급업체가 유기농 원두를 제공하는가?\"는 어떤 그래프 경로로 답하는가?",
+      "answer": "`Product`(isOrganic=true) → `Supplier` 경로다. sourcedFrom relationship을 따라간다."
+    },
+    {
+      "id": "9249de76-f6bb-4046-8d1e-7710bfc5fc52",
+      "question": "\"어떤 매장이 지연된 배송을 받았는가?\"는 어떤 그래프 경로로 답하는가?",
+      "answer": "`Shipment`(status=Delayed) → `Store` 경로다. deliveredTo relationship을 따라간다."
+    },
+    {
+      "id": "a102b736-932d-4774-8f8c-134330385469",
+      "question": "\"인증을 받은 공급업체 중 가장 큰 매장에 배송하는 곳은?\"은 어떤 그래프 경로로 답하는가?",
+      "answer": "`Supplier` → `Shipment` → `Store` 경로를 순회하고 `capacity` 기준으로 정렬한다."
+    },
+    {
+      "id": "17f870cb-612b-41d5-8a9b-f50b240937c8",
+      "question": "Fair Trade 인증 공급업체가 캘리포니아 매장에 배송하는 건을 찾는 GQL 질의는?",
+      "answer": "`MATCH (sup:Supplier)<-[:sentBy]-(s:Shipment)-[:deliveredTo]->(st:Store) WHERE sup.certification = 'Fair Trade' AND st.state = 'CA' RETURN sup.name, st.name, s.status`"
+    },
+    {
+      "id": "d89ddee8-57a8-45d6-ad40-66384ff49bc0",
+      "question": "예시 GQL 질의에서 `<-[:sentBy]-`처럼 화살표 방향이 반대로 쓰인 이유는?",
+      "answer": "sentBy는 `Shipment` → `Supplier` 방향이므로, Supplier를 시작점으로 패턴을 쓰면 관계를 역방향으로 순회해야 한다. GQL은 패턴에서 관계 방향을 명시적으로 표기한다."
+    },
+    {
+      "id": "c322054e-1619-444d-ba26-82c446796b69",
+      "question": "GQL 질의와 온톨로지 구조의 관계는 무엇인가?",
+      "answer": "GQL 질의가 온톨로지 구조에 그대로 매핑된다. 별도의 변환 계층이 필요 없어 impedance mismatch가 발생하지 않는다."
+    },
+    {
+      "id": "6263e4b3-33e6-4011-9b45-50786efaeca8",
+      "question": "Fourth Coffee 온톨로지의 단계별 누적 엔티티 수는?",
+      "answer": "1단계 3개(Customer, Order, Product), 2단계 4개(+Store), 3단계 6개(+Supplier, Shipment)다."
+    },
+    {
+      "id": "0df5d961-acaf-4899-b20e-78a6d8fd0cd7",
+      "question": "\"Start small\" 원칙이 뜻하는 바는?",
+      "answer": "세 개 엔티티만으로도 이미 가치를 만들 수 있다는 것이다. 처음부터 완전한 모델을 목표하지 않고 점진적으로 키운다."
+    },
+    {
+      "id": "5987d240-54b8-4764-88e1-a8043ba93ab7",
+      "question": "enum property가 데이터 품질에 기여하는 방식은?",
+      "answer": "모델 수준에서 허용 값을 강제하기 때문이다. 잘못된 값이 애초에 입력될 수 없어 downstream 분석의 정합성이 보장된다."
+    },
+    {
+      "id": "7ddfd492-350a-4d07-b817-c2fffe353548",
+      "question": "\"그래프는 점진적으로 성장한다\"는 원칙이 실무에서 갖는 의미는?",
+      "answer": "각 단계마다 새로운 질의 능력이 더해진다는 것이다. 엔티티·relationship을 추가할 때마다 답할 수 있는 질문의 범주가 넓어진다."
+    },
+    {
+      "id": "3ed8b302-9e78-4bd0-84b3-b9e02be8966a",
+      "question": "Fourth Coffee 학습 경로의 다섯 가지 핵심 교훈은 무엇인가?",
+      "answer": "작게 시작하기, Shipment 같은 hub entity로 도메인 연결하기, enum property로 데이터 품질 강제하기, 그래프의 점진적 성장, GQL 질의와 온톨로지 구조의 직접 대응이다."
+    }
+  ]
+}

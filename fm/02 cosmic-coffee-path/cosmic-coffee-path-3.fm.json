@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "596b87b4-c701-4ae3-9b48-c9d17ea16ed9",
+      "question": "Store 엔티티의 property는 무엇인가?",
+      "answer": "`storeId`(식별자, string), `name`(string), `city`(string), `state`(string), `openDate`(date), `capacity`(integer)다."
+    },
+    {
+      "id": "1981aed3-d4cc-4e0e-9fa5-437b614459a5",
+      "question": "Store의 `capacity` property는 무엇을 뜻하고 타입은 무엇인가?",
+      "answer": "좌석 수용 규모(seating capacity)를 뜻하며 integer다. 운영 계획(operations planning)에 유용하다."
+    },
+    {
+      "id": "a84cf3dc-31ef-492f-9955-0961c87a781a",
+      "question": "Store에서 전체 주소 계층 대신 `city`와 `state`만 두는 이유는?",
+      "answer": "full address hierarchy의 복잡성 없이 지리적 맥락을 확보할 수 있기 때문이다. 필요한 만큼만 모델링하는 실용적 선택이다."
+    },
+    {
+      "id": "19d92b28-6be8-42eb-a980-0d5fe7a20650",
+      "question": "2단계에서 추가되는 relationship은 무엇인가?",
+      "answer": "processedAt(`Order` → `Store`, many-to-one)이다. 각 주문은 정확히 한 매장에서 처리되고, 한 매장은 많은 주문을 처리한다."
+    },
+    {
+      "id": "2da2c95d-b9a2-4bd8-98a8-67e9cd7e25eb",
+      "question": "processedAt relationship의 cardinality가 many-to-one인 이유는?",
+      "answer": "각 주문은 정확히 한 매장에서만 처리되지만, 한 매장은 하루 동안 많은 주문을 처리한다. Order 관점에서 보면 many-to-one이다."
+    },
+    {
+      "id": "19ad4a67-3f50-49fe-a830-af602d51c6cf",
+      "question": "many-to-one cardinality는 어떤 의미 패턴을 모델링하는가?",
+      "answer": "\"~에 속한다(belongs to)\" 또는 \"~에서 일어난다(happens at / located at)\" 패턴이다. 이런 관계에서 가장 흔한 cardinality다."
+    },
+    {
+      "id": "2639490f-15d1-4403-9679-62552e11630d",
+      "question": "integer property는 어떤 종류의 값에 적합한가?",
+      "answer": "capacity, floors, seats처럼 셀 수 있는(countable) 수량이다. Store의 `capacity`가 대표 예시다."
+    },
+    {
+      "id": "29a5eb43-e3c7-4ead-b2a1-eee0a64cbb36",
+      "question": "온톨로지 embed의 `diff` 뷰는 어떤 역할을 하는가?",
+      "answer": "이전 단계 대비 무엇이 새로 추가되었는지를 강조해 보여준다. 온톨로지의 진화 과정을 추적하기 쉽게 만든다."
+    },
+    {
+      "id": "16eb4860-f232-4e88-9e7b-2c6ac80b3fe7",
+      "question": "엔티티 하나를 추가하는 것이 갖는 효과는?",
+      "answer": "질의 가능 범위가 카테고리 단위로 확장된다. Store 하나를 추가하자 위치 기반 질문 전체가 답변 가능해진 것이 그 예다."
+    },
+    {
+      "id": "6caaf25d-2aaf-4ec8-be7b-c2418608de00",
+      "question": "3단계에서 Supplier와 Shipment를 추가하는 목적은 무엇인가?",
+      "answer": "전 세계 공급업체로부터의 원두 소싱, 매장으로의 배송 수령까지 공급망 전체를 추적해 루프를 닫는 것이다."
+    },
+    {
+      "id": "8de4196c-3b69-4b67-8ded-be652cc9af34",
+      "question": "Supplier 엔티티의 property는 무엇인가?",
+      "answer": "`supplierId`(식별자, string), `name`(string), `country`(string), `certification`(enum), `rating`(decimal)이다."
+    },
+    {
+      "id": "18770254-7362-4304-a3f7-da2b2291a30c",
+      "question": "Supplier의 `certification`은 어떤 값들을 갖는 enum인가?",
+      "answer": "Fair Trade, Rainforest Alliance, Organic, Direct Trade, None 다섯 가지다. 지속가능성 인증 정보를 담는다."
+    },
+    {
+      "id": "7175de25-7e11-478d-bc45-a86b06db6ee7",
+      "question": "Supplier의 `rating` property의 타입과 범위는?",
+      "answer": "decimal이며 1~5 범위의 품질 점수(quality scoring)를 나타낸다."
+    },
+    {
+      "id": "765e5b4a-0ff3-406f-8a9b-d1a8a5547a70",
+      "question": "Shipment 엔티티의 property는 무엇인가?",
+      "answer": "`shipmentId`(식별자, string), `dispatchDate`(date), `arrivalDate`(date), `status`(enum), `weight`(decimal, kg)다."
+    },
+    {
+      "id": "d7f36ac6-7142-47bc-aeda-2c0c705dc207",
+      "question": "Shipment의 `status`는 어떤 값들을 갖는 enum인가?",
+      "answer": "In Transit, Delivered, Delayed 세 가지다."
+    },
+    {
+      "id": "7bb59dce-e348-4964-9edb-22c25ebd5fcb",
+      "question": "Shipment가 `dispatchDate`와 `arrivalDate`를 모두 갖는 이유는?",
+      "answer": "발송 시점과 도착 시점을 각각 기록해야 운송 소요 기간과 지연 여부를 판단할 수 있기 때문이다. 두 값 모두 date 타입이다."
+    },
+    {
+      "id": "3bffb721-1c71-4a76-960a-7da50e9f8be9",
+      "question": "Shipment가 hub entity로 기능하는 방식은?",
+      "answer": "Product를 매개로 Supplier와 Store를 연결한다. 사업의 소싱 측면과 소매 측면을 이어 주는 다리 역할이다."
+    },
+    {
+      "id": "1b4cd723-6a92-4ff6-98d2-ae02424e38ed",
+      "question": "3단계에서 추가되는 네 개의 relationship은 무엇인가?",
+      "answer": "sourcedFrom(`Product` → `Supplier`), sentBy(`Shipment` → `Supplier`), deliveredTo(`Shipment` → `Store`), carries(`Shipment` → `Product`)다."
+    }
+  ]
+}

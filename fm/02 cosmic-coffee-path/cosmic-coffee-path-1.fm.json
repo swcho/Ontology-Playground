@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "9870228f-f29a-455a-8802-e62069633a0c",
+      "question": "Fourth Coffee 시나리오는 어떤 비즈니스를 다루는가?",
+      "answer": "여러 도시에 매장을 둔 스페셜티 커피 체인이다. 이 회사의 데이터 모델(온톨로지)을 설계하는 것이 학습 경로의 목표다."
+    },
+    {
+      "id": "f6b793b5-b17a-4fdb-9b1e-6a9e06c027ba",
+      "question": "Fourth Coffee가 추적하는 여섯 가지 대상은 무엇인가?",
+      "answer": "Customer(고객), Order(주문), Product(제품), Store(매장), Supplier(공급업체), Shipment(배송)이다. 이 여섯 개가 최종 온톨로지의 entity type이 된다."
+    },
+    {
+      "id": "68e3969f-311a-4a4f-a811-30dd2cc50ebf",
+      "question": "Fourth Coffee의 데이터는 어떤 시스템들에 흩어져 있는가?",
+      "answer": "고객 프로필은 lakehouse, 주문 트랜잭션은 실시간 Eventhouse, 제품 분석은 Power BI semantic model에 있다. 즉 하나의 도메인이 서로 다른 저장소에 분산되어 있다."
+    },
+    {
+      "id": "f09e2fc0-af85-40a1-a88a-7750165de0f8",
+      "question": "온톨로지가 없을 때 \"어떤 공급업체가 최대 수용 규모 매장에 유기농 원두를 공급하는가?\" 같은 질문에 답하기 어려운 이유는?",
+      "answer": "어떤 테이블이 어떤 시스템에 있는지, 어떻게 join되는지, 컬럼명이 무엇을 의미하는지를 모두 알아야 한다. 즉 물리적 저장 구조에 대한 지식이 질문 자체보다 더 큰 장벽이 된다."
+    },
+    {
+      "id": "07af42b7-8457-498b-8739-6c5da4da8ba9",
+      "question": "온톨로지가 있으면 \"유기농 원두를 최대 수용 매장에 공급하는 공급업체\" 질문은 어떻게 표현되는가?",
+      "answer": "`Store → Shipment → Supplier` 그래프 순회로 표현되고, `Product.isOrganic = true`와 `Store.capacity` 조건으로 필터링한다. 질문이 그래프 경로에 그대로 매핑된다."
+    },
+    {
+      "id": "f17e604e-c415-4b5d-a44b-126c0af4f76f",
+      "question": "Fourth Coffee 온톨로지 구축은 몇 단계로 진행되며 각 단계에서 추가되는 엔티티는?",
+      "answer": "3단계다. 1단계는 Customer·Order·Product, 2단계는 Store, 3단계는 Supplier·Shipment를 추가한다."
+    },
+    {
+      "id": "62bc0001-18a2-4bb7-963e-5116c18579c8",
+      "question": "완성된 Fourth Coffee 온톨로지의 규모는?",
+      "answer": "6개 entity type과 7개 relationship으로 구성된다. 이 구조로 graph query, GQL, 자연어 Data Agent 상호작용을 지원할 수 있다."
+    },
+    {
+      "id": "808d96e2-0291-4f29-bf97-08460d34996b",
+      "question": "1단계(Core Orders)에서 배우는 핵심 개념은 무엇인가?",
+      "answer": "core entity type, identifier(식별자), cardinality(카디널리티)다. Customer·Order·Product 세 엔티티로 상거래의 기본 골격을 만든다."
+    },
+    {
+      "id": "247099a2-ec49-47f0-b055-4e3c23069ffc",
+      "question": "2단계(Adding Stores)에서 배우는 핵심 개념은 무엇인가?",
+      "answer": "위치 모델링(location modelling)과 many-to-one relationship이다. Store 엔티티를 추가해 주문이 '어디서' 처리되는지를 표현한다."
+    },
+    {
+      "id": "2bf53ae3-5c4e-436c-9aa9-38ce6959a5fe",
+      "question": "3단계(Complete Supply Chain)에서 배우는 핵심 개념은 무엇인가?",
+      "answer": "공급망 연결(supply chain connections)과 hub entity다. Supplier와 Shipment를 추가해 소싱·물류·소매를 하나의 그래프로 잇는다."
+    },
+    {
+      "id": "3ecb91fd-02b0-4cdb-815b-3e40bab35d6d",
+      "question": "Entity type이란 무엇인가?",
+      "answer": "도메인의 '명사'에 해당하는 사물의 범주다. Customer, Order, Product, Store처럼 세상에 존재하는 유형을 나타낸다."
+    },
+    {
+      "id": "074fb4ba-6c99-4054-936f-89d61c004843",
+      "question": "Property란 무엇인가?",
+      "answer": "각 엔티티를 기술하는 속성이다. name, price, status처럼 엔티티에 대한 사실을 담는다."
+    },
+    {
+      "id": "37aab186-176c-42e8-a396-bb0cd547dbf2",
+      "question": "Identifier property란 무엇인가?",
+      "answer": "엔티티 인스턴스를 유일하게 구분하는 키다. `customerId`, `orderId`, `productId`처럼 엔티티마다 하나씩 필요하다."
+    },
+    {
+      "id": "f74f6d7b-f0e1-487c-bc12-8edd433b6c71",
+      "question": "Relationship이란 무엇인가?",
+      "answer": "엔티티 사이의 방향성 있는 연결이며 cardinality(one-to-many, many-to-many 등)를 갖는다. 이것이 고립된 테이블들을 그래프로 만든다."
+    },
+    {
+      "id": "b5614efa-f8cc-48e6-8ee0-9b920531ca87",
+      "question": "Hub entity란 무엇인가?",
+      "answer": "여러 도메인을 동시에 연결하는 엔티티다. Fourth Coffee에서는 Shipment가 Supplier·Store·Product를 잇는 hub 역할을 한다."
+    },
+    {
+      "id": "c9836055-6511-4a4d-b4ab-fcd564864ee7",
+      "question": "모든 상거래 시스템이 출발점으로 삼는 세 가지 개념은 무엇인가?",
+      "answer": "Customer(누가 사는가), Order(어떤 거래가 있었는가), Product(무엇을 샀는가)다. Fourth Coffee 온톨로지의 심장부이며 이후 모든 확장이 여기에 연결된다."
+    },
+    {
+      "id": "a9796aeb-a066-4736-8cb1-25405f7e90b1",
+      "question": "Customer 엔티티의 property는 무엇인가?",
+      "answer": "`customerId`(식별자, string), `name`(string), `email`(string), `loyaltyTier`(enum), `joinDate`(date), `totalSpend`(decimal, USD)다."
+    },
+    {
+      "id": "2e951748-bb32-483d-a8f8-52e64aae894c",
+      "question": "Customer의 identifier property는 무엇인가?",
+      "answer": "`customerId`(string)다. 각 고객을 유일하게 식별한다."
+    },
+    {
+      "id": "23f7b94f-cc7a-4afa-9d79-4b856de788de",
+      "question": "Customer의 `loyaltyTier`는 어떤 값을 가질 수 있는가?",
+      "answer": "Bronze, Silver, Gold, Platinum 네 가지 값을 갖는 enum이다."
+    }
+  ]
+}
