@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "712475de-365e-45ba-8692-903025f07dec",
+      "question": "Smart Manufacturing 학습 경로에서 설계하는 온톨로지는 무엇인가?",
+      "answer": "IoT가 적용된 **스마트 제조 시설(smart manufacturing facility)**의 데이터 모델이다. 기계·센서·작업 지시·부품·품질 검사를 하나의 공유 모델로 연결해 설비 모니터링부터 품질 보증까지를 표현한다."
+    },
+    {
+      "id": "f23509f9-0548-4db7-bb20-f6976e3e5af9",
+      "question": "Smart Manufacturing 시나리오에서 공장이 관리하는 5개 영역은?",
+      "answer": "① 유지보수 일정과 운영 상태를 가진 **Machines**, ② 온도·진동·압력 등 실시간 데이터를 수집하는 **Sensors**, ③ 우선순위와 기한을 가진 **Work Orders**, ④ 사양과 공차를 가진 **Parts**, ⑤ 합격/불합격과 결함 코드를 기록하는 **Quality Checks**."
+    },
+    {
+      "id": "8f260b27-730c-42c2-99df-69140d6f998a",
+      "question": "Smart Manufacturing 시나리오에서 데이터는 어떤 시스템들로부터 유입되는가?",
+      "answer": "IoT 센서, MES(Manufacturing Execution Systems), ERP 플랫폼, 그리고 품질 관리(quality management) 데이터베이스에서 데이터가 흘러 들어온다."
+    },
+    {
+      "id": "883fd7bf-9adb-42a2-9de8-e9d05e4d7ee4",
+      "question": "MES는 무엇의 약자이며 제조 데이터 흐름에서 어떤 위치인가?",
+      "answer": "MES는 **Manufacturing Execution System**(제조 실행 시스템)의 약자다. IoT 센서·ERP·품질 관리 DB와 함께 공장 온톨로지에 데이터를 공급하는 주요 소스 시스템 중 하나다."
+    },
+    {
+      "id": "d4a6af1b-f331-4b07-a974-5e573350d272",
+      "question": "제조 도메인에서 온톨로지가 필요함을 보여주는 대표 질문은 무엇인가?",
+      "answer": "\"지난주에 비정상 센서 판독값을 보인 기계가 생산한 부품 중 품질 검사에 실패한 것은 무엇인가?\"이다. 이 질문은 IoT 텔레메트리, 생산 일정, 부품 추적, 검사 기록을 한꺼번에 가로지른다."
+    },
+    {
+      "id": "8570b386-8607-4e26-8f41-fb889e56f3fc",
+      "question": "\"비정상 센서 판독값을 보인 기계가 만든 불량 부품\" 질문은 온톨로지에서 어떤 경로로 매핑되는가?",
+      "answer": "`Machine → Sensor (reading > threshold)`와 `Machine → Work-Order → Part → Quality-Check (passed=false)` 두 경로의 결합으로 매핑된다. 흩어진 시스템 조인 대신 그래프 탐색 문제가 된다."
+    },
+    {
+      "id": "051abb8c-711f-40f3-a01f-ddb1c6e02b43",
+      "question": "Smart Manufacturing 경로는 몇 단계로 구성되며 각 단계에서 추가되는 엔티티는?",
+      "answer": "3단계다. 1단계는 Machine·Sensor, 2단계는 Work-Order·Part 추가, 3단계는 Quality-Check 추가다."
+    },
+    {
+      "id": "818df96a-94af-41f0-97d0-abe519098d22",
+      "question": "Smart Manufacturing 경로의 1단계에서 배우는 핵심은 무엇인가?",
+      "answer": "Machine과 Sensor를 정의하며 **IoT 관계(IoT relationships)**와 **텔레메트리 계층(telemetry hierarchies)**을 배운다. 두 엔티티만으로도 유용한 텔레메트리 백본이 만들어진다."
+    },
+    {
+      "id": "4b23d6ec-4314-4f0c-8821-d4e55f91b8ed",
+      "question": "Smart Manufacturing 경로의 2단계와 3단계에서 각각 배우는 핵심은?",
+      "answer": "2단계는 Work-Order·Part로 **생산 추적(production tracking)**과 제조 체인을, 3단계는 Quality-Check로 **검사 루프(inspection loop)**와 생산 사이클을 닫는 법을 배운다."
+    },
+    {
+      "id": "6c208f0b-f2b3-434f-a072-5404e9d6af52",
+      "question": "완성된 Smart Manufacturing 온톨로지의 규모는?",
+      "answer": "**5개 엔티티, 5개 관계**로 구성된다. 센서 모니터링부터 품질 보증까지의 범위를 모두 다룬다."
+    },
+    {
+      "id": "c0a9f5b3-9cd9-4284-b30d-2cfbffd8b0d8",
+      "question": "Smart Manufacturing 경로가 강조하는 4가지 핵심 개념은?",
+      "answer": "① **IoT hierarchies** — 기계가 센서를 소유하고 판독값이 위로 흐름, ② **Production chains** — 작업 지시가 부품을 생산, ③ **Quality loops** — 검사 결과가 생산 판단으로 되먹임, ④ **Operational status** — running/idle/maintenance 등 실시간 상태 추적."
+    },
+    {
+      "id": "39407420-d656-4869-92d4-8151789087ab",
+      "question": "스마트 팩토리 모델이 가장 먼저 정의하는 두 개념과 그 이유는?",
+      "answer": "**Machine**(공장 바닥에 어떤 설비가 있는가)과 **Sensor**(그 설비가 어떤 데이터를 내는가)다. 생산이나 품질을 추적하기 전에 무엇이 돌아가고 무엇을 보고하는지 먼저 알아야 하기 때문이다."
+    },
+    {
+      "id": "3fa250b3-3ece-4868-b2b8-47f24e44547f",
+      "question": "Machine과 Sensor가 함께 형성하는 것을 무엇이라 부르는가?",
+      "answer": "**텔레메트리 백본(telemetry backbone)**이다. 이후 추가되는 생산·품질 엔티티들이 올라앉는 IoT 기반 층 역할을 한다."
+    },
+    {
+      "id": "a807a308-cca4-486e-aa6d-5a8f1ebfe03c",
+      "question": "Machine 엔티티의 속성 5가지와 식별자는?",
+      "answer": "`machineId`(string, **식별자**), `name`(string), `type`(string), `status`(string), `installDate`(date)."
+    },
+    {
+      "id": "4c9efccb-b474-4617-a119-e4cce4ab845f",
+      "question": "Machine의 status 속성이 가질 수 있는 값과 그 용도는?",
+      "answer": "`running`, `idle`, `maintenance`, `offline` 네 가지 운영 상태를 추적한다. 실시간 대시보드와 유지보수 일정 수립을 가능하게 한다."
+    },
+    {
+      "id": "bc0b0bd6-14d9-43ac-bf06-832f052475fc",
+      "question": "Sensor 엔티티의 속성 5가지와 식별자는?",
+      "answer": "`sensorId`(string, **식별자**), `type`(string), `unit`(string), `lastReading`(float), `threshold`(float)."
+    }
+  ]
+}

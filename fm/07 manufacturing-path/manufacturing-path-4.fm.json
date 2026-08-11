@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "c8fbf8d6-e330-429a-88aa-2c5b52b932e9",
+      "question": "\"불량 부품 생산 시 이상이던 센서는?\" 질의의 그래프 경로는?",
+      "answer": "`Sensor → Machine → Part ← Quality-Check (passed=false)`이다. 텔레메트리 층과 품질 층을 기계·부품을 경유해 연결한다."
+    },
+    {
+      "id": "94e6bc45-de74-460f-846c-1ed1a3688725",
+      "question": "\"작업 지시 우선순위별 불량률은?\" 질의의 그래프 경로는?",
+      "answer": "`Work-Order (priority) → Part ← Quality-Check`이다. produces로 부품을 모으고 검사 결과를 priority 값으로 그룹 집계한다."
+    },
+    {
+      "id": "d749e031-147a-41a2-9fce-e3495e4b0d37",
+      "question": "\"재검사가 필요한 부품은?\" 질의의 그래프 경로는?",
+      "answer": "`Part ← Quality-Check (passed=false, count > 1)`이다. 실패한 검사가 1건을 넘는 부품을 골라낸다."
+    },
+    {
+      "id": "0a0d81b6-5afa-461d-9e5f-9bfc61445f90",
+      "question": "센서 이상과 품질 실패를 상관 분석하는 GQL 쿼리는?",
+      "answer": "```gql\nMATCH (s:Sensor)-[:monitors]->(m:Machine)-[:has_part]->(p:Part)<-[:inspects]-(qc:QualityCheck)\nWHERE s.lastReading > s.threshold AND qc.passed = false\nRETURN m.name, s.type, s.lastReading, p.name, qc.defectCode\n```"
+    },
+    {
+      "id": "2b94222c-8abd-43dc-ab9b-8e5470c25a88",
+      "question": "위 GQL 쿼리의 MATCH 패턴에서 화살표 방향은 무엇을 뜻하는가?",
+      "answer": "`(s:Sensor)-[:monitors]->(m:Machine)`은 센서가 기계를 모니터링하는 정방향이고, `(p:Part)<-[:inspects]-(qc:QualityCheck)`는 검사가 부품을 검사하는 관계를 **역방향으로 타고 들어감**을 뜻한다."
+    },
+    {
+      "id": "c9367ae3-8b6a-47f4-914b-52820856ae2c",
+      "question": "위 GQL 쿼리의 WHERE 절이 걸러내는 대상은?",
+      "answer": "`s.lastReading > s.threshold`로 경보 경계를 넘은 센서를, `qc.passed = false`로 불합격 검사를 동시에 만족하는 조합만 남긴다. 즉 이상 신호와 불량이 함께 나타난 사례다."
+    },
+    {
+      "id": "12112209-13f7-4b7f-a4aa-68174f80ce5d",
+      "question": "Smart Manufacturing 온톨로지의 엔티티 5개는?",
+      "answer": "**Machine**, **Sensor**, **Work-Order**, **Part**, **Quality-Check**."
+    },
+    {
+      "id": "67557f0a-9b7c-42ed-9afa-dad7beabb255",
+      "question": "Smart Manufacturing 온톨로지의 관계 5개는?",
+      "answer": "**monitors**(Sensor→Machine), **assigned_to**(Work-Order→Machine), **produces**(Work-Order→Part), **has_part**(Machine→Part), **inspects**(Quality-Check→Part)."
+    },
+    {
+      "id": "786ac70a-017e-44e5-b5e5-646527d7e70f",
+      "question": "단계별로 누적 엔티티 수는 어떻게 늘어나는가?",
+      "answer": "1단계 Machine·Sensor 추가로 누적 2개, 2단계 Work-Order·Part 추가로 누적 4개, 3단계 Quality-Check 추가로 누적 5개다."
+    },
+    {
+      "id": "61733a7f-6342-4f70-9590-36c324df1d41",
+      "question": "Smart Manufacturing 경로의 핵심 정리 5가지는?",
+      "answer": "① IoT 계층으로 센서를 기계 아래 조직해 텔레메트리를 집계한다, ② 생산 체인이 스케줄링 엔티티로 설비와 산출물을 잇는다, ③ 품질 피드백 루프가 생산 체인 전반의 근본 원인 분석을 가능케 한다, ④ 임계값 기반 경보가 예지 보전을 구동한다, ⑤ boolean 속성(passed)이 워크플로에 명확한 의사결정 지점을 만든다."
+    },
+    {
+      "id": "8c36093f-d78c-4928-a508-5ec5460fc991",
+      "question": "제조 온톨로지에서 임계값(threshold) 패턴이 갖는 의미는?",
+      "answer": "현재 값과 안전 경계를 데이터 모델 안에 함께 두어, 별도 규칙 엔진 없이 그래프 질의만으로 이상 감지가 가능해진다. 이것이 예지 보전 경보의 토대다."
+    },
+    {
+      "id": "fabb31c5-8ecd-4077-9171-56d2ffb8b423",
+      "question": "boolean 속성이 온톨로지 설계에서 갖는 장점은?",
+      "answer": "`passed` 같은 boolean은 워크플로에 **명확한 분기점**을 만든다. 출하 대 재작업처럼 상호 배타적인 결과를 모호함 없이 질의·집계할 수 있다."
+    },
+    {
+      "id": "8f77f069-f1de-46b1-a573-fbea0b3348b3",
+      "question": "Smart Manufacturing 모델과 Healthcare 모델의 구조적 공통점은?",
+      "answer": "가운데 **이벤트 엔티티**로 두 축을 잇는다는 점이다. Healthcare의 Appointment가 Patient와 Provider를 잇듯, Work-Order가 Machine과 Part를 잇는다."
+    },
+    {
+      "id": "ce10f2d1-6d87-466d-8be7-f38adb4ce138",
+      "question": "품질 피드백 루프가 스마트 팩토리의 지속적 개선에 기여하는 방식은?",
+      "answer": "실패한 검사를 `Quality-Check → Part → Work-Order → Machine` 경로로 되짚어 결함의 발생원을 특정한다. 어떤 기계·작업 지시·조건이 불량을 만드는지 식별해 생산 품질을 개선한다."
+    },
+    {
+      "id": "40a78272-d706-4e3e-87cc-05fef1589681",
+      "question": "완성된 Smart Manufacturing 모델이 실무적으로 답할 수 있게 되는 질문 유형은?",
+      "answer": "설비 상태(어떤 기계가 이상인가), 생산 성과(어떤 기계가 얼마나 생산했나), 품질(불량률과 재검사 대상), 그리고 이 셋을 가로지르는 상관 질의(이상 센서와 불량의 연관)다."
+    }
+  ]
+}

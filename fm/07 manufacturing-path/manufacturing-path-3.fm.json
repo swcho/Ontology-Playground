@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "5242c0fd-b05d-4c22-8e44-d967b4f579e7",
+      "question": "2단계에서 추가되는 관계 assigned_to는?",
+      "answer": "**assigned_to** — `Work-Order` → `Machine`, **다대일(many-to-one)**. 작업 지시가 생산을 수행할 특정 기계에 배정된다."
+    },
+    {
+      "id": "20893b2c-17c1-4a3f-9b3f-17ea0dde7eaf",
+      "question": "2단계에서 추가되는 관계 produces는?",
+      "answer": "**produces** — `Work-Order` → `Part`, **일대다(one-to-many)**. 하나의 작업 지시가 하나 이상의 부품을 생산한다."
+    },
+    {
+      "id": "2b84c208-0b77-41b9-9b71-61c05a0d1fd2",
+      "question": "2단계에서 추가되는 관계 has_part는?",
+      "answer": "**has_part** — `Machine` → `Part`, **일대다(one-to-many)**. 기계가 부품을 생산한다는 **산출물 관점(output perspective)**을 표현한다."
+    },
+    {
+      "id": "37b69f97-79e2-4b1b-9cf9-f634dd614343",
+      "question": "assigned_to·produces와 has_part는 무엇이 다른가?",
+      "answer": "assigned_to와 produces는 Work-Order를 중심으로 한 **스케줄링 관점**의 연결이고, has_part는 기계에서 부품으로 바로 잇는 **산출물 관점**의 연결이다. 둘 다 두면 일정 기준과 설비 기준 질의를 모두 지원한다."
+    },
+    {
+      "id": "1c833361-7668-4f42-a5e8-6417405c9376",
+      "question": "`Machine ← Work-Order → Part` 체인이 나타내는 패턴은?",
+      "answer": "**production chain**으로, 설비와 산출물을 스케줄링 엔티티를 통해 연결하는 패턴이다. Healthcare에서 Appointment가 Patient와 Provider를 잇는 것과 같이 가운데 엔티티가 **이벤트**를 나타낸다."
+    },
+    {
+      "id": "cab165ac-ce17-433a-a187-d9c5890877a9",
+      "question": "2단계 그래프 임베드에 diff 속성을 쓰는 이유는?",
+      "answer": "`diff=\"official/manufacturing-step-1\"`로 이전 단계와 비교해 **새로 추가된 부분만** 강조해 보여주기 위해서다. 모델이 증분적으로 성장하는 과정을 학습자가 추적할 수 있다."
+    },
+    {
+      "id": "f0892457-de44-48fe-b2be-bd94ba41606b",
+      "question": "Production Tracking 단계에서 얻는 교훈 4가지는?",
+      "answer": "① 생산 체인은 스케줄링 엔티티(Work-Order)를 통해 설비와 산출물을 잇는다, ② 이중 날짜 속성(startDate/dueDate)이 일정 준수 추적을 가능케 한다, ③ tolerance 속성이 제조 정밀도 요구를 인코딩한다, ④ 모델이 모니터링과 생산을 모두 포괄하게 된다."
+    },
+    {
+      "id": "8024bcc6-b626-4e14-b047-7380eeda4313",
+      "question": "부품이 생산된 뒤에도 제조가 끝나지 않는 이유는?",
+      "answer": "부품은 반드시 **검사(inspection)**를 거쳐야 하기 때문이다. Quality-Check가 부품이 사양을 충족하는지 검증하며 생산 사이클을 닫는다."
+    },
+    {
+      "id": "ed6ce504-c3b8-47d5-be0c-5282b38bae9c",
+      "question": "Quality-Check 엔티티의 속성 5가지와 식별자는?",
+      "answer": "`checkId`(string, **식별자**), `inspector`(string), `checkDate`(date), `passed`(boolean), `defectCode`(string)."
+    },
+    {
+      "id": "cbf8a5a5-035c-4ae6-8df9-20a83219002b",
+      "question": "Quality-Check에서 passed 속성이 가장 중요한 이유는?",
+      "answer": "`passed` boolean이 부품이 **출하될지 재작업(rework)될지**를 결정하기 때문이다. 워크플로 상의 명확한 의사결정 지점을 만든다."
+    },
+    {
+      "id": "15064fec-51db-49e4-967a-99d596d71047",
+      "question": "Quality-Check의 defectCode 속성은 어떤 목적인가?",
+      "answer": "불합격 사유를 범주화해 **근본 원인 분석(root cause analysis)**에 쓰기 위해서다. 어떤 유형의 결함이 어떤 기계·작업 지시에서 반복되는지 집계할 수 있다."
+    },
+    {
+      "id": "a26e1b08-22a2-48ff-ac60-0e3944d5b029",
+      "question": "3단계에서 추가되는 관계 inspects는?",
+      "answer": "**inspects** — `Quality-Check` → `Part`, **다대일(many-to-one)**. 각 품질 검사는 특정 부품을 검사한다."
+    },
+    {
+      "id": "7cb1fc97-65e6-40cd-a0ff-ad61add16489",
+      "question": "하나의 Part가 여러 Quality-Check를 가질 수 있는 이유는?",
+      "answer": "한 부품이 여러 번 검사될 수 있기 때문이다. 최초 검사와 재작업 후 재검사(re-check after rework)가 대표적이며, 그래서 inspects는 다대일이다."
+    },
+    {
+      "id": "d5012d34-67a3-4a67-bfca-a8ccc58196bd",
+      "question": "Quality-Check가 만드는 피드백 루프의 경로는?",
+      "answer": "검사가 실패하면 생산 체인이 역방향으로 추적된다: `Quality-Check (passed=false) → Part → Work-Order → Machine`. 스마트 팩토리는 이 루프로 문제 있는 기계를 식별하고 품질을 개선한다."
+    },
+    {
+      "id": "a4104883-4f88-41d8-b71c-d51ad833f8e2",
+      "question": "\"검사에 실패한 부품을 만든 기계는?\" 질의의 그래프 경로는?",
+      "answer": "`Machine → Part ← Quality-Check (passed=false)`이다. has_part로 기계에서 부품으로 내려간 뒤 inspects를 역방향으로 타고 실패 검사와 만난다."
+    }
+  ]
+}

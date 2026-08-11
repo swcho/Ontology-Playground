@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "182a3260-3308-4b63-9da4-4206a60c2c2b",
+      "question": "Sensor의 threshold 속성은 무엇을 정의하는가?",
+      "answer": "**경보 경계(alert boundary)**를 정의한다. `lastReading`이 `threshold`를 초과하면 시스템이 알람을 발생시킨다."
+    },
+    {
+      "id": "f13391b7-8740-41ef-85a7-d3da080b89a4",
+      "question": "Sensor에 lastReading과 threshold를 함께 두는 이유는?",
+      "answer": "현재 판독값을 알려진 안전 경계와 비교해 이상을 자동 감지하기 위해서다. 이 패턴은 설비 고장 전에 운영자에게 경고하는 **예지 보전(predictive maintenance)**의 기본이다."
+    },
+    {
+      "id": "8a276ba7-0366-4d66-a964-3ce45f4012b9",
+      "question": "Sensor의 unit 속성은 어떤 역할을 하는가?",
+      "answer": "판독값의 측정 단위를 담는다. `type`(온도·진동·압력 등)과 짝을 이뤄 `lastReading`과 `threshold` 숫자가 무엇을 의미하는지 해석 가능하게 만든다."
+    },
+    {
+      "id": "7a85a554-108f-4e5a-a4ce-24d6edb0d896",
+      "question": "1단계에서 정의되는 유일한 관계 monitors는 어떻게 정의되는가?",
+      "answer": "**monitors** — `Sensor` → `Machine`, **다대일(many-to-one)** 관계다. 하나의 기계를 온도용·진동용 등 여러 센서가 동시에 모니터링한다."
+    },
+    {
+      "id": "7c0af61f-f92d-4acb-b772-51c0e6d3e8ef",
+      "question": "IoT 온톨로지에서 관계 방향이 Sensor → Machine인 이유는?",
+      "answer": "IoT 온톨로지에서 센서는 기계에 **속하기** 때문이다. 센서가 기계를 모니터링하는 것이지 그 반대가 아니며, 이 부모-자식 계층이 IoT 플랫폼이 텔레메트리 데이터를 조직하는 방식이다."
+    },
+    {
+      "id": "98e7a683-c2f2-46fe-a899-fecd6f350eb2",
+      "question": "1단계 그래프(`official/manufacturing-step-1`)는 무엇을 보여주는가?",
+      "answer": "센서가 기계를 모니터링하는 단순하지만 의미 있는 출발점을 보여준다. 엔티티 2개, 관계 1개만으로도 쓸모 있는 텔레메트리 백본이 성립함을 확인시킨다."
+    },
+    {
+      "id": "23346555-c722-4348-ae04-45254f9c22bc",
+      "question": "Factory Floor 단계에서 얻는 교훈 4가지는?",
+      "answer": "① IoT 계층은 부모-자식 관계(Sensor → Machine)를 쓴다, ② status 속성이 실시간 운영 추적을 가능케 한다, ③ threshold 속성이 예지 보전 경보를 구동한다, ④ 엔티티가 둘뿐이어도 유용한 텔레메트리 백본이 된다."
+    },
+    {
+      "id": "cc39d5b9-cb80-4de2-9da3-e76dc5b98e95",
+      "question": "센서 모니터링만으로 부족해 Work-Order와 Part를 추가하는 이유는?",
+      "answer": "센서는 기계가 **어떻게** 동작하는지 알려주지만 **무엇을** 생산하는지는 알려주지 않는다. Work-Order와 Part는 공장 모델에 생산 추적을 더한다."
+    },
+    {
+      "id": "d454e310-e90e-4c1f-8821-19e415c3fe7b",
+      "question": "생산 추적을 추가하면 답할 수 있게 되는 질문 예시는?",
+      "answer": "\"이번 교대에서 가장 많은 부품을 생산한 기계는?\", \"일정보다 늦은 작업 지시는 몇 건인가?\", \"CNC-01에서 현재 제조 중인 부품은?\" 등이다."
+    },
+    {
+      "id": "8d2eedb0-3a4b-426d-8f04-22fabfa8e74f",
+      "question": "Work-Order 엔티티의 속성 5가지와 식별자는?",
+      "answer": "`workOrderId`(string, **식별자**), `priority`(string), `status`(string), `startDate`(date), `dueDate`(date)."
+    },
+    {
+      "id": "5a741d30-89f8-4b9f-b1e6-b4d0d4083af9",
+      "question": "Work-Order가 startDate와 dueDate를 둘 다 갖는 이유는?",
+      "answer": "**일정 준수(schedule adherence)** 계산을 가능하게 하기 위해서다. `priority`와 결합하면 생산 계획 질의를 구동할 수 있다."
+    },
+    {
+      "id": "68a946f0-c87f-423b-bd2b-712562417e5f",
+      "question": "Work-Order의 priority 속성은 어떤 분석에 쓰이는가?",
+      "answer": "생산 계획에서 작업 순서를 정하고, 나아가 \"작업 지시 우선순위별 불량률은 얼마인가?\" 같은 품질 분석 질의의 그룹 기준이 된다."
+    },
+    {
+      "id": "8430d687-4917-4f29-9c68-8790c703b17d",
+      "question": "Part 엔티티의 속성 5가지와 식별자는?",
+      "answer": "`partId`(string, **식별자**), `name`(string), `material`(string), `weight`(float), `tolerance`(float)."
+    },
+    {
+      "id": "85fcce85-ead8-48c9-abf1-1f61085fb22e",
+      "question": "Part의 tolerance 속성은 무엇을 의미하는가?",
+      "answer": "허용 가능한 **제조 편차(manufacturing deviation)**를 정의한다. 부품의 실제 치수가 사양에서 얼마나 벗어나도 되는지를 나타낸다."
+    },
+    {
+      "id": "2f6c14b0-4da9-4fcf-81e7-c19908129574",
+      "question": "tolerance가 생산 계획의 핵심 제약이 되는 이유는?",
+      "answer": "공차가 더 좁은(tighter) 부품일수록 더 높은 정밀도의 기계가 필요하기 때문이다. 따라서 tolerance는 어떤 부품을 어떤 기계에 배정할지 결정하는 제약이 된다."
+    }
+  ]
+}
