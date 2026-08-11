@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "adbdc5a8-772d-4bb6-8586-9121b68c62f3",
+      "question": "Account의 `type` 프로퍼티는 어떤 값을 구분하기 위한 것인가?",
+      "answer": "checking(입출금), savings(저축), brokerage(증권) 계좌를 구분한다. 계좌 종류에 따라 이자율·거래 패턴 분석이 달라진다."
+    },
+    {
+      "id": "029e89b8-4c43-4f64-8e6a-0519fcb90c76",
+      "question": "Account의 `interestRate` 프로퍼티는 어떤 타입과 단위를 사용하는가?",
+      "answer": "decimal 타입에 퍼센트(%) 단위를 사용한다. 단위 표기는 해당 프로퍼티가 비율 기반(rate-based)임을 드러낸다."
+    },
+    {
+      "id": "424f4069-e58c-4380-9e0a-b3cc56d5f2e4",
+      "question": "Account의 `balance` 프로퍼티는 어떤 타입과 단위를 쓰는가?",
+      "answer": "decimal 타입에 USD 단위를 쓴다. 금액은 반올림 오차를 피하기 위해 float 대신 decimal로 모델링한다."
+    },
+    {
+      "id": "40a93781-ed32-4876-a8dd-f62e6a15e281",
+      "question": "Account의 `openDate`는 왜 date 타입인가?",
+      "answer": "계좌 개설은 날짜 단위 사건이므로 시각 정밀도가 필요하지 않다. 반면 Transaction의 `timestamp`는 datetime을 사용해 시각까지 기록한다."
+    },
+    {
+      "id": "74b3ea68-1d4b-4c20-bff3-0f1f2a24f200",
+      "question": "Customer와 Account를 잇는 관계는 무엇이며 카디널리티는 어떻게 되는가?",
+      "answer": "`owns` 관계로 `Customer → Account` 방향의 일대다(one-to-many)다. 한 고객이 checking·savings·brokerage 등 여러 계좌를 가질 수 있지만 각 계좌는 한 고객에게 속한다."
+    },
+    {
+      "id": "1cc21173-1f67-4379-bf7e-a178dcf3d7f3",
+      "question": "`owns` 관계가 온톨로지에서 갖는 역할은 무엇인가?",
+      "answer": "가장 근본적인 소유 체인의 시작점을 만든다. 이후 Transaction, Loan, Investment가 모두 이 체인을 통해 고객에 연결된다."
+    },
+    {
+      "id": "b34d0248-078f-425f-b1e0-92e485fa306c",
+      "question": "1단계(Customer & Accounts)에서 배우는 교훈 4가지는 무엇인가?",
+      "answer": "integer 프로퍼티는 점수·등급(creditScore)에 적합하고, 퍼센트(%) 단위는 비율 기반 프로퍼티를 나타내며, `owns`가 근본적인 소유 체인을 만들고, 온톨로지는 데이터 자체가 아니라 데이터의 모양을 기술한다는 점이다."
+    },
+    {
+      "id": "d80511fe-a33b-48da-a07b-43fa0d872348",
+      "question": "creditScore를 string이 아니라 integer로 모델링하는 이유는 무엇인가?",
+      "answer": "integer 타입은 수치 비교와 범위 질의(예: `creditScore > 700`)를 가능하게 한다. string 프로퍼티는 그런 연산 능력을 질의 엔진에 전달하지 못한다."
+    },
+    {
+      "id": "0ce00eca-ab09-4331-9650-9f4445be24b5",
+      "question": "프로퍼티 타입을 integer로 지정하면 질의 엔진에 어떤 정보가 전달되는가?",
+      "answer": "비교, 범위, 평균, 임계값 등 수치 연산이 가능하다는 사실이 전달된다. 타입 선택은 단순 저장 형식이 아니라 질의 가능성의 선언이다."
+    },
+    {
+      "id": "69b206ed-e969-429a-9d8e-876f1f4cec35",
+      "question": "계좌에 거래 이력이 없다면 어떤 한계가 있는가?",
+      "answer": "정적인 잔액(static balance)에 불과하다. Transaction을 추가해야 구매·입금·이체·수수료 등 돈의 흐름을 포착할 수 있다."
+    },
+    {
+      "id": "397afb9b-3001-4238-b84a-ff8d47a96f24",
+      "question": "Transaction 엔티티를 추가하면 어떤 질문에 답할 수 있게 되는가?",
+      "answer": "\"이 고객이 지난달 식당에서 얼마를 썼는가?\", \"어떤 계좌가 비정상 거래 패턴을 보이는가?\", \"계좌 유형별 평균 거래 금액은 얼마인가?\" 같은 질문이다."
+    },
+    {
+      "id": "d8934aba-84b3-44d5-ae56-2dd2738d7c31",
+      "question": "Transaction 엔티티의 프로퍼티 5개는 무엇인가?",
+      "answer": "`transactionId`(string, 식별자), `amount`(decimal, USD), `type`(string), `timestamp`(datetime), `merchant`(string)이다."
+    },
+    {
+      "id": "9a61bded-17dd-41c3-8038-90c05d88305e",
+      "question": "Transaction의 `timestamp`가 date가 아니라 datetime인 이유는 무엇인가?",
+      "answer": "금융 거래는 시각 정밀도가 필요하기 때문이다. 사기 탐지 관점에서 오후 2시 30분 결제와 2시 31분 결제는 서로 다른 사건이다."
+    },
+    {
+      "id": "659d317d-7b2e-437c-a1b6-195bd76c341e",
+      "question": "Transaction의 `merchant` 프로퍼티는 어떤 분석을 가능하게 하는가?",
+      "answer": "거래가 발생한 장소를 기록해 소비 카테고리 분석(spending category analysis)을 가능하게 한다. 별도의 Merchant 엔티티를 추가하지 않고도 소비 분석의 문을 열어 준다."
+    },
+    {
+      "id": "ef79c167-3a36-4822-b588-e802c3145466",
+      "question": "Merchant를 별도 엔티티로 만들지 않고 프로퍼티로 둔 설계의 의미는 무엇인가?",
+      "answer": "필요한 분석(소비 카테고리)에 충분한 최소 모델을 택한 것이다. 엔티티를 늘리지 않고 프로퍼티로 해결할 수 있으면 모델이 단순해진다."
+    },
+    {
+      "id": "547804b2-a7c2-40b2-a0cb-275d41256c5c",
+      "question": "Account와 Transaction을 잇는 관계는 무엇이며 카디널리티는 어떻게 되는가?",
+      "answer": "`has_transaction` 관계로 `Account → Transaction` 방향의 일대다다. 각 계좌는 시간에 걸쳐 많은 거래를 가지지만 각 거래는 하나의 계좌에 속한다."
+    },
+    {
+      "id": "abe32056-95f1-41e5-862d-55e968859711",
+      "question": "`has_transaction` 관계가 추가되면 소유 체인은 어떻게 확장되는가?",
+      "answer": "`Customer → Account → Transaction`으로 확장된다. 고객에서 시작해 계좌를 거쳐 개별 거래까지 내려가는 드릴다운 질의가 가능해진다."
+    },
+    {
+      "id": "70e499a0-8982-4abe-bdeb-2769ea6c4a17",
+      "question": "2단계(Transactions)에서 배우는 교훈 4가지는 무엇인가?",
+      "answer": "금융·컴플라이언스 시나리오에서 datetime 정밀도가 중요하고, 소유 체인이 드릴다운 질의를 가능하게 하며, `merchant` 프로퍼티가 엔티티 추가 없이 소비 분석을 열어 주고, 새 엔티티마다 답할 수 있는 질문이 깊어진다는 점이다."
+    },
+    {
+      "id": "cc2d7d7f-7da3-4883-a4b8-9c6b9d93ca64",
+      "question": "같은 날짜에 몇 분 간격으로 발생한 두 거래가 왜 중요한가?",
+      "answer": "사기 패턴을 시사할 수 있기 때문이다. date만 저장하면 이 차이를 구분할 수 없으므로 datetime으로 날짜와 시각을 모두 포착해야 한다."
+    }
+  ]
+}

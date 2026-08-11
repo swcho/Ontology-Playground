@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "11188113-ab26-4c7e-9d24-c7825d478a35",
+      "question": "은행이 기본 계좌·거래를 넘어 제공하는 두 가지 주요 상품 범주는 무엇인가?",
+      "answer": "Loans(은행이 돈을 빌려주는 신용 상품)와 Investments(고객이 자산을 늘리는 보유 자산)이다. 이 둘을 추가하면 모델이 완성되고 흥미로운 다중 경로 관계가 생긴다."
+    },
+    {
+      "id": "c5d7602c-09e0-4fc5-9c85-0d2c26fcf682",
+      "question": "Loan 엔티티의 프로퍼티 5개는 무엇인가?",
+      "answer": "`loanId`(string, 식별자), `principal`(decimal, USD), `apr`(decimal, %), `term`(integer, months), `status`(string)이다."
+    },
+    {
+      "id": "ccb00e06-90cb-4547-aaa5-fbb25a068331",
+      "question": "Loan의 `term` 프로퍼티는 어떤 타입과 단위를 사용하는가?",
+      "answer": "integer 타입에 months(개월) 단위를 사용한다. 기간(duration) 프로퍼티를 단위가 붙은 정수로 표현하는 것은 흔한 패턴이다."
+    },
+    {
+      "id": "5fe9b137-2275-4a7f-a2c9-9340588c27a2",
+      "question": "Loan의 `apr`은 무엇의 약자이며 어떤 단위를 쓰는가?",
+      "answer": "Annual Percentage Rate(연이율)의 약자이며 퍼센트(%) 단위를 사용한다. `interestRate`와 마찬가지로 비율 기반 프로퍼티다."
+    },
+    {
+      "id": "c9082985-241d-462b-9a79-863d35149a32",
+      "question": "Loan의 `principal`과 `status`는 각각 무엇을 나타내는가?",
+      "answer": "`principal`은 대출 원금(decimal, USD)이고 `status`는 대출 상태(string)를 나타낸다. 컴플라이언스 질의에서 활성 대출과 금액 필터로 함께 쓰인다."
+    },
+    {
+      "id": "69416f12-f713-4581-9824-4a183af6d5d9",
+      "question": "Investment 엔티티의 프로퍼티 5개는 무엇인가?",
+      "answer": "`holdingId`(string, 식별자), `symbol`(string), `shares`(decimal), `purchasePrice`(decimal, USD), `currentValue`(decimal, USD)이다."
+    },
+    {
+      "id": "f23dabaf-6abf-41d0-830f-232d4fb7eb8b",
+      "question": "Investment의 `symbol` 프로퍼티는 무엇을 식별하는가?",
+      "answer": "MSFT, AAPL처럼 종목 티커로 주식을 식별한다. 사람이 읽을 수 있는 표준 코드이므로 외부 시장 데이터와 연결하기 쉽다."
+    },
+    {
+      "id": "bad04435-8bf4-4299-b491-180592ff0766",
+      "question": "Investment에 `purchasePrice`와 `currentValue`를 모두 두는 이유는 무엇인가?",
+      "answer": "두 값이 모두 있어야 손익(gain/loss) 계산이 가능하기 때문이다. 매입가와 현재가의 차이가 평가손익을 나타낸다."
+    },
+    {
+      "id": "0db7e0d3-f345-4634-a885-91683be25a51",
+      "question": "Investment의 `shares`는 왜 integer가 아니라 decimal인가?",
+      "answer": "소수점 단위 보유(fractional shares)가 가능하기 때문이다. decimal 타입은 부분 주식 보유량을 정확히 표현한다."
+    },
+    {
+      "id": "0ce984d3-b91d-4414-8b4e-295d3b80affe",
+      "question": "3단계에서 추가되는 4개 관계는 무엇인가?",
+      "answer": "`has_loan`(Customer → Loan), `funds`(Account → Loan), `holds`(Customer → Investment), `linked_to`(Account → Investment)이며 모두 일대다다."
+    },
+    {
+      "id": "20709df3-0dfb-46d4-b7d7-ba98ebcca13c",
+      "question": "`has_loan` 관계는 무엇을 표현하는가?",
+      "answer": "`Customer → Loan` 방향의 일대다 관계로, 한 고객이 여러 개의 대출을 보유할 수 있음을 표현한다."
+    },
+    {
+      "id": "a8d458c4-4e2c-4318-a020-1d0cd3d900f0",
+      "question": "`funds` 관계는 무엇을 표현하는가?",
+      "answer": "`Account → Loan` 방향의 일대다 관계로, 계좌가 대출 상환의 결제 출처(payment source) 역할을 함을 표현한다."
+    },
+    {
+      "id": "475b024f-450f-44a6-994e-77c23de23e85",
+      "question": "`holds` 관계는 무엇을 표현하는가?",
+      "answer": "`Customer → Investment` 방향의 일대다 관계로, 고객의 투자 포트폴리오를 표현한다. \"이 투자를 누가 소유하는가?\"에 답한다."
+    },
+    {
+      "id": "b3627571-62b1-45ef-a530-5ed5b3baa076",
+      "question": "`linked_to` 관계는 무엇을 표현하는가?",
+      "answer": "`Account → Investment` 방향의 일대다 관계로, 브로커리지 계좌가 투자 보유 자산에 연결됨을 표현한다. \"어떤 계좌가 이 투자를 뒷받침하는가?\"에 답한다."
+    },
+    {
+      "id": "baf456be-8068-4f53-a1a5-3eb188cc8ca7",
+      "question": "Investment가 Customer와 두 가지 경로로 연결되는 구조를 무엇이라 부르며, 각 경로는 무엇을 모델링하는가?",
+      "answer": "다중 경로 패턴(multi-path pattern)이라 부른다. `holds`는 소유(누가 보유하는가)를, `Account → linked_to`는 자금 출처(어떤 계좌가 뒷받침하는가)를 모델링한다."
+    },
+    {
+      "id": "262acdd1-5b89-44f5-8ab1-eadf674b0c9d",
+      "question": "Investment의 다중 경로 연결이 중복 설계가 아닌 이유는 무엇인가?",
+      "answer": "두 관계가 서로 다른 질문에 답하기 때문이며 이 중복은 의도적이다. 공동 계좌가 한 사람의 투자를 뒷받침하는 경우처럼 두 답이 서로 다를 수 있다."
+    },
+    {
+      "id": "1176b6ce-7f76-46f0-a24a-af0bba269f1e",
+      "question": "완성된 Banking & Finance 온톨로지의 규모는 어떻게 되는가?",
+      "answer": "5개 엔티티(Customer, Account, Transaction, Loan, Investment)와 6개 관계(owns, has_transaction, has_loan, funds, holds, linked_to)로 구성된다."
+    },
+    {
+      "id": "0bf48e75-aed9-44f8-84a4-95cdb83aefe8",
+      "question": "\"고위험 고객 중 큰 대출을 가진 사람\"은 어떤 그래프 경로로 찾는가?",
+      "answer": "`Customer (riskProfile=high) → Loan (principal > 100K)` 경로다. 노드 프로퍼티 필터와 관계 순회를 결합한 형태다."
+    },
+    {
+      "id": "a09bb539-570e-42a3-8fa2-125196cc2b78",
+      "question": "\"상위 고객의 포트폴리오 가치\"는 어떤 그래프 경로로 구하는가?",
+      "answer": "`Customer → Investment` 경로를 따라가 `currentValue`를 합산(sum)한다. 관계 순회 후 집계를 적용하는 패턴이다."
+    }
+  ]
+}

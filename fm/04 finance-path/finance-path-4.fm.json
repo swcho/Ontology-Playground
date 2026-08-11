@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "46414888-0171-4f8c-89bb-6071e3c80b71",
+      "question": "\"대출과 투자를 동시에 뒷받침하는 계좌\"는 어떤 경로로 찾는가?",
+      "answer": "`Account → Loan` AND `Account → Investment` 두 경로를 모두 만족하는 Account를 찾는다. 두 관계의 교집합 패턴이다."
+    },
+    {
+      "id": "a987d85b-14b5-41c5-b0a4-f6114b9eab03",
+      "question": "\"투자 수익이 대출 비용을 넘는 고객\"은 어떤 경로 비교로 구하는가?",
+      "answer": "`Customer → Investment`의 `currentValue`와 `Customer → Loan`의 `principal × apr`를 비교한다. 서로 다른 두 경로의 집계값을 대조하는 질의다."
+    },
+    {
+      "id": "87818820-709e-4fd8-a50a-a98291bb4f7f",
+      "question": "투자 포트폴리오가 총 대출 원금을 초과하는 고객을 찾는 GQL 질의는 어떻게 작성하는가?",
+      "answer": "`MATCH (c:Customer)-[:holds]->(inv:Investment), (c)-[:has_loan]->(loan:Loan)`으로 두 경로를 잡고, `WITH c, SUM(inv.currentValue) AS portfolio, SUM(loan.principal) AS debt` 후 `WHERE portfolio > debt`로 필터한다."
+    },
+    {
+      "id": "76a06f0c-3619-40a0-b24f-7093d5e2a224",
+      "question": "GQL 질의에서 `WITH` 절은 어떤 역할을 하는가?",
+      "answer": "매칭 결과를 집계·재구성해 다음 절로 넘기는 중간 단계다. 예시에서는 고객별로 `SUM(inv.currentValue)`와 `SUM(loan.principal)`을 계산해 `portfolio`, `debt` 변수로 넘긴다."
+    },
+    {
+      "id": "c324d11e-a432-4fff-948f-3c5d78d555bb",
+      "question": "GQL 질의에서 `MATCH` 절에 두 패턴을 쉼표로 나열하면 어떤 의미인가?",
+      "answer": "같은 변수(`c`)를 공유하는 두 경로를 동시에 만족해야 한다는 의미다. 예시에서는 투자도 보유하고 대출도 있는 고객만 매칭된다."
+    },
+    {
+      "id": "6fd82106-07e7-4db9-a756-35c28e055247",
+      "question": "Banking & Finance 온톨로지의 단계별 누적 엔티티 수는 어떻게 되는가?",
+      "answer": "1단계 Customer·Account 추가로 2개, 2단계 Transaction 추가로 3개, 3단계 Loan·Investment 추가로 5개가 된다."
+    },
+    {
+      "id": "39f3521b-e120-4bad-878b-cee9c6fbd473",
+      "question": "Banking & Finance 온톨로지 각 단계의 핵심 개념은 무엇인가?",
+      "answer": "1단계는 소유와 금융 식별자, 2단계는 활동 추적과 datetime 정밀도, 3단계는 금융 상품과 다중 경로 관계다."
+    },
+    {
+      "id": "fec89e3b-1446-4151-a17d-e46dc2964bb2",
+      "question": "Banking & Finance 경로의 최종 교훈 5가지는 무엇인가?",
+      "answer": "소유 체인이 컴플라이언스 질의를 가능하게 하고, datetime 정밀도가 금융 데이터에 필수적이며, 다중 경로 관계가 같은 연결의 서로 다른 측면을 모델링하고, 기간 프로퍼티는 단위가 붙은 정수를 쓰며, 금융 온톨로지는 데이터의 모양만 기술하고 민감 데이터는 소스 시스템에 남는다는 점이다."
+    },
+    {
+      "id": "7f090a2e-d9c0-42aa-b5c9-d743b4d7f827",
+      "question": "금융 온톨로지에서 소유 체인이 컴플라이언스에 중요한 이유는 무엇인가?",
+      "answer": "규제 질의는 대개 고객 속성(리스크·신용)에서 출발해 계좌와 거래로 내려가야 하기 때문이다. 소유 체인이 있으면 이 순회가 하나의 그래프 경로로 표현된다."
+    },
+    {
+      "id": "d4f29dd2-0856-46e8-ab6e-8a3a21b3351b",
+      "question": "온톨로지에서 기간(duration) 프로퍼티를 모델링하는 권장 패턴은 무엇인가?",
+      "answer": "단위를 명시한 정수(integer)로 표현한다. Loan의 `term`이 integer(months)인 것이 대표 예다."
+    },
+    {
+      "id": "0d450096-131e-4ef2-997f-561198b4215a",
+      "question": "금융 온톨로지에서 민감 데이터는 어디에 남는가?",
+      "answer": "소스 시스템에 남는다. 온톨로지는 데이터의 모양만 기술하므로 `ssn` 같은 필드는 존재 사실만 스키마에 드러난다."
+    },
+    {
+      "id": "c5f826ba-7c69-4834-839b-47998792e6c5",
+      "question": "checking·savings·brokerage를 별도 엔티티로 만들지 않고 Account의 `type` 프로퍼티로 둔 이유는 무엇인가?",
+      "answer": "세 종류가 같은 프로퍼티 집합(잔액·이자율·개설일)을 공유하기 때문이다. 구분이 필요한 지점만 `type` 값으로 처리하면 모델이 단순해진다."
+    },
+    {
+      "id": "e3aa7ff8-ce0b-4fa6-9c02-40d2b05e236a",
+      "question": "Loan이 Customer와 Account 양쪽에 연결되는 이유는 무엇인가?",
+      "answer": "`has_loan`은 누가 대출을 보유하는지(차주)를, `funds`는 어떤 계좌가 상환 자금을 대는지를 각각 모델링한다. Investment의 다중 경로 패턴과 같은 구조다."
+    },
+    {
+      "id": "fdd06ed5-75d7-4aff-a4c0-f9c1cfe2a8b7",
+      "question": "Transaction 엔티티의 `type` 프로퍼티는 어떤 값을 담는가?",
+      "answer": "거래 종류(구매, 입금, 이체, 수수료 등)를 담는 string 프로퍼티다. Account의 `type`처럼 하위 분류를 엔티티 추가 없이 표현한다."
+    },
+    {
+      "id": "f9b874af-1938-4f4e-a1fc-9e44def9b69e",
+      "question": "온톨로지에서 금액 프로퍼티에 USD 같은 단위를 명시하는 이유는 무엇인가?",
+      "answer": "값의 해석을 명확히 하고 서로 다른 소스 시스템의 값을 비교·집계할 때 혼동을 막기 위해서다. `balance`, `amount`, `principal`, `purchasePrice`, `currentValue`가 모두 decimal(USD)이다."
+    },
+    {
+      "id": "7534fb9e-e1a7-4464-80c0-da95cd16c037",
+      "question": "Banking & Finance 학습 경로를 마친 뒤 각 단계를 다시 살펴보려면 어떻게 하는가?",
+      "answer": "catalogue에서 원하는 단계(finance-step-1/2/3)를 로드해 인터랙티브하게 탐색할 수 있다."
+    },
+    {
+      "id": "4facda84-1299-4a43-b7eb-2f947ccdfee1",
+      "question": "금융 온톨로지에서 프로퍼티 타입 선택이 단순한 저장 형식 결정이 아닌 이유는 무엇인가?",
+      "answer": "타입이 그 프로퍼티로 어떤 질의가 가능한지를 선언하기 때문이다. integer는 범위 비교, datetime은 시각 단위 정밀 비교, decimal은 정확한 금액 집계를 가능하게 한다."
+    },
+    {
+      "id": "fff75f7c-de8d-4e71-9cae-535d055db4de",
+      "question": "온톨로지 각 단계 그래프를 비교할 때 쓰이는 `diff` 기능은 무엇을 보여주는가?",
+      "answer": "이전 단계 대비 새로 추가된 엔티티와 관계를 강조해 보여준다. finance-step-2는 step-1과, step-3은 step-2와 비교된다."
+    }
+  ]
+}

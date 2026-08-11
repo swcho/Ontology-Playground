@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "f08f6379-b48a-4ff6-bc88-dbc735801895",
+      "question": "Banking & Finance 학습 경로에서 모델링하는 대상은 무엇인가?",
+      "answer": "금융 서비스 도메인, 구체적으로 리테일 뱅킹 플랫폼(retail banking platform)의 데이터 모델이다. 고객, 계좌, 거래, 대출, 투자 포트폴리오를 하나의 온톨로지로 연결한다."
+    },
+    {
+      "id": "1200b637-5f0f-4591-946c-edcd6863e44a",
+      "question": "Banking & Finance 시나리오에서 은행이 관리하는 5가지 대상은 무엇인가?",
+      "answer": "Customers(신용 프로필과 리스크 평가), Accounts(잔액과 이자율을 가진 checking·savings·brokerage), Transactions(모든 출금·입금·이체 기록), Loans(모기지·오토론·개인신용), Investments(주식 보유와 포트폴리오 가치)이다."
+    },
+    {
+      "id": "85060295-b338-4f60-b6e5-61831d3f9692",
+      "question": "리테일 뱅킹 시나리오에서 데이터는 어떤 시스템들에 흩어져 있는가?",
+      "answer": "코어 뱅킹 시스템, 결제 프로세서(payment processors), 신용평가기관(credit bureaus), 브로커리지 플랫폼에 걸쳐 있다. 각 시스템이 자기만의 스키마와 식별자를 가지고 있다는 점이 문제의 핵심이다."
+    },
+    {
+      "id": "746d2a6d-cfc9-4eef-84d7-80e142d12479",
+      "question": "금융 도메인에서 온톨로지가 필요한 이유를 보여주는 대표적인 컴플라이언스 질문은 무엇인가?",
+      "answer": "\"활성 대출이 $100K를 초과하는 고위험 고객이 보유한 계좌의 모든 거래를 보여달라\"는 질문이다. 거래에서 계좌, 고객, 대출까지 여러 시스템을 넘나드는 순회가 필요하다."
+    },
+    {
+      "id": "5361d34e-fdad-46d7-bbef-efa3ed6ea5d2",
+      "question": "\"고위험 고객의 $100K 초과 대출 관련 거래 조회\"는 온톨로지에서 어떤 그래프 순회로 표현되는가?",
+      "answer": "`Transaction → Account → Customer (riskProfile='high') → Loan (principal > 100000)` 경로의 그래프 순회로 표현된다. 시스템 간 조인이 하나의 경로 패턴으로 단순화된다."
+    },
+    {
+      "id": "be14b9f0-0d51-416a-a03f-d824721b020b",
+      "question": "Banking & Finance 경로의 3단계 학습 구성은 어떻게 되어 있는가?",
+      "answer": "1단계는 Customer·Account로 코어 뱅킹 엔티티와 소유 관계, 2단계는 Transaction 추가로 활동 추적과 시계열 데이터, 3단계는 Loan·Investment 추가로 금융 상품과 다중 경로 관계를 배운다."
+    },
+    {
+      "id": "c9d25517-6270-4ef9-8a33-d03d10b506c2",
+      "question": "Banking & Finance 학습 경로를 완료하면 최종적으로 몇 개의 엔티티와 관계를 갖게 되는가?",
+      "answer": "5개 엔티티, 6개 관계의 온톨로지를 갖게 된다. 은행과 고객의 전체 관계(complete banking customer relationship)를 포괄한다."
+    },
+    {
+      "id": "de26dcb0-9820-4e27-a7d2-f42e7b5737fb",
+      "question": "Banking & Finance 경로의 핵심 개념 4가지는 무엇인가?",
+      "answer": "소유 체인(ownership chains: Customer → Account → Transaction/Loan/Investment), 금융 식별자(account number·transaction ID·loan ID), 리스크와 컴플라이언스(신용점수·리스크 프로필), 다중 경로 관계(multi-path relationships)이다."
+    },
+    {
+      "id": "4352b1a4-9f6e-4498-907b-7b99c1c41dd3",
+      "question": "온톨로지에서 소유 체인(ownership chain)이란 무엇인가?",
+      "answer": "한 엔티티가 다른 엔티티를 소유하는 관계가 연쇄적으로 이어진 경로다. 금융 예시는 `Customer → Account → Transaction / Loan / Investment`이며, 드릴다운 질의를 가능하게 한다."
+    },
+    {
+      "id": "baad3076-191a-4005-8491-025d235870ff",
+      "question": "금융 온톨로지에서 다중 경로 관계(multi-path relationship)란 무엇인가?",
+      "answer": "한 엔티티가 다른 엔티티와 서로 다른 여러 경로로 연결되는 구조다. 예를 들어 Investment는 Customer와 `holds`로 직접, `Account → linked_to`로 간접 연결된다."
+    },
+    {
+      "id": "d00bf5d2-8190-4126-88dc-8263c7f7df46",
+      "question": "뱅킹 온톨로지의 기초를 이루는 두 핵심 개념은 무엇인가?",
+      "answer": "Customer(누가 계좌를 보유하는가?)와 Account(돈이 어디에 저장·관리되는가?)이다. 다른 모든 금융 상품이 이 두 엔티티를 거쳐 연결된다."
+    },
+    {
+      "id": "e06afe8e-14b5-4317-bd55-54a51fb44670",
+      "question": "Customer 엔티티의 프로퍼티 5개는 무엇인가?",
+      "answer": "`customerId`(string, 식별자), `name`(string), `ssn`(string), `creditScore`(integer), `riskProfile`(string)이다."
+    },
+    {
+      "id": "b7aceea6-74c4-4ee8-9683-e94e2c4f0582",
+      "question": "Customer 엔티티의 식별자 프로퍼티는 무엇인가?",
+      "answer": "`customerId`(string)이다. 여러 소스 시스템에 흩어진 고객 레코드를 하나로 묶는 기준 키 역할을 한다."
+    },
+    {
+      "id": "7621890b-021f-4001-95ab-1f302cf99c28",
+      "question": "Customer의 `creditScore` 프로퍼티는 어떤 타입이고 값의 범위는 어떻게 되는가?",
+      "answer": "integer 타입이며 300~850 범위를 갖는다. 대출 심사(lending decision)에 사용된다."
+    },
+    {
+      "id": "912e2221-017d-4615-b093-c67de6d2a5bb",
+      "question": "Customer의 `riskProfile` 프로퍼티는 무엇을 담는가?",
+      "answer": "은행이 해당 고객에 대해 내린 리스크 평가 결과를 담는다. 컴플라이언스와 모니터링 목적으로 사용된다."
+    },
+    {
+      "id": "16f99720-b958-417d-b4e6-2350f66837aa",
+      "question": "`ssn` 같은 민감 정보를 온톨로지에 넣어도 되는 이유는 무엇인가?",
+      "answer": "온톨로지의 프로퍼티는 메타데이터이므로 실제 값이 아니라 \"어떤 데이터가 존재하는지\"만 기술한다. 온톨로지는 데이터베이스가 아니라 스키마이기 때문이다."
+    },
+    {
+      "id": "2b21abf5-87ad-41cb-893f-11c4cd4420b7",
+      "question": "\"온톨로지는 데이터베이스가 아니라 스키마\"라는 말의 의미는 무엇인가?",
+      "answer": "온톨로지는 데이터의 모양(shape)과 구조를 정의할 뿐 실제 레코드 값을 저장하지 않는다. 따라서 SSN 같은 민감 필드는 소스 시스템에 남아 있고 온톨로지에는 그 존재만 기술된다."
+    },
+    {
+      "id": "36e1d35e-b64d-4081-b4d9-cb857dcd27c4",
+      "question": "Account 엔티티의 프로퍼티 5개는 무엇인가?",
+      "answer": "`accountNumber`(string, 식별자), `type`(string), `balance`(decimal, USD), `interestRate`(decimal, %), `openDate`(date)이다."
+    },
+    {
+      "id": "c557b632-c311-4964-8c69-59e4fb35b85e",
+      "question": "Account 엔티티의 식별자 프로퍼티는 무엇인가?",
+      "answer": "`accountNumber`(string)이다. 계좌번호는 금융 시스템 전반에서 계좌를 지목하는 표준 식별자다."
+    }
+  ]
+}
