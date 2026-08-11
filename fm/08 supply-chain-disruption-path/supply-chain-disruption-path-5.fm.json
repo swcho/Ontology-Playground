@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "6c5c81d4-f5e8-4ff8-864e-92062555f6c4",
+      "question": "Day 1 10:46 AM에 데이터 에이전트가 추적해낸 결과는?",
+      "answer": "핵심 공급업체 3곳 영향, 부품 47개 중단, 제품 라인 12개 노출, 위험 매출 127M 달러, 생산 중단까지 3일이다. 1분 만에 전체 영향 범위가 정량화된다."
+    },
+    {
+      "id": "41f34fc4-9bb8-4a0d-9105-f1b039947962",
+      "question": "Day 1 10:47~10:48 AM에 생성되는 것은?",
+      "answer": "10:47 RiskAssessment가 생성되어 제품 라인별 영향을 평가하고 ROI 순으로 조치를 추천한다. 10:48 MitigationAction이 자동 생성되어 ChipX Europe에 PO 발행, 안전 재고 발주, 조달·운영·재무 알림이 이뤄진다."
+    },
+    {
+      "id": "1b1ee025-1485-4d2c-bfbf-9b3e2b40dca6",
+      "question": "Day 1 10:50 AM Activator 단계에서 일어나는 3가지는?",
+      "answer": "실시간 대시보드에 영향과 조치가 표시되고, 에스컬레이션 정책이 리더십에 통보하며, 조달팀이 수신을 확인(acknowledge)한다."
+    },
+    {
+      "id": "69491255-fa26-4fbe-81c4-4628e0e51fa8",
+      "question": "Day 1 11:30 AM 시점의 상태와 성과는?",
+      "answer": "`MitigationAction.status = \"In Progress\"`로 전환되고, ChipX Europe가 48시간 내 출하를 확정한다. 생산 영향이 7일에서 **3일로 축소**된다."
+    },
+    {
+      "id": "947924b8-ead5-42ef-bb23-794f69e9728c",
+      "question": "Day 2~4 모니터링에서 4시간마다 수행하는 작업은?",
+      "answer": "`DisruptionEvent.estimatedDurationDays` 갱신 확인, MitigationAction 진행 상황 모니터링, 최신 재고 데이터로 RiskAssessment 재계산, `leadTimeSavedDays`가 밀리면 알림, 필요 시 비상 조치 추천이다."
+    },
+    {
+      "id": "1383d29e-2d0c-4061-9bea-74b55e166e35",
+      "question": "Day 3에 기록된 최종 결과는?",
+      "answer": "ChipX Europe 물량 입고로 `MitigationAction.status = \"Completed\"`, 47개 부품 재고 복구, 7일이 아닌 3일 지연으로 생산 재개, 실제 비용 2.1M 달러(추정 2M 달러), 127M 달러 노출 중 약 100M 달러 매출 보호."
+    },
+    {
+      "id": "b1665f85-8c80-4a78-8e36-0493360b8f5a",
+      "question": "Day 3 실적에서 추정 대비 실제 비용 오차는 얼마이며 왜 기록하나?",
+      "answer": "추정 2M 달러 대비 실제 2.1M 달러로 약 5% 초과다. 이 실제 값을 기록해야 다음 교란에서 비용 추정 정확도를 개선(Learn 단계)할 수 있다."
+    },
+    {
+      "id": "0b4bf835-6023-4a6b-af4f-a5bd1f6201aa",
+      "question": "Fabric IQ 데이터 에이전트가 \"현재 공급망 리스크 노출은?\" 질문에 답하는 5단계는?",
+      "answer": "① `singleSourced=true`인 Supplier 전부 찾기, ② 각각이 공급하는 Component 찾기, ③ 그 부품을 쓰는 ProductLine으로 추적, ④ 각 라인의 `revenueAtRisk` 계산, ⑤ `revenueAtRisk` 순으로 정렬된 목록 반환."
+    },
+    {
+      "id": "0438979f-95a5-460e-8ed7-27a95efdf03a",
+      "question": "위 질의에 대한 에이전트 응답 예시의 핵심 숫자는?",
+      "answer": "단일 소싱 핵심 공급업체 3곳이 있고, 그중 어느 하나라도 교란되면 4~9일 내 약 180M 달러 손실이 발생하며, 대체 공급업체 8곳을 사전 검증(pre-qualify)하도록 권고한다."
+    },
+    {
+      "id": "1ffa7696-b049-44ca-a2bb-c80000daa6be",
+      "question": "\"ChipX에 승인된 대체 공급업체는?\" 질의는 어떤 조건으로 변환되나?",
+      "answer": "`AlternativeSupplier WHERE canReplace.Supplier.name = \"ChipX Corp\" AND qualificationStatus = \"Approved\"`로 변환된다. 관계 탐색과 enum 필터를 결합한 형태다."
+    },
+    {
+      "id": "68586d20-a541-454f-8ae9-d48d7862aaea",
+      "question": "ChipX Corp의 승인된 대체 공급업체 3곳과 조건은?",
+      "answer": "ChipX Europe(월 50K, 비용 +12%), SemiCorp Japan(월 30K, +18%), Semiconductor Direct USA(월 25K, +15%)다. 용량이 큰 곳이 비용도 가장 낮아 1순위가 된다."
+    },
+    {
+      "id": "76955fa7-9e4d-4aa4-85e4-481d9da52d49",
+      "question": "자연어 질의가 온톨로지에 '그라운딩(grounding)'된다는 것은 무슨 의미인가?",
+      "answer": "에이전트가 자유 텍스트를 추측으로 답하지 않고, 온톨로지의 엔터티·속성·관계에 대응시켜 실제 데이터를 탐색해 답을 만든다는 뜻이다. enum과 식별자가 명확할수록 그라운딩 정확도가 올라간다."
+    },
+    {
+      "id": "67b33e49-b008-4dff-9d11-5782c8ffa0c2",
+      "question": "완화 모델의 효과를 측정하는 6가지 지표는?",
+      "answer": "Detection speed, Trace accuracy, Impact estimate accuracy, Time to mitigation, Cost efficiency, Revenue protection rate다. 각 지표에 목표치가 정의되어 있다."
+    },
+    {
+      "id": "9c759a4b-fbf8-474e-bff9-66f0ef6f7d9c",
+      "question": "Detection speed와 Time to mitigation의 계산법과 목표치는?",
+      "answer": "Detection speed는 교란 발생부터 RiskAssessment 생성까지의 시간으로 **1시간 미만**이 목표다. Time to mitigation은 평가부터 MitigationAction 실행까지의 시간으로 **2시간 미만**이 목표다."
+    },
+    {
+      "id": "8914f1f9-d96e-4a32-9b72-081bcd4f4d6d",
+      "question": "Trace accuracy와 Revenue protection rate의 목표치는?",
+      "answer": "Trace accuracy는 실제 영향받은 부품 중 식별된 비율로 **95% 초과**, Revenue protection rate는 위험 매출 중 조치로 보호된 비율로 **80% 초과**가 목표다."
+    },
+    {
+      "id": "fc9e2b9d-b16c-4407-b462-943de81a4e36",
+      "question": "Impact estimate accuracy와 Cost efficiency의 허용 오차는?",
+      "answer": "Impact estimate accuracy(추정 대 실제 위험 매출)는 **±10%**, Cost efficiency(조치의 실제 대 추정 비용)는 **±5%**가 목표다."
+    },
+    {
+      "id": "683e29f6-4542-44de-abb0-c8f661dd5e6d",
+      "question": "각 교란 사건이 '학습 기회'가 된다는 것은 무엇을 학습한다는 뜻인가?",
+      "answer": "어떤 대체 공급업체가 실제로 성과를 냈는지, 어떤 리드타임 추정이 실제로 유지됐는지, 어떤 제품 라인이 가장 회복력이 높은지를 학습한다. 이 피드백이 다음 대응의 추천 품질을 높인다."
+    },
+    {
+      "id": "eb0d2a4c-3d3d-43b4-a533-8f0e8e5c9fcc",
+      "question": "완성된 온톨로지가 'production-ready'라고 평가되는 6가지 근거는?",
+      "answer": "7개 엔터티가 교란 생애주기 전체를 포괄, 40개 속성이 의사결정 컨텍스트 제공, 7개 관계가 현실적 연쇄를 모델링, Fabric IQ 자연어 에이전트 호환, enum 분류·타임스탬프로 자동화 준비, 그리고 측정 가능한 결과(교란 영향을 며칠에서 몇 시간으로 축소)."
+    },
+    {
+      "id": "64f8d807-d3cf-4255-9e4f-0fc5bb24924e",
+      "question": "이 온톨로지가 궁극적으로 달성하는 비즈니스 성과는?",
+      "answer": "교란 대응 시간을 **며칠에서 몇 시간(또는 분) 단위로 단축**해 매출 손실을 줄이는 것이다. 예시 워크플로에서는 20분 만에 조치 추천, 25분 내 실행이 이뤄지고 127M 달러 노출 중 약 100M 달러를 보호했다."
+    }
+  ]
+}

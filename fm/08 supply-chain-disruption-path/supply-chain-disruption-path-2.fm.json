@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "0f1113f5-c3f1-4910-adbf-9a98e95e8ab0",
+      "question": "ProductLine의 `productionStatus` enum 값 4가지는?",
+      "answer": "Active, At Risk, Halted, Discontinued이다. 교란 영향이 확인되면 상태가 At Risk나 Halted로 전이된다."
+    },
+    {
+      "id": "0eb4292c-d3fd-4fe1-a8f1-d58bf7c186a0",
+      "question": "ProductLine 엔터티의 활용 목적은?",
+      "answer": "**매출 노출(revenue exposure)과 생산 일정 영향을 계산**하는 것이다. `annualRevenue`가 있어 부품 부족을 금액으로 환산할 수 있다."
+    },
+    {
+      "id": "44658bf8-dd8b-4c96-908d-e00f4cc14d93",
+      "question": "DisruptionEvent 엔터티는 무엇을 표현하나?",
+      "answer": "하나 이상의 공급업체로부터의 정상적인 공급을 중단시키거나 위협하는 사건이다. 핵심 속성은 `eventId`, `type`, `severity`, `startDate`, `estimatedDurationDays`, `region`."
+    },
+    {
+      "id": "7b01b705-ff64-433d-9772-ea460098cdd6",
+      "question": "DisruptionEvent의 `type` enum 값 7가지는?",
+      "answer": "Natural Disaster, Geopolitical, Financial, Logistics, Quality Recall, Pandemic, Cyber Attack이다."
+    },
+    {
+      "id": "d7e098d8-390d-42e7-a4d0-7d648ea9d504",
+      "question": "DisruptionEvent의 `severity`와 분류가 중요한 이유는?",
+      "answer": "`severity`는 Critical/High/Medium/Low 4단계다. **분류(type)와 심각도(severity)가 에스컬레이션 수준과 대응 타임라인을 결정**하기 때문에 중요하다."
+    },
+    {
+      "id": "79229d85-72fd-400a-bfd9-a03aaf00616b",
+      "question": "RiskAssessment 엔터티의 정의와 핵심 속성은?",
+      "answer": "교란이 공급망에 영향을 줄 때의 비즈니스 임팩트 분석이다. 핵심 속성은 `assessmentId`, `assessedDate`(datetime), `revenueAtRisk`(USD), `timeToImpactDays`, `confidenceLevel`(High/Medium/Low), `recommendedAction`."
+    },
+    {
+      "id": "8af1c28e-a3db-45fb-bf4f-55add852a44f",
+      "question": "RiskAssessment 엔터티의 핵심 활용 목적은?",
+      "answer": "영향을 **돈과 시간이라는 비즈니스 용어로 정량화**해 대응 우선순위를 정하는 것이다. `revenueAtRisk`와 `timeToImpactDays`가 그 두 축이다."
+    },
+    {
+      "id": "9ecb901e-28f5-409b-a5e4-233b82030fc4",
+      "question": "MitigationAction 엔터티의 정의와 핵심 속성은?",
+      "answer": "교란 영향을 줄이거나 제거하는 구체적 조치다. 핵심 속성은 `actionId`, `type`, `status`, `estimatedCost`(USD), `leadTimeSavedDays`."
+    },
+    {
+      "id": "f6e27cc3-01a9-4bff-b60b-326bccc54c3e",
+      "question": "MitigationAction의 `type` enum 값 6가지는?",
+      "answer": "Activate Alternative Supplier, Increase Safety Stock, Redesign Component, Reduce Production, Expedite Shipment, Customer Communication이다."
+    },
+    {
+      "id": "4467c68c-f4ef-4309-bd42-29f4cbfa7e1f",
+      "question": "MitigationAction의 `status` enum 값 5가지와 추적 목적은?",
+      "answer": "Proposed, Approved, In Progress, Completed, Cancelled다. 어떤 조치가 실행되었는지, 그리고 **실제 효과가 추정치 대비 어땠는지**를 추적하기 위한 것이다."
+    },
+    {
+      "id": "8570c2d1-81c1-4624-9905-e7066f1c9c65",
+      "question": "AlternativeSupplier 엔터티의 정의와 핵심 속성은?",
+      "answer": "주 공급업체를 대체할 수 있는 자격을 갖춘 백업 공급업체다. 핵심 속성은 `altSupplierId`, `name`, `country`, `qualificationStatus`, `capacityAvailable`(units/month), `pricePremiumPercent`(%)."
+    },
+    {
+      "id": "32b68765-da90-4091-b3b2-ef12158e6979",
+      "question": "AlternativeSupplier의 `qualificationStatus` enum 값 4가지는?",
+      "answer": "Pre-qualified, Approved, Pending Audit, Not Qualified다. 즉시 가동 가능한지 여부를 이 값으로 판별한다."
+    },
+    {
+      "id": "66f18321-c5a1-4446-b589-84de29234af3",
+      "question": "AlternativeSupplier 엔터티가 있어야 하는 이유는?",
+      "answer": "**알려진 용량과 비용 영향을 갖고 백업을 신속히 가동**할 수 있게 하기 때문이다. `capacityAvailable`로 수요 충족 가능성을, `pricePremiumPercent`로 비용 상승분을 미리 안다."
+    },
+    {
+      "id": "8f5a33cd-8593-4e17-9a03-3f8e1bf2f87d",
+      "question": "온톨로지 속성의 7가지 타입과 에이전트에서의 용도는?",
+      "answer": "`string`은 검색·필터·리포트, `integer`는 임계값 기반 알림, `decimal`은 비용·편익 계산, `date`는 타임라인 비교, `datetime`은 감사 추적·추세 분석, `enum`은 분류·의사결정 트리, `boolean`은 리스크 플래깅에 쓰인다."
+    },
+    {
+      "id": "f3795b04-d992-450b-8721-159bc9a6cb12",
+      "question": "`decimal` 타입 속성의 예시와 활용은?",
+      "answer": "매출(revenue), 가격 프리미엄(price premium), 신뢰도 점수(reliability score)가 예시다. 비용-편익 계산(cost-benefit calculation)에 사용된다."
+    },
+    {
+      "id": "35d3200c-3309-4f26-a69c-4d39c8f41a26",
+      "question": "`enum` 타입 속성이 자동화에서 특히 중요한 이유는?",
+      "answer": "공급업체 tier, 교란 type, severity처럼 값 집합이 고정되어 있어 **분류와 의사결정 트리(decision tree)를 신뢰성 있게 구성**할 수 있기 때문이다."
+    },
+    {
+      "id": "e2fcdfde-ee7f-41d8-b594-728953d28629",
+      "question": "7개 엔터티의 식별자 속성명은 각각 무엇인가?",
+      "answer": "Supplier→`supplierId`, Component→`componentId`, ProductLine→`productLineId`, DisruptionEvent→`eventId`, RiskAssessment→`assessmentId`, MitigationAction→`actionId`, AlternativeSupplier→`altSupplierId`."
+    },
+    {
+      "id": "fbb0bf03-c24b-4a91-adc7-1e219f0eb1a8",
+      "question": "식별자 값의 예시 형태는? (Supplier, Component, DisruptionEvent)",
+      "answer": "Supplier는 `SUPP-00456`, Component는 `COMP-SEM-0821`, DisruptionEvent는 `DISR-202405-TAIWAN-001` 형태다. 접두어와 날짜·지역 코드로 사람이 읽을 수 있게 구성된다."
+    },
+    {
+      "id": "6cb71d4a-c148-476a-a14f-a1958503d394",
+      "question": "RiskAssessment와 MitigationAction 식별자 예시는?",
+      "answer": "`RA-20240501-SEM-001`, `MA-20240501-ALT-SUPP` 형태다. 평가·조치 발생 일자를 ID에 포함해 감사 추적이 쉽다."
+    },
+    {
+      "id": "f9e2cdcb-5820-43e8-bbe7-d288dc11979a",
+      "question": "식별자(ID) 속성이 온톨로지에서 하는 역할은?",
+      "answer": "사용자와 에이전트가 **질의와 리포트에서 특정 인스턴스를 지목**하는 수단이다. ID가 없으면 \"이 공급업체\"를 기계적으로 참조할 수 없다."
+    }
+  ]
+}

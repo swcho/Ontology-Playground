@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "96166476-beca-45f5-a47e-999a310e7f55",
+      "question": "온톨로지에 나타나는 3가지 카디널리티 유형과 예시는?",
+      "answer": "**One-to-many**: 한 공급업체가 여러 부품을 공급, 한 교란이 여러 공급업체에 영향. **Many-to-many**: 부품이 여러 제품 라인에 사용, 조치가 여러 대체 공급업체를 가동. **Many-to-one**: 여러 대체 공급업체가 하나의 주 공급업체를 대체."
+    },
+    {
+      "id": "54e234e4-44fb-48a1-a430-b1d11e3c4b31",
+      "question": "온톨로지에서 관계(relationship)가 갖는 핵심 힘은 무엇인가?",
+      "answer": "관계가 **영향이 공급망을 타고 흐르는 경로를 인코딩**한다. 데이터 에이전트는 이 경로를 따라가 \"이 공급업체 실패에 몇 개 제품 라인이 노출되나?\" 같은 질문에 답한다."
+    },
+    {
+      "id": "bcfea38e-0b1d-4c57-a3fc-103ebd0fb8ca",
+      "question": "관계 1 `Supplier supplies Component`의 카디널리티와 중요성은?",
+      "answer": "one-to-many다. **한 공급업체를 교란하면 그에 의존하는 모든 부품이 영향**을 받는다. 예: ChipX Corp가 GPU Module·Memory Board·Power Supply를 공급."
+    },
+    {
+      "id": "74268651-b27a-488a-b8f2-19cf6a9f25ed",
+      "question": "`Supplier supplies Component` 관계로 답할 수 있는 질의 예시는?",
+      "answer": "\"대만에 있는 공급업체가 공급하는 모든 부품을 보여줘\" 같은 질의다. 지역·국가 속성과 결합해 노출 범위를 좁힌다."
+    },
+    {
+      "id": "12372964-acd9-41f1-9b6d-731bd229bdd2",
+      "question": "관계 2 `Component used in ProductLine`의 카디널리티와 중요성은?",
+      "answer": "many-to-many다. **단일 부품의 공급 실패가 여러 제품 라인을 동시에 멈출 수 있다**. 예: GPU Module이 Gaming Laptop 2024·Workstation Pro·Tablet Plus에 사용."
+    },
+    {
+      "id": "f90bd334-573d-4e0f-90f8-25e80dca3f8f",
+      "question": "관계 3 `DisruptionEvent affects Supplier`의 카디널리티와 중요성은?",
+      "answer": "many-to-many다. **하나의 재난이 여러 공급업체를 동시에 타격**할 수 있다(예: Taiwan Power Outage가 ChipX Corp와 Memory Inc에 영향). 반대로 한 공급업체가 여러 위협에 직면할 수도 있다."
+    },
+    {
+      "id": "2505b76e-58c1-4fdb-89b1-b7d0ec5b1a5b",
+      "question": "관계 4 `DisruptionEvent triggers RiskAssessment`의 카디널리티와 의미는?",
+      "answer": "one-to-many다. **각 교란이 영향받는 제품 라인별로 상세 임팩트 분석을 촉발**한다. 이 관계로 \"이 교란의 총 위험 매출은?\"을 집계할 수 있다."
+    },
+    {
+      "id": "566168c3-83a5-4db7-bc50-8596c59441f6",
+      "question": "관계 5 `RiskAssessment recommends MitigationAction`의 카디널리티와 의미는?",
+      "answer": "one-to-many다. **각 임팩트 분석이 우선순위가 매겨진 조치 목록을 생성**한다. 예: 대체 공급업체 가동, 안전 재고 증대, 부품 재설계."
+    },
+    {
+      "id": "bf254243-398d-4ce8-88e5-58aaf7c4b423",
+      "question": "관계 6 `MitigationAction activates AlternativeSupplier`의 카디널리티와 의미는?",
+      "answer": "many-to-many다. **하나의 조치가 여러 백업을 동시에 가동**할 수 있다(예: ChipX Europe과 SemiCorp Japan 동시 활성화)."
+    },
+    {
+      "id": "751b196f-f521-4cd4-be71-1ac9273efebd",
+      "question": "관계 7 `AlternativeSupplier canReplace Supplier`의 카디널리티와 의미는?",
+      "answer": "many-to-one이다. **핵심 공급업체 하나에 대해 승인된 백업이 여러 개 존재**할 수 있다. \"이 공급업체에 승인된 백업이 있나?\" 질의를 지원한다."
+    },
+    {
+      "id": "58c6cd11-9dd4-4531-858b-ba94399aec96",
+      "question": "7개 관계를 순서대로 나열하면?",
+      "answer": "① Supplier supplies Component, ② Component usedIn ProductLine, ③ DisruptionEvent affects Supplier, ④ DisruptionEvent triggers RiskAssessment, ⑤ RiskAssessment recommends MitigationAction, ⑥ MitigationAction activates AlternativeSupplier, ⑦ AlternativeSupplier canReplace Supplier."
+    },
+    {
+      "id": "572e08d7-82dd-4b08-a945-9bebc7d7f3e6",
+      "question": "전체 연쇄(cascade) 예시에서 교란 이벤트의 속성 값은?",
+      "answer": "Taiwan Power Outage, `startDate`=2024-05-01, `severity`=Critical이다. 이 교란은 `singleSourced=true`인 Supplier \"ChipX Corp\"에 영향을 준다."
+    },
+    {
+      "id": "d6ba2563-4440-4d12-9e96-a4915eb8a038",
+      "question": "연쇄 예시에서 GPU Module의 재고 상황과 그 함의는?",
+      "answer": "`daysOfSupplyOnHand=3`이다. 즉 안전 재고로 3일만 버틸 수 있어, 교란 지속 기간이 그보다 길면 생산이 멈춘다."
+    },
+    {
+      "id": "050afa84-eee9-45ab-8de3-f43a3e0f7063",
+      "question": "연쇄 예시에서 GPU Module이 사용되는 제품 라인과 매출 규모는?",
+      "answer": "Gaming Laptop 2024(연 매출 50M 달러)와 Workstation Pro(연 매출 30M 달러)에 사용된다. 두 라인이 동시에 노출되므로 합산 노출이 커진다."
+    },
+    {
+      "id": "6168f868-5ff8-4766-9d5b-b4d647be5004",
+      "question": "연쇄 예시의 RiskAssessment 결과 값은?",
+      "answer": "`revenueAtRisk`=80M 달러, `timeToImpactDays`=3이다. 3일 안에 조치하지 않으면 80M 달러 규모 매출이 위험해진다는 뜻이다."
+    },
+    {
+      "id": "b163fa72-d8a9-4fca-8821-649e4b3dd987",
+      "question": "연쇄 예시에서 추천된 두 가지 MitigationAction과 비용은?",
+      "answer": "\"Activate ChipX Europe\"(`estimatedCost`=2M 달러, `leadTimeSavedDays`=2)와 \"Increase Safety Stock\"(`estimatedCost`=500K 달러)이다."
+    },
+    {
+      "id": "0b73aea4-0b20-42c5-a276-d780e5637b3f",
+      "question": "연쇄 예시에서 AlternativeSupplier \"ChipX Europe\"의 속성 값은?",
+      "answer": "`qualificationStatus`=Approved, `capacityAvailable`=50,000 units/month, `pricePremiumPercent`=12%다. 그리고 `canReplace`로 ChipX Corp를 대체한다."
+    },
+    {
+      "id": "830c57a9-997e-4fc9-a35f-ecce968fa2b4",
+      "question": "연쇄 예시에서 SemiCorp Japan의 역할은?",
+      "answer": "같은 MitigationAction이 활성화하는 **2차 옵션(secondary option)** 백업이다. 1차 백업의 용량이 부족하거나 실패할 때를 대비한다."
+    },
+    {
+      "id": "486a0bf1-0a23-4a6c-a1cd-e0ffce46773a",
+      "question": "2M 달러의 조치 비용을 정당화하는 근거는?",
+      "answer": "80M 달러 규모의 매출 손실을 막기 위해 2M 달러를 쓰고 리드타임 2일을 절약하는 것이므로, 비용 대비 편익이 압도적이다. 온톨로지가 두 숫자를 같은 그래프에서 제공하기 때문에 이 비교가 가능하다."
+    }
+  ]
+}

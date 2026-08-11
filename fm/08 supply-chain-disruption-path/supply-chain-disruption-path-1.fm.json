@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "24478272-2e81-4e40-b336-d0dff9414081",
+      "question": "Supply Chain Disruption & Risk Propagation 학습 경로에서 만드는 온톨로지의 목적은 무엇인가?",
+      "answer": "공급업체 교란이 부품·제품 라인·매출로 어떻게 연쇄 전파(cascade)되는지 모델링하고, 온톨로지 기반 데이터 에이전트로 완화(mitigation) 의사결정을 자동화하는 것이다. 사후 대응이 아니라 **선제적 리스크 관리**를 목표로 한다."
+    },
+    {
+      "id": "a252d48e-4a28-4e96-888b-9fb53e95ad20",
+      "question": "하나의 공급업체 교란이 파급되는 4가지 대상은?",
+      "answer": "① 그 공급업체에 의존하는 **Components**, ② 그 부품을 쓰는 **Product lines**, ③ 제품 출하 불가로 인한 **Revenue**, ④ 주 단위로 밀리는 **Production timelines**이다."
+    },
+    {
+      "id": "c1c0cbd1-7e15-4cf5-86f4-eab74f105e6a",
+      "question": "공급망 연쇄 효과에 대한 가시성이 있을 때와 없을 때의 결정적 차이는?",
+      "answer": "가시성이 없으면 피해가 발생한 뒤에야 반응한다(react after the damage is done). 가시성이 있으면 **고객이 영향을 받기 전에 예측하고 조치**할 수 있다."
+    },
+    {
+      "id": "44a50a1a-e87f-4a15-a212-1229b08857a4",
+      "question": "교란을 촉발하는 대표적 원인(트리거) 유형에는 어떤 것이 있나?",
+      "answer": "자연재해(natural disaster), 지정학적 사건(geopolitical event), 품질 문제(quality issue), 사이버 공격(cyber attack) 등이다. 재무적 실패(financial failure)도 포함된다."
+    },
+    {
+      "id": "b1081d00-88f8-434d-854a-cc774b5af300",
+      "question": "Taiwan 반도체 공급업체 정전 예시에서 교란의 지속 시간과 직접 영향 대상은?",
+      "answer": "정전은 **48시간** 지속되며, 직접적으로 **ChipX 부품 공급**에 영향을 준다. 이 부품은 랩톱·태블릿·디스플레이 3개 제품 라인에 쓰인다."
+    },
+    {
+      "id": "0b5b30e5-acf5-4c74-b75b-70827a94069a",
+      "question": "Taiwan 정전 예시에서 생산 중단 시점과 매출 위험 규모는?",
+      "answer": "재고가 소진되면서 **2주 후 생산이 중단**되고, **12M 달러의 매출이 위험**에 노출되며 고객 주문이 지연된다."
+    },
+    {
+      "id": "4bafeb34-672f-4d9a-a9bb-7cb5c8e4272f",
+      "question": "Taiwan 정전 예시에서 제시된 완화 조치는?",
+      "answer": "**사전 자격 심사를 통과한 대체 공급업체(pre-qualified alternative supplier) 가동**과 **안전 재고(safety stock) 활용**을 병행하는 것이다."
+    },
+    {
+      "id": "824abed1-90c4-4056-818c-0641d613f492",
+      "question": "온톨로지가 없을 때 이런 교란 영향 분석은 어떻게 수행되나?",
+      "answer": "수작업 스프레드시트로 며칠(days)이 걸린다. 그래서 분석이 끝날 무렵에는 이미 대응 시점을 놓친다."
+    },
+    {
+      "id": "c79888b0-bc6c-4ba8-88a5-92f9a4cb1d5c",
+      "question": "온톨로지가 있으면 AI 에이전트가 수행할 수 있는 5가지 작업은?",
+      "answer": "① 영향받은 모든 부품을 수 분 내 식별, ② 모든 제품 라인·생산 일정으로 추적, ③ 대체 공급업체와 안전 재고 수량 추천, ④ 각 완화 조치의 비용·편익 계산, ⑤ 자동 알림과 조달 워크플로 트리거."
+    },
+    {
+      "id": "3043f545-06eb-43ca-ab35-539728483055",
+      "question": "이 학습 경로의 4단계는 각각 어떤 산출물을 만드는가?",
+      "answer": "1단계 핵심 엔터티(Supplier·Component·ProductLine·Disruption) → 공급망 어휘, 2단계 속성과 식별자 → 리스크 계산용 속성, 3단계 관계·연쇄 모델링 → 영향 전파 그래프, 4단계 리스크 평가·완화 조치 → 의사결정 자동화."
+    },
+    {
+      "id": "f1a0cbbe-0373-4e7a-af7e-f1913448d7d1",
+      "question": "완성된 Supply Chain Disruption 온톨로지의 규모는?",
+      "answer": "**7개 엔터티**, 신뢰도 점수·재고 수준·비용·일정을 담는 **40개 속성**, 교란 연쇄를 모델링하는 **7개 관계**로 구성된다. 또한 데이터 에이전트 그라운딩과 실시간 알림을 위한 **Fabric IQ 호환성**을 갖춘다."
+    },
+    {
+      "id": "f4240a46-d086-410e-a642-e3aaef305cb8",
+      "question": "이 경로의 5가지 핵심 개념(key concepts)은?",
+      "answer": "① Disruption events(트리거), ② Impact propagation(의존성을 따른 연쇄 전파), ③ Risk assessment(위험 매출·영향 도달 시간 계산), ④ Mitigation actions(영향을 줄이는 구체적 조치), ⑤ Alternative suppliers(용량·비용 트레이드오프를 가진 사전 검증 백업)."
+    },
+    {
+      "id": "59a7f359-4f7f-44b0-ae06-e9879b8eb7cd",
+      "question": "온톨로지의 7개 엔터티는 무엇을 포괄하도록 설계되었나?",
+      "answer": "촉발 사건에서 시작해 탐지(detection)·평가(assessment)·대응(response)까지 **공급망 교란의 전체 생애주기(full lifecycle)**를 포괄한다. 엔터티는 network/disruption/analysis/backup 4개 티어로 묶인다."
+    },
+    {
+      "id": "8e373f52-2ad7-4680-bf6e-f33aae6f18b1",
+      "question": "7개 엔터티의 4개 티어 구성은?",
+      "answer": "Tier 1 네트워크: Supplier·Component·ProductLine, Tier 2 교란: DisruptionEvent, Tier 3 분석: RiskAssessment·MitigationAction, Tier 4 백업: AlternativeSupplier."
+    },
+    {
+      "id": "da10d31f-6c84-4d40-b64c-af1ba4937d71",
+      "question": "Supplier 엔터티는 무엇을 표현하며 핵심 속성은?",
+      "answer": "원자재나 부품을 공급하는 외부 회사를 표현한다. 핵심 속성은 `supplierId`(고유), `name`, `country`, `tier`(Tier 1/2/3), `reliabilityScore`(0-100), `singleSourced`(boolean)."
+    },
+    {
+      "id": "c07870c3-8066-4db3-a6a2-908294790a88",
+      "question": "Supplier 엔터티의 대표적 활용(use case)은?",
+      "answer": "리스크를 증폭시키는 **단일 소싱(single-source) 핵심 공급업체를 식별**하는 것이다. `singleSourced=true`인 공급업체는 대체 경로가 없어 교란 시 영향이 그대로 전이된다."
+    },
+    {
+      "id": "19bf06af-563a-4801-be65-01987461d825",
+      "question": "Component 엔터티의 정의와 핵심 속성은?",
+      "answer": "하나 이상의 공급업체로부터 조달되는 부품·소재·서브어셈블리다. 핵심 속성은 `componentId`, `name`, `category`, `daysOfSupplyOnHand`, `criticalityLevel`."
+    },
+    {
+      "id": "79cfdb4f-67b4-4e9c-967c-9e6a453e512d",
+      "question": "Component의 `category` enum 값 5가지는?",
+      "answer": "Electronic, Mechanical, Chemical, Packaging, Raw Material이다."
+    },
+    {
+      "id": "7f506e97-663f-41ac-ac43-4c3e372ec378",
+      "question": "Component의 `criticalityLevel` enum 값과 `daysOfSupplyOnHand`의 역할은?",
+      "answer": "`criticalityLevel`은 Critical/High/Medium/Low 4단계다. `daysOfSupplyOnHand`는 남은 재고로 며칠을 버틸 수 있는지를 나타내어, 어떤 부품이 공급 중단을 견딜 수 있는지 판단하는 기준이 된다."
+    },
+    {
+      "id": "34fb7c55-b6ee-4642-aaa6-d2f632b1b9da",
+      "question": "ProductLine 엔터티의 정의와 핵심 속성은?",
+      "answer": "공통 부품을 공유하는 완성품의 그룹이다. 핵심 속성은 `productLineId`, `name`, `annualRevenue`, `marketSegment`, `productionStatus`."
+    }
+  ]
+}

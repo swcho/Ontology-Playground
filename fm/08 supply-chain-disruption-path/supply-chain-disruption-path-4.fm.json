@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "6f7e53db-fbe5-4fba-903b-a3ef322f3dc2",
+      "question": "이 구조가 데이터 에이전트에게 가능하게 하는 6단계 자동화는?",
+      "answer": "① Detect(대상 공급업체·지역 모니터링), ② Trace(영향 제품 라인 자동 추적), ③ Quantify(위험 매출·영향 도달 시간 계산), ④ Recommend(사전 검증 대체 공급업체 제안), ⑤ Act(조달 알림·생산 일정 갱신·이해관계자 통보), ⑥ Learn(실제 효과 대 추정치 추적)."
+    },
+    {
+      "id": "4fb8882e-3e91-4f41-915a-f0348182a0f3",
+      "question": "자동화 6단계 중 'Learn' 단계는 구체적으로 무엇을 추적하나?",
+      "answer": "어떤 조치가 실제로 효과가 있었는지, 그리고 **실제 임팩트와 추정 임팩트의 차이**를 추적한다. 이 데이터가 다음 교란 대응 정확도를 높인다."
+    },
+    {
+      "id": "3309590b-7fc6-4d89-b15e-4318915f8c97",
+      "question": "`Component → ProductLine` 관계가 M:N이어야 하는 이유는?",
+      "answer": "부품은 여러 제품에 재사용되고(components reused), 제품들도 부품을 공유하기(products share components) 때문이다. 1:N으로 모델링하면 공유 부품의 파급 범위를 표현할 수 없다."
+    },
+    {
+      "id": "6c984dbd-2b2f-4fdf-914d-e2481d5f924f",
+      "question": "`Disruption → Assessment` 관계가 1:N인 이유는?",
+      "answer": "각 교란이 **영향받는 제품 라인마다 별도의 평가(assessment)를 생성**하기 때문이다. 제품 라인별로 매출·타임라인이 다르므로 평가도 분리된다."
+    },
+    {
+      "id": "dd66c1c6-9286-4116-9957-ee694bbb3254",
+      "question": "`Action → Alternative` 관계가 M:N인 이유는?",
+      "answer": "하나의 조치가 여러 백업을 활성화할 수 있고, 하나의 백업이 여러 상황(situation)에서 사용될 수 있기 때문이다."
+    },
+    {
+      "id": "fe89a9e0-3ecd-4cd5-89e9-d0fe7db27293",
+      "question": "`Alternative → Supplier` 관계가 M:1인 이유는?",
+      "answer": "하나의 주 공급업체에 대해 **사전 검증된 백업이 여러 개 존재**할 수 있기 때문이다. 반대 방향으로 하나의 백업이 여러 주 공급업체를 대체하는 것은 이 모델에서 다루지 않는다."
+    },
+    {
+      "id": "1123281c-10f0-4c6d-8532-d1463aa2d221",
+      "question": "완화 실행 자동화의 5개 Phase와 시점(분)은?",
+      "answer": "Phase 1 Detection(0분), Phase 2 Trace impact(5분), Phase 3 Quantify impact(15분), Phase 4 Recommend actions(20분), Phase 5 Execute(25분)이다. 즉 25분 내 실행까지 도달한다."
+    },
+    {
+      "id": "9359dff5-3266-44c4-936f-5bb33779961e",
+      "question": "Phase 1 Detection의 입력과 온톨로지가 하는 일은?",
+      "answer": "입력은 외부 신호(공급업체 오프라인, 자연재해 경보, 품질 문제 보고)다. 에이전트가 `Supplier.country=\"Taiwan\"` + `DisruptionEvent.region=\"Taiwan\"` + `DisruptionEvent.type=\"Natural Disaster\"`를 매칭해 3개 핵심 공급업체를 식별한다."
+    },
+    {
+      "id": "c841a198-0f72-4b3f-a92c-2cab83d57410",
+      "question": "Phase 2 Trace impact에서 따라가는 관계 경로와 결과는?",
+      "answer": "`Supplier → supplies → Component`로 47개 부품을 찾고, 이어 `Component → usedIn → ProductLine`으로 12개 제품 라인이 노출됐음을 확인한다."
+    },
+    {
+      "id": "a34da461-50a1-4b40-a26d-e3091ae7b847",
+      "question": "Phase 3에서 제품 라인별 위험 매출을 계산하는 식은?",
+      "answer": "$$\\text{revenue\\_at\\_risk} = \\frac{\\text{annualRevenue}}{365} \\times \\text{daysOfSupplyOnHand}$$ 연 매출을 일 매출로 환산한 뒤 재고 소진 일수를 곱한다."
+    },
+    {
+      "id": "aa855503-0586-4c35-b7af-aa085095540e",
+      "question": "Phase 3의 긴급도(urgency) 계산식과 임계값은?",
+      "answer": "$$\\text{urgency} = 100 - (\\text{daysOfSupplyOnHand} \\times 10)$$ 이고, `urgency > 70`인 제품 라인을 critical로 분류한다. 즉 재고가 3일 이하면 긴급도가 70을 넘는다."
+    },
+    {
+      "id": "2bc65b47-81a9-4cfc-8107-374dc525aa9c",
+      "question": "Phase 3의 집계 결과 값 3가지는?",
+      "answer": "총 위험 매출 127M 달러, 임계 타임라인 3일, 영향받는 고객 450,000명 이상이다. 이 숫자들이 이후 실행 조건 판단의 기준이 된다."
+    },
+    {
+      "id": "d9226bea-086a-4a86-a3bb-4be6d54f9bef",
+      "question": "Phase 4에서 대체 공급업체를 찾을 때의 필터 조건 3가지는?",
+      "answer": "`qualificationStatus=\"Approved\"`, `capacityAvailable >= demand`, 그리고 `country NOT IN earthquake_region`이다. 마지막 조건은 백업이 같은 재난에 함께 노출되는 것을 막는다."
+    },
+    {
+      "id": "254710de-53ff-4219-ac03-0c2bda2b4e08",
+      "question": "Phase 4에서 각 대체안을 점수화하는 3가지 기준은?",
+      "answer": "절약되는 리드타임(`leadTimeSavedDays`), 비용 영향(`pricePremiumPercent`), 신뢰도(`reliabilityScore`)다. 세 축을 종합해 상위 3개 조치를 ROI와 함께 추천한다."
+    },
+    {
+      "id": "37cd7deb-3083-47bc-a0ad-26b87dff68c8",
+      "question": "Phase 4가 추천하는 3가지 조치 예시(A/B/C)는?",
+      "answer": "A: ChipX Europe 가동(2일 절약, +2M 달러), B: 안전 재고 증대(50만 달러, 2주 커버), C: 부품 재설계(리드타임 미확정)다. C처럼 불확실한 옵션도 목록에 남겨 비교한다."
+    },
+    {
+      "id": "efeb19d3-7268-491b-adc8-313a0f27bc76",
+      "question": "Phase 5의 자동 실행 트리거 조건은?",
+      "answer": "`RiskAssessment.revenueAtRisk > 50M 달러` **AND** `RiskAssessment.timeToImpactDays < 5`일 때 자동 워크플로가 발동한다. 금액과 시급성을 모두 만족해야 자동 실행된다."
+    },
+    {
+      "id": "523b5e41-9758-4e41-b73a-673cfb62c9a5",
+      "question": "Phase 5에서 자동으로 실행되는 5가지 동작은?",
+      "answer": "① 추천 대체 공급업체에 PurchaseOrder 생성, ② ProductionSchedule 타임라인 갱신, ③ 조달·운영·재무·CEO/이사회에 이메일 발송, ④ 에스컬레이션 정책이 포함된 Activator 알림 생성, ⑤ `MitigationAction.status` 모니터링 시작."
+    },
+    {
+      "id": "2a294b10-8574-44ca-9104-641e635f8f5b",
+      "question": "Phase 5의 이메일 수신자와 각자의 할 일은?",
+      "answer": "조달팀(구매 실행), 운영(일정 조정), 재무(추가 비용 2M 달러 예측), CEO/이사회(노출 현황 보고)다. 역할별로 필요한 조치가 분리되어 전달된다."
+    },
+    {
+      "id": "9f3c7d4e-107a-4e06-9ad3-998dcf1abed3",
+      "question": "실제 워크플로 Day 1에서 지진 발생부터 DisruptionEvent 생성까지 걸린 시간은?",
+      "answer": "10:30 AM 규모 6.8 대만 지진 발생 → 10:45 AM DisruptionEvent 생성으로 **15분**이다. 이벤트에는 type=Natural Disaster, severity=Critical, region=Taiwan, estimatedDurationDays=7이 기록된다."
+    }
+  ]
+}
