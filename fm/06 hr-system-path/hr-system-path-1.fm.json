@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "4a5b1b27-03ca-4544-9e7a-640d86a4385e",
+      "question": "HR System 학습 경로에서 설계하는 온톨로지는 무엇인가?",
+      "answer": "성장하는 조직을 위한 **human resources ontology**다. 직원·부서·직무·배치·성과 평가를 하나의 공유 모델로 연결해, 인사 도메인 전체를 governance-ready 구조로 표현한다."
+    },
+    {
+      "id": "e2b5b8ae-3038-4a63-9e8e-6188366bada6",
+      "question": "HR System 시나리오에서 공유 모델이 필요한 5개 영역은?",
+      "answer": "① Employees와 lifecycle status, ② Departments와 budget ownership, ③ Positions와 role hierarchy, ④ 직원을 부서·직무에 시간에 따라 배치하는 Assignments, ⑤ 육성·보상 논의에 쓰이는 Performance reviews."
+    },
+    {
+      "id": "fc8b418c-59ee-484d-b637-126764f31bf2",
+      "question": "HR 데이터는 현재 어디에 흩어져 있는가?",
+      "answer": "payroll tools, HRIS, spreadsheets, manager notes 네 곳이다. 시스템이 서로 연결되지 않아 사람이 수동으로 짜맞춰야 한다."
+    },
+    {
+      "id": "fb833e4e-92b1-4b9e-b017-958c2a88472b",
+      "question": "이 경로가 제시하는 대표적인 교차 질문(cross-functional question)은?",
+      "answer": "\"Which departments have the highest number of senior employees rated outstanding in the last review cycle?\" — 마지막 평가 주기에서 outstanding을 받은 senior 직원이 가장 많은 부서를 묻는 질문이다."
+    },
+    {
+      "id": "45a907e5-6d58-472c-a1fc-cbacd2a3e804",
+      "question": "위 대표 질문이 \"교차\" 질문인 이유는?",
+      "answer": "employee records(직원 기록), org structure(조직 구조), role definitions(직무 정의), review outcomes(평가 결과) 네 영역을 동시에 참조해야 답이 나오기 때문이다."
+    },
+    {
+      "id": "1f5faa20-74d4-44e6-8fb7-c2b2525a3e17",
+      "question": "온톨로지를 도입하면 이 질문의 성격이 어떻게 바뀌는가?",
+      "answer": "단절된 시스템 간 manual joins(수동 조인) 대신 connected graph query(연결된 그래프 질의) 하나로 바뀐다."
+    },
+    {
+      "id": "c29c944d-8989-48e6-9ef6-e4cfa7856044",
+      "question": "Step 1에서 다루는 엔티티와 학습 목표는?",
+      "answer": "Employee, Department, Position을 다룬다. organizational foundation(조직 기반)과 identifiers(식별자) 설계를 배운다."
+    },
+    {
+      "id": "94b88658-a8da-4a7b-80e1-3178e1167a14",
+      "question": "Step 2에서 추가되는 엔티티와 학습 목표는?",
+      "answer": "Assignment를 추가한다. staffing history(배치 이력)를 위한 junction entity pattern을 배운다."
+    },
+    {
+      "id": "19939607-4682-409f-a349-231c88119382",
+      "question": "Step 3에서 추가되는 엔티티와 학습 목표는?",
+      "answer": "PerformanceReview를 추가한다. review cycles, ratings, people analytics를 배운다."
+    },
+    {
+      "id": "61bd466d-e025-4c1f-b91f-47baa29f8586",
+      "question": "Step 4의 목표는?",
+      "answer": "complete model로 end-to-end HR questions와 graph reasoning을 수행하는 것이다. 5개 엔티티 전체를 이용해 실제 인사 분석 질문에 답한다."
+    },
+    {
+      "id": "baf9b59e-f981-440d-b940-f4631060c6a5",
+      "question": "이 경로가 제시하는 4개 key concepts는?",
+      "answer": "① 모든 엔티티에 대한 stable identifiers, ② many-to-many 배치 시나리오를 위한 junction entities, ③ 시간 인식 분석을 위한 temporal properties, ④ 통제된 상태·등급 값을 위한 enum values."
+    },
+    {
+      "id": "8b6c292b-7ab9-4c80-a40b-ad2ba48e7dc2",
+      "question": "temporal properties의 예와 목적은?",
+      "answer": "`startDate`, `reviewDate` 같은 날짜 속성이다. time-aware analysis(시간 인식 분석) — 특정 시점·기간의 상태를 되짚는 질문에 답하기 위해 둔다."
+    },
+    {
+      "id": "f5926b3f-81d5-417d-b6ab-5f2f5d2c208c",
+      "question": "HR 온톨로지에서 enum values를 쓰는 이유는?",
+      "answer": "status와 rating 같은 값을 controlled(통제된) 집합으로 제한하기 위해서다. 자유 문자열이면 부서마다 표기가 갈려 집계가 불가능해진다."
+    },
+    {
+      "id": "8bd1add0-4bf1-4a09-bb36-bb5a19f3be06",
+      "question": "junction entities는 어떤 상황에 필요한가?",
+      "answer": "many-to-many staffing scenarios처럼 관계 자체가 여러 대상을 잇고 고유한 속성(기간 등)을 가질 때 필요하다. HR에서는 Assignment가 그 역할을 한다."
+    }
+  ]
+}

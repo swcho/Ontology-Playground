@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "1c49835b-8e2d-4612-99db-6d1d6f39940f",
+      "question": "모든 HR 온톨로지가 시작하는 세 개의 core entities는?",
+      "answer": "Employee(워크포스의 사람), Department(업무가 조직되는 business unit), Position(책임과 레벨을 기술하는 role definition)이다."
+    },
+    {
+      "id": "252ffb3c-f6e5-415c-bdd4-fa2125c6d033",
+      "question": "이 세 엔티티가 제공하는 최소 구조로 가능한 업무는?",
+      "answer": "hiring(채용), reporting(보고), workforce planning(인력 계획)이다. 세 엔티티는 그 최소 골격(organizational backbone)이다."
+    },
+    {
+      "id": "6430c94c-f43b-4642-9fa1-6396462cf944",
+      "question": "Employee 엔티티의 속성과 타입은?",
+      "answer": "`employeeId`(string, 식별자), `name`(string), `hireDate`(date), `employmentStatus`(enum), `jobLevel`(enum)."
+    },
+    {
+      "id": "5ddcfce3-be79-4612-8530-be5f2cf8f58b",
+      "question": "Employee의 식별자로 `employeeId`를 쓰고 email을 쓰지 않는 이유는?",
+      "answer": "`employeeId`는 stable business identifier이지만 email은 mutable attribute다. 바뀔 수 있는 값을 primary key로 쓰면 참조가 깨진다."
+    },
+    {
+      "id": "d295ac1c-6a9a-4dea-82d7-8e73e49f58ab",
+      "question": "Employee의 `employmentStatus`와 `jobLevel`이 enum인 이유는?",
+      "answer": "둘 다 조직이 정의한 통제된 값 집합(재직/휴직/퇴직, junior/senior 등)이기 때문이다. enum이어야 필터링과 집계가 일관되게 동작한다."
+    },
+    {
+      "id": "02382611-bdcd-426b-ba21-1ee344ae00eb",
+      "question": "Department 엔티티의 속성과 타입은?",
+      "answer": "`departmentId`(string, 식별자), `name`(string), `budget`(decimal), `status`(enum)."
+    },
+    {
+      "id": "049449ff-cbd6-4d12-a557-d63555bc7d79",
+      "question": "Department에 `budget`을 두면 어떤 분석이 가능해지는가?",
+      "answer": "같은 그래프에서 resource planning(자원 계획)과 cost center analysis(코스트 센터 분석)를 할 수 있다. 예산이 조직 구조와 연결되어 있기 때문이다."
+    },
+    {
+      "id": "d05f122d-feb3-4d06-a14f-5145cc68dae2",
+      "question": "Department의 `budget`을 decimal로 두는 이유는?",
+      "answer": "금액이므로 정확한 소수 표현이 필요하다. float 계열은 반올림 오차가 누적되어 예산 집계에 부적절하다."
+    },
+    {
+      "id": "747f0645-f334-4c8a-a6cd-b61b457cf50d",
+      "question": "Position 엔티티의 속성과 타입은?",
+      "answer": "`positionId`(string, 식별자), `title`(string), `level`(enum), `salaryBand`(string)."
+    },
+    {
+      "id": "bdc9a882-73ea-4803-bee6-e2a1e2e0cd32",
+      "question": "Position 엔티티가 담당하는 분리(separation)는 무엇인가?",
+      "answer": "role definition(직무 정의)을 그 직무에 현재 배치된 사람과 분리한다. Position은 역할 자체(title, level, salaryBand)를 나타내고 Employee는 사람을 나타낸다."
+    },
+    {
+      "id": "6f2b49c1-b8f1-499a-8c9d-58a90112bd3f",
+      "question": "세 개념을 하나의 \"EmployeeProfile\" 엔티티로 합치면 잃는 유연성 3가지는?",
+      "answer": "① historical staffing changes(배치 이력 변경), ② role transitions(직무 전환), ③ 채용 전에 존재하는 open positions. 셋 다 표현할 수 없게 된다."
+    },
+    {
+      "id": "c035d877-41bd-493a-bf1f-da2721add2fa",
+      "question": "채용 전에 존재하는 open position은 왜 Position 분리를 정당화하는가?",
+      "answer": "아직 배정된 Employee가 없는 직무이기 때문이다. 역할 필드가 Employee에만 있으면 사람 없는 직무를 표현할 방법이 없다."
+    },
+    {
+      "id": "19946405-b767-4f1d-bb79-12a493471d49",
+      "question": "Position을 Employee의 필드로 두지 않고 별도 엔티티로 모델링하는 이유는? (퀴즈)",
+      "answer": "Position은 특정 직원과 독립적으로 존재할 수 있는 reusable role definition이기 때문이다. 엔티티 개수 요건이나 관계 수 절감과는 무관하다."
+    },
+    {
+      "id": "4ed63d68-8fe1-41d4-9203-de4dfade184a",
+      "question": "Employee, Department, Position 세 엔티티가 공통으로 갖는 설계 규칙은?",
+      "answer": "각자 하나의 stable string identifier(`employeeId`, `departmentId`, `positionId`)를 갖는다는 것이다. 식별자가 안정적이어야 관계가 시간이 지나도 유지된다."
+    },
+    {
+      "id": "7e24612a-23e4-48b8-b7b4-44ef4b81370b",
+      "question": "엔티티를 분리해 두는 것이 모델에 주는 두 가지 이점은?",
+      "answer": "clean(깔끔함)과 extensible(확장 가능)이다. 새 관계나 새 속성을 추가할 때 기존 개념을 훼손하지 않는다."
+    },
+    {
+      "id": "b9a97fc2-4b98-4942-9de3-00f8f782f8d7",
+      "question": "Department의 `status`가 enum인 이유는?",
+      "answer": "부서의 활성/비활성 같은 생애 상태를 통제된 값으로 표현해야 하기 때문이다. 폐지된 부서를 제외한 집계 같은 질의가 이 값에 의존한다."
+    }
+  ]
+}

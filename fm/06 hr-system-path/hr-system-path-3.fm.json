@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "6953f430-1c47-465f-a0b6-642aefe336a8",
+      "question": "staffing history problem(배치 이력 문제)이란?",
+      "answer": "직원은 시간에 따라 부서·직무를 옮기고, 한 부서는 여러 직원을 수용하며, 한 직무는 시기별로 다른 사람이 채운다. 단순 one-to-one 구조로 표현할 수 없는 상황이다."
+    },
+    {
+      "id": "63ee032b-d99a-44a5-8ca7-7392e8d7c276",
+      "question": "Assignment 엔티티를 도입해 연결하는 세 관계는?",
+      "answer": "`Employee` -> `Assignment` (one-to-many), `Assignment` -> `Department` (many-to-one), `Assignment` -> `Position` (many-to-one)."
+    },
+    {
+      "id": "c880deef-43b4-469b-85ae-c389e01ca116",
+      "question": "Assignment가 담는 것은 무엇인가?",
+      "answer": "관계의 context(문맥)다. 누가·어디서·어떤 역할로·언제부터 언제까지 일했는지를 Assignment 한 건이 기록한다."
+    },
+    {
+      "id": "8a028f71-7d22-40d8-9c89-dab76aeb55c8",
+      "question": "Assignment 엔티티의 속성과 타입은?",
+      "answer": "`assignmentId`(string, 식별자), `startDate`(date), `endDate`(date), `isPrimary`(boolean)."
+    },
+    {
+      "id": "8f53ab5d-193b-481c-86ba-f0718d529a68",
+      "question": "`startDate`와 `endDate`가 가능하게 하는 historical questions 예는?",
+      "answer": "\"Who was in Finance during Q2?\"(2분기에 Finance에 있던 사람), \"Which employees changed departments this year?\"(올해 부서를 옮긴 직원) 같은 질문이다."
+    },
+    {
+      "id": "7a74859d-7c8d-4770-a911-b93f2d1743c4",
+      "question": "`isPrimary` 속성은 무엇을 표현하는가?",
+      "answer": "해당 배치가 그 직원의 주(primary) 배치인지 여부다. 겸직처럼 한 직원이 동시에 여러 Assignment를 가질 때 주 소속을 구분한다."
+    },
+    {
+      "id": "51f04519-3566-4e98-badf-97e4c64b1452",
+      "question": "Employee -> Assignment가 one-to-many인 이유는?",
+      "answer": "한 직원이 시간에 따라 여러 배치 기록을 갖기 때문이다. 배치가 바뀔 때 기존 기록을 덮어쓰지 않고 새 Assignment를 추가한다."
+    },
+    {
+      "id": "38a6a7a5-1863-4863-accc-57bd737535f2",
+      "question": "Assignment -> Department가 many-to-one인 이유는?",
+      "answer": "여러 배치 기록이 같은 부서를 가리키기 때문이다. 한 부서는 여러 직원의 배치를 호스팅하지만, 한 배치는 한 부서만 지목한다."
+    },
+    {
+      "id": "7798d819-9150-4bef-ad40-924b1727188c",
+      "question": "junction entity 패턴은 어떤 도메인들에서 같은 형태로 나타나는가?",
+      "answer": "Student-Course를 잇는 Enrollment, Customer-Product를 잇는 Order line items, Employee-Department-Position을 잇는 Assignment. 모두 동일한 일반 패턴이다."
+    },
+    {
+      "id": "9c023c6d-fa09-49c0-932a-96f25d189037",
+      "question": "junction entity를 써야 하는 판단 기준은?",
+      "answer": "관계가 자신만의 속성(attributes)을 필요로 할 때다. 속성이 없다면 단순 관계로 충분하다."
+    },
+    {
+      "id": "e4ed8bd4-9bc5-42b0-bc10-584c71b7b30d",
+      "question": "Assignment를 별도 엔티티로 두어야 하는 주된 이유는? (퀴즈)",
+      "answer": "`startDate`, `endDate`처럼 관계에 특화된 속성을 담기 때문이다. 그 속성들은 Employee·Department·Position 어느 하나에도 귀속되지 않는다."
+    },
+    {
+      "id": "0d20d391-85ac-45e6-b71d-a99cea234670",
+      "question": "Assignment 없이 Employee에 부서·직무를 직접 두면 무엇을 잃는가?",
+      "answer": "시점 정보를 담을 곳이 없어 현재 상태만 남고, 배치 이력(전환·이동)이 덮어쓰기로 사라진다."
+    },
+    {
+      "id": "68756f13-f5d7-4b9c-9e8d-aaf682eec4d7",
+      "question": "Assignment가 세 엔티티를 잇는 구조를 방향과 함께 말해보라.",
+      "answer": "Employee에서 Assignment로 one-to-many로 뻗고, 그 Assignment가 Department와 Position 각각으로 many-to-one으로 수렴한다. Assignment가 세 갈래의 교차점이다."
+    },
+    {
+      "id": "4ad3352a-ec03-4b9e-95a2-108032152fcf",
+      "question": "Assignment의 식별자를 별도로 두는(`assignmentId`) 이유는?",
+      "answer": "배치 자체가 참조 가능한 독립 개체이기 때문이다. (employee, department, position) 조합은 시기별로 반복될 수 있어 키가 될 수 없다."
+    }
+  ]
+}

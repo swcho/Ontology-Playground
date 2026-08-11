@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "c9c60c0d-d0f9-4246-9de5-a8443157c889",
+      "question": "people analytics layer를 완성하는 마지막 엔티티는?",
+      "answer": "PerformanceReview다. 평가 결과(evaluation outcomes)를 review cycles에 걸쳐 직원과 연결한다."
+    },
+    {
+      "id": "bc13b07a-ce03-4798-8b72-89102a74bf10",
+      "question": "PerformanceReview와 Employee의 관계는?",
+      "answer": "`Employee` -> `PerformanceReview` (one-to-many). 한 직원이 여러 평가 주기의 리뷰를 갖는다."
+    },
+    {
+      "id": "4c051ec9-c589-4b79-b629-59f045b08214",
+      "question": "PerformanceReview 엔티티의 속성과 타입은?",
+      "answer": "`reviewId`(string, 식별자), `reviewPeriod`(string), `rating`(enum), `reviewDate`(date)."
+    },
+    {
+      "id": "af3712d0-b7ad-4ea0-b70a-d37c23faa37d",
+      "question": "`reviewPeriod`와 `reviewDate`를 함께 두는 이유는?",
+      "answer": "`reviewPeriod`는 평가 대상 주기(예: 2024 H1)를, `reviewDate`는 평가가 이뤄진 실제 날짜를 나타낸다. 주기별 집계와 시점 질의를 각각 지원한다."
+    },
+    {
+      "id": "9474aeb3-8be8-4a2e-a0af-74916f54fcd8",
+      "question": "`rating`이 enum인 이유는?",
+      "answer": "outstanding처럼 정해진 등급 집합으로 값을 제한해야 부서·기간 간 비교와 집계가 가능하기 때문이다."
+    },
+    {
+      "id": "35d4b095-6c1e-4813-92ba-27653bf18e5b",
+      "question": "완성된 HR System 온톨로지의 5개 엔티티는?",
+      "answer": "Employee, Department, Position, Assignment, PerformanceReview."
+    },
+    {
+      "id": "f984fe96-1ba3-4ff8-a069-06ce2c09bc00",
+      "question": "\"Which departments have the most senior employees?\"의 그래프 경로는?",
+      "answer": "`Department <- Assignment <- Employee`를 따라가며 `jobLevel=senior`로 필터링한다."
+    },
+    {
+      "id": "dd917fe6-7567-4379-bf6a-5704a7edf148",
+      "question": "\"Which employees changed roles in the last year?\"의 그래프 경로는?",
+      "answer": "`Employee -> Assignment -> Position`. 같은 직원에 날짜가 다른 Assignment 레코드가 여러 건 있는지로 판단한다."
+    },
+    {
+      "id": "8162ac11-af49-457b-aef3-7d1782dd255d",
+      "question": "\"Which teams have many outstanding reviews?\"의 그래프 경로는?",
+      "answer": "`Department <- Assignment <- Employee -> PerformanceReview`에서 `rating=outstanding`으로 필터링한다. 배치를 거쳐 부서로, 리뷰로 각각 뻗는 두 갈래를 함께 쓴다."
+    },
+    {
+      "id": "12812977-5fd5-44cd-8663-5c61e2ed4fc1",
+      "question": "\"Which assignments are no longer active?\"는 어떻게 판별하는가?",
+      "answer": "Assignment에서 `endDate`가 설정되어 있거나 `isPrimary=false`인 레코드를 찾는다. 다른 엔티티를 거치지 않는 단일 엔티티 필터다."
+    },
+    {
+      "id": "5e0279c9-5467-477b-84bb-e9598f5fd474",
+      "question": "부서별 outstanding 리뷰 질문이 가장 긴 경로를 갖는 이유는?",
+      "answer": "부서 정보는 Assignment를 통해서만, 평가 정보는 PerformanceReview를 통해서만 얻을 수 있어 Employee를 중심으로 양쪽으로 뻗어야 하기 때문이다."
+    },
+    {
+      "id": "27687d96-7927-4179-b56f-02479f64a10f",
+      "question": "HR 모델의 첫 번째 key takeaway는?",
+      "answer": "person(사람), org unit(조직 단위), role(역할)을 서로 구분된 엔티티로 분리하라 — Employee, Department, Position."
+    },
+    {
+      "id": "5154a557-1036-45b7-bdbc-12a58fdeb8d5",
+      "question": "HR 모델의 두 번째와 세 번째 key takeaway는?",
+      "answer": "② time-aware staffing history를 위해 Assignment를 junction entity로 사용하라. ③ 워크포스 엔티티에 측정 가능한 결과(measurable outcomes)를 붙이기 위해 PerformanceReview를 사용하라."
+    },
+    {
+      "id": "fb2eeb11-71ce-4e58-b939-949088eac4ff",
+      "question": "HR 모델의 네 번째 key takeaway는?",
+      "answer": "식별자는 stable하게 유지하고, status 값은 enum으로 통제하라."
+    },
+    {
+      "id": "e855cf67-adf0-4a7d-a50f-f57a9bfc4f7f",
+      "question": "시간에 따른 역할·부서 변경의 이력 분석을 가능하게 하는 엔티티는? (퀴즈)",
+      "answer": "Assignment다. 특정 employee-department-position 연결에 대해 시작·종료 날짜를 기록하므로, 이것이 없으면 배치 이력을 깔끔하게 추적할 수 없다."
+    }
+  ]
+}
