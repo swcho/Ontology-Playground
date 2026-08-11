@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "23d55272-2756-464b-8812-2612ff83c2f9",
+      "question": "Healthcare System 학습 경로에서 모델링하는 대상은 무엇인가?",
+      "answer": "환자 진료 시스템(patient care system), 구체적으로 병원 네트워크를 위한 healthcare management system의 데이터 모델이다. 환자, 의료진, 예약, 진단, 처방을 하나의 온톨로지로 연결한다."
+    },
+    {
+      "id": "317f9b57-ba76-49b2-b3c5-e5ff52bf16ab",
+      "question": "Healthcare 시나리오에서 병원 네트워크가 추적하는 5가지 대상은 무엇인가?",
+      "answer": "Patients(의료 기록·혈액형·알레르기 정보), Providers(면허와 소속 부서를 가진 의사·전문의), Appointments(특정 provider와의 환자 방문 일정), Diagnoses(ICD 코드와 severity를 가진 의학적 상태), Prescriptions(약물 처방·용량·리필)이다."
+    },
+    {
+      "id": "344bbe4b-0e40-49c0-b4f2-6af43c78d77a",
+      "question": "Healthcare 시나리오에서 데이터는 어떤 시스템들에 흩어져 있는가?",
+      "answer": "전자의료기록(EHR, electronic health records), 스케줄링 시스템, 약국 데이터베이스(pharmacy databases), 청구 플랫폼(billing platforms)에 걸쳐 있다. 각 시스템이 서로 다른 형태로 데이터를 보관하는 것이 문제의 핵심이다."
+    },
+    {
+      "id": "666aeb9e-0912-40c9-ad8e-cf770209fb1c",
+      "question": "Healthcare 도메인에서 온톨로지가 필요한 이유를 보여주는 임상 질문 예시는?",
+      "answer": "\"cardiology provider가 severe로 진단한 환자 중 refillsRemaining이 0인 처방을 가진 사람은 누구인가?\"이다. 이 질문은 환자 기록, 진단 이력, provider 전문 분야, 약국 데이터를 모두 교차해야 답할 수 있다."
+    },
+    {
+      "id": "55591ec7-21c3-4b62-815a-2d5556eef331",
+      "question": "\"cardiology provider가 severe로 진단한 환자 중 리필이 0인 처방을 가진 사람\" 질문은 온톨로지에서 어떤 경로로 매핑되는가?",
+      "answer": "`Patient → Diagnosis (severity=severe) ← Provider (specialty=Cardiology)`와 `Diagnosis → Prescription (refillsRemaining=0)`으로 매핑된다. 즉 두 개의 그래프 탐색 경로가 Diagnosis에서 만나는 구조다."
+    },
+    {
+      "id": "80837c6b-a995-4d1c-8391-dcab0c38e66d",
+      "question": "Healthcare 학습 경로는 몇 단계로 구성되며 각 단계에서 추가되는 엔티티는?",
+      "answer": "3단계다. 1단계는 Patient·Provider·Appointment, 2단계는 Diagnosis 추가, 3단계는 Prescription 추가다."
+    },
+    {
+      "id": "6c63bc50-2343-45cc-a838-5a76823bd196",
+      "question": "Healthcare 학습 경로를 완료하면 최종적으로 만들어지는 온톨로지의 규모는?",
+      "answer": "5개 엔티티, 6개 관계(relationship)로 구성된 온톨로지다. 예약부터 치료까지 이어지는 전체 환자 진료 여정(patient care journey)을 포괄한다."
+    },
+    {
+      "id": "14454a7f-2888-4f1c-b7c8-8a4bc9bd29f8",
+      "question": "Healthcare 학습 경로 1단계에서 배우는 핵심 학습 목표는 무엇인가?",
+      "answer": "핵심 임상 엔티티(core clinical entities)와 스케줄링 관계(scheduling relationships)다. Patient, Provider, Appointment 세 엔티티로 진료 전달의 기반을 세운다."
+    },
+    {
+      "id": "45d1d3d6-c946-4c67-a79d-0be77ca93947",
+      "question": "Healthcare 학습 경로 2단계(Diagnosis 추가)에서 배우는 핵심 학습 목표는?",
+      "answer": "의학적 상태(medical conditions)의 모델링과 다중 소스 관계(multi-source relationships)다. Diagnosis가 Patient와 Provider 양쪽에서 연결되는 구조를 익힌다."
+    },
+    {
+      "id": "013450e9-f70b-45f4-8114-8dced5944e30",
+      "question": "Healthcare 학습 경로 3단계(Prescription 추가)에서 배우는 핵심 학습 목표는?",
+      "answer": "치료 체인(treatment chain)과 진료 사이클(care cycle)의 완성이다. Diagnosis에서 Prescription으로 이어지는 흐름으로 온톨로지를 닫는다."
+    },
+    {
+      "id": "a3bf49b6-71be-4e72-a213-8f1a2f22238b",
+      "question": "Healthcare 온톨로지의 4가지 핵심 개념(key concepts)은 무엇인가?",
+      "answer": "임상 워크플로(clinical workflows: 예약·진단·치료), 공유 관계(shared relationships: Patient와 Provider가 모두 Appointment에 연결), 진료 체인(care chains: Patient → Diagnosis → Prescription), 표준화된 식별자(MRN·ICD 코드·Rx 번호)다."
+    },
+    {
+      "id": "24593fb4-79fa-4688-adbb-38f48e355551",
+      "question": "Healthcare 도메인에서 등장하는 표준화된 식별자(standardized identifiers) 3가지는?",
+      "answer": "MRN(Medical Record Number), ICD 코드, Rx 번호(prescription number)다. 각각 병원 의료기록, 질병 분류, 약국 처방을 식별하는 표준 체계다."
+    },
+    {
+      "id": "7c2eefad-5ae1-4ce7-8c31-6547677f2676",
+      "question": "\"care chain(진료 체인)\"이란 Healthcare 온톨로지에서 무엇을 가리키는가?",
+      "answer": "`Patient → Diagnosis → Prescription`으로 이어지는 경로다. 환자가 진단을 받고 그 진단에 대한 치료(처방)를 받는 실제 임상 흐름을 그래프로 표현한 것이다."
+    },
+    {
+      "id": "3e451a1c-dfa3-4986-9b15-3a0a4b14d9c5",
+      "question": "진료 전달(healthcare delivery)의 기반이 되는 3가지 개념과 각각이 답하는 질문은?",
+      "answer": "Patient는 \"누가 진료를 받는가?\", Provider는 \"누가 진료를 제공하는가?\", Appointment는 \"진료가 언제 어디서 일어나는가?\"에 답한다."
+    },
+    {
+      "id": "8cdf77eb-4cee-41ef-866f-cdf82dfe248d",
+      "question": "Appointment가 Healthcare 온톨로지에서 중요한 위치를 차지하는 이유는?",
+      "answer": "모든 진단과 치료가 예약(appointment)에서 흘러나오기 때문이다. Appointment는 스케줄링과 진료 전달을 포착하는 시작점이다."
+    },
+    {
+      "id": "8937b300-f356-4c4e-9d5e-d157e30d832b",
+      "question": "Patient 엔티티의 5가지 속성은 무엇인가?",
+      "answer": "`patientId`(string, 식별자), `mrn`(string), `dateOfBirth`(date), `bloodType`(string), `allergies`(string)다."
+    },
+    {
+      "id": "e79274dc-5e3c-4294-94bf-70e61f84ba47",
+      "question": "Patient 엔티티에서 식별자로 지정된 속성은 무엇인가?",
+      "answer": "`patientId`(string)다. `mrn`은 식별자가 아니라 도메인 고유 속성으로 남는다."
+    },
+    {
+      "id": "eeedfab4-e47d-4d98-b00e-2cd82b89c2b8",
+      "question": "MRN(Medical Record Number)이란 무엇이며 온톨로지에서 어떤 역할을 하는가?",
+      "answer": "병원의 내부 식별자(hospital's internal identifier)다. 온톨로지 식별자는 `patientId`가 담당하고, `mrn`은 EHR 시스템에 매핑되는 도메인 고유 속성(domain-specific property)으로 공존한다."
+    },
+    {
+      "id": "95d39904-db52-4809-bca1-ec152b46d0bf",
+      "question": "`patientId`와 `mrn`을 구분해서 두는 설계의 의미는 무엇인가?",
+      "answer": "온톨로지 식별자(patientId)와 도메인 고유 식별자(mrn)가 공존할 수 있음을 보여준다. 온톨로지는 자체 식별 체계를 유지하면서 외부 시스템(EHR)의 식별자를 속성으로 보존한다."
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "98b91766-7a13-4662-9ffe-6558ded5e984",
+      "question": "Diagnosis의 `severity` 속성이 가능하게 하는 임상 활용은?",
+      "answer": "리스크 층화(risk stratification)와 임상 우선순위 결정(clinical prioritization)이다. severity로 필터링하면 중증 환자를 선별해 우선 대응할 수 있다."
+    },
+    {
+      "id": "41fda62b-bd79-4b03-8a2e-91e74b9c53f2",
+      "question": "diagnosed_with 관계는 무엇을 연결하며 카디널리티는?",
+      "answer": "`Patient` → `Diagnosis`를 연결하는 one-to-many 관계다. 한 환자는 의료 이력 전체에 걸쳐 여러 진단을 가질 수 있다."
+    },
+    {
+      "id": "6d69d420-ff79-4cee-a8f1-0d752f864beb",
+      "question": "diagnoses 관계는 무엇을 연결하며 카디널리티는?",
+      "answer": "`Provider` → `Diagnosis`를 연결하는 one-to-many 관계다. provider는 자신의 임상적 판단에 근거해 여러 진단을 기록한다."
+    },
+    {
+      "id": "4c9dd599-53fc-4e08-ae3c-2f6ec5e41f2f",
+      "question": "dual authorship(이중 저작) 패턴이란 Diagnosis에서 무엇을 의미하는가?",
+      "answer": "Diagnosis가 상태를 가진 Patient와 그것을 식별한 Provider 양쪽에 연결되는 것을 말한다. 이 이중 연결로 환자 중심 관점(\"내 모든 상태\")과 provider 중심 관점(\"내가 식별한 모든 상태\")을 동시에 지원한다."
+    },
+    {
+      "id": "72da746a-4002-4fcc-9545-058bec527dbc",
+      "question": "Patient → Diagnosis ← Provider 구조를 dual-connected entity라고 부르는 이유는?",
+      "answer": "Diagnosis가 두 개의 서로 다른 출발점(Patient, Provider)에서 들어오는 관계를 받기 때문이다. 이런 구조가 두 관점(perspective)을 모두 포착하게 해 준다."
+    },
+    {
+      "id": "5a787178-4fee-405d-87fa-4663322ffcfd",
+      "question": "Healthcare 2단계까지 오면 그래프가 지원하는 두 종류의 쿼리는?",
+      "answer": "Appointment를 경유하는 스케줄링 쿼리와 Diagnosis를 경유하는 임상 쿼리다. 즉 운영 관점과 임상 관점이 동시에 열린다."
+    },
+    {
+      "id": "5ad9f55e-f599-4860-a4a2-e32b6db12ebb",
+      "question": "Healthcare 2단계에서 얻는 학습 결론(what we learned) 4가지는?",
+      "answer": "표준화된 코드(ICD)가 외부 시스템과의 상호운용성을 만든다는 점, dual-connected 엔티티가 두 관점을 포착한다는 점, severity 속성이 리스크 층화를 가능하게 한다는 점, 그래프가 이제 스케줄링 쿼리와 임상 쿼리를 모두 지원한다는 점이다."
+    },
+    {
+      "id": "ecb760fc-1187-4100-ad01-94bd81a90281",
+      "question": "Healthcare 온톨로지의 마지막 조각인 Prescription은 무엇을 표현하는가?",
+      "answer": "진단에 대한 치료 반응(treatment response to a diagnosis)이다. Prescription이 추가되면 appointment → diagnosis → treatment로 이어지는 진료 사이클이 닫힌다."
+    },
+    {
+      "id": "0e945402-ff26-4a5d-a00e-0d80e70ec74e",
+      "question": "Prescription 엔티티의 5가지 속성은 무엇인가?",
+      "answer": "`rxNumber`(string, 식별자), `medication`(string), `dosage`(string), `frequency`(string), `refillsRemaining`(integer)다."
+    },
+    {
+      "id": "20fe20ba-8fa8-4fdf-8888-339889967145",
+      "question": "Prescription 엔티티의 식별자는 무엇이며 왜 그것을 선택했는가?",
+      "answer": "`rxNumber`(처방 번호)다. 약국 표준 식별자(pharmacy-standard identifier)이기 때문에 온톨로지 식별자로 그대로 쓸 수 있다."
+    },
+    {
+      "id": "31b3de50-a0dc-41d8-9fc3-bcf106669aa3",
+      "question": "Prescription의 `refillsRemaining` 속성은 어떤 타입이며 무엇을 가능하게 하는가?",
+      "answer": "integer다. 리필 추적(refill tracking)과 복약 순응도 모니터링(medication adherence monitoring)이 가능해진다."
+    },
+    {
+      "id": "74ae5f25-2451-45c0-9ee0-f0f1e6d99261",
+      "question": "Prescription의 `dosage`와 `frequency` 속성은 각각 무엇을 나타내는가?",
+      "answer": "`dosage`는 1회 투여량, `frequency`는 투여 빈도를 나타내며 둘 다 string이다. 이 두 속성이 함께 실제 복약 지시를 구성한다."
+    },
+    {
+      "id": "19a4ff8e-8996-49cb-8bff-5f416333562c",
+      "question": "treated_by 관계는 무엇을 연결하며 카디널리티는?",
+      "answer": "`Diagnosis` → `Prescription`을 연결하는 one-to-many 관계다. 하나의 진단이 여러 처방으로 이어질 수 있다(예: 같은 상태에 대한 복수 약물)."
+    },
+    {
+      "id": "d5d02df4-f409-4437-8ec3-d28449f496bf",
+      "question": "prescribes 관계는 무엇을 연결하며 카디널리티는?",
+      "answer": "`Provider` → `Prescription`을 연결하는 one-to-many 관계다. provider가 자기 환자를 위해 처방을 작성한다."
+    },
+    {
+      "id": "4c046ed2-1f23-4ed9-9709-8eb46b6fa943",
+      "question": "하나의 Diagnosis가 여러 Prescription을 가질 수 있는 실제 이유는?",
+      "answer": "같은 상태에 대해 여러 약물이 동시에 처방될 수 있기 때문이다. 그래서 treated_by는 one-to-many로 모델링한다."
+    },
+    {
+      "id": "a1272f97-ec6d-4ccf-8f43-ddfe2eb3e24d",
+      "question": "완성된 Healthcare 온톨로지에서 Provider는 어떤 엔티티들과 연결되는가?",
+      "answer": "Appointment, Diagnosis, Prescription 세 엔티티와 연결된다. 예약을 보고(sees), 진단을 내리고(diagnoses), 처방을 작성하는(prescribes) 진료 전 단계에 관여하기 때문이다."
+    },
+    {
+      "id": "0522cfa7-87d5-4ea3-9497-a043876e88ae",
+      "question": "Provider가 Healthcare 온톨로지에서 가장 많이 연결된 엔티티인 이유는?",
+      "answer": "실제 임상 워크플로에서 의료진이 진료 전달 체인의 모든 단계에 관여하기 때문이다. 예약 진료, 진단 기록, 처방 작성 모두가 provider를 거친다."
+    },
+    {
+      "id": "46aa986d-f8c1-4d59-b0a5-625a7bf4076c",
+      "question": "완성된 Healthcare 온톨로지의 6개 관계를 모두 나열하면?",
+      "answer": "has_appointment(Patient→Appointment), sees(Provider→Appointment), diagnosed_with(Patient→Diagnosis), diagnoses(Provider→Diagnosis), treated_by(Diagnosis→Prescription), prescribes(Provider→Prescription)이다."
+    },
+    {
+      "id": "d1c0fe2d-59ca-4bc5-af40-057c5d5b2864",
+      "question": "\"리필이 필요한 환자는 누구인가?\"라는 질문은 어떤 그래프 경로로 답하는가?",
+      "answer": "`Patient → Diagnosis → Prescription (refillsRemaining=0)` 경로다. 진단을 경유해 처방까지 내려가서 리필 잔량이 0인 것만 남긴다."
+    }
+  ]
+}

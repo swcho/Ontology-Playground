@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "ce1927aa-d06a-4447-b2ff-c30aece2c912",
+      "question": "Patient 엔티티에 `bloodType`과 `allergies` 속성을 두는 임상적 이유는?",
+      "answer": "수혈·투약 시 안전에 직결되는 정보이기 때문이다. 두 속성 모두 string 타입으로, 진료 결정에 필요한 환자의 의학적 배경을 담는다."
+    },
+    {
+      "id": "12b4a064-212f-438d-ac1d-5422d4e46a1f",
+      "question": "Provider 엔티티의 5가지 속성은 무엇인가?",
+      "answer": "`providerId`(string, 식별자), `name`(string), `specialty`(string), `licenseNumber`(string), `department`(string)다."
+    },
+    {
+      "id": "4ef55a56-1a1c-40b9-b469-e1be8ab9c2d5",
+      "question": "Provider 엔티티에서 `specialty`와 `department` 속성이 가능하게 하는 것은?",
+      "answer": "임상 도메인별 provider 필터링이다. 이는 진료 의뢰(referral)와 라우팅(routing) 쿼리에 필수적이다."
+    },
+    {
+      "id": "1a22ff80-20b1-4f2e-8d5e-acbab69105a3",
+      "question": "Provider 엔티티의 `licenseNumber` 속성은 무엇을 표현하는가?",
+      "answer": "의료진의 면허 번호(license)다. 의사·전문의가 자격을 갖춘 주체임을 온톨로지에 기록하는 속성으로, 식별자는 아니고 일반 string 속성이다."
+    },
+    {
+      "id": "c4d38aa3-3c01-4858-8694-baf3329fb949",
+      "question": "Appointment 엔티티의 5가지 속성은 무엇인가?",
+      "answer": "`appointmentId`(string, 식별자), `scheduledTime`(datetime), `duration`(integer, 분 단위), `type`(string), `status`(string)다."
+    },
+    {
+      "id": "ceae5913-ff0d-4d69-b6de-f0f0e4ce32c4",
+      "question": "Appointment의 `duration` 속성은 어떤 타입이며 왜 그렇게 설계했는가?",
+      "answer": "분(minutes) 단위를 가진 integer다. 정수형이기 때문에 스케줄링 계산과 이용률 분석(utilization analysis)이 가능해진다."
+    },
+    {
+      "id": "1acf91ba-da0e-4dee-bf64-58e10687a375",
+      "question": "Appointment의 `scheduledTime`은 date가 아니라 datetime을 쓰는데 그 이유는?",
+      "answer": "예약은 날짜만이 아니라 시각까지 특정해야 하기 때문이다. datetime이어야 하루 안의 슬롯 배치와 duration을 더한 종료 시각 계산이 가능하다."
+    },
+    {
+      "id": "3f2a1985-5963-4b63-a967-f3c617f62cd5",
+      "question": "Appointment의 `status` 속성이 하는 역할은 무엇인가?",
+      "answer": "예약의 상태(예: 예정·완료·취소)를 string으로 표현한다. 상태값으로 필터링하면 실제 진료가 이뤄진 예약만 골라내는 등의 운영 쿼리가 가능하다."
+    },
+    {
+      "id": "1a6a36fa-7a1a-4875-88af-8400f40cfeca",
+      "question": "has_appointment 관계는 무엇을 연결하며 카디널리티는 어떻게 되는가?",
+      "answer": "`Patient` → `Appointment`를 연결하는 one-to-many 관계다. 한 환자는 시간이 흐르며 여러 예약을 가질 수 있다."
+    },
+    {
+      "id": "76a0e5ca-54dc-4c2e-9de6-5f7dac44aabd",
+      "question": "sees 관계는 무엇을 연결하며 카디널리티는 어떻게 되는가?",
+      "answer": "`Provider` → `Appointment`를 연결하는 one-to-many 관계다. 한 provider는 많은 예약을 담당한다."
+    },
+    {
+      "id": "c201f5d9-161d-472c-b606-55ba297b65b9",
+      "question": "shared entity pattern(공유 엔티티 패턴)이란 무엇인가?",
+      "answer": "Appointment처럼 하나의 엔티티가 두 독립적인 엔티티(Patient, Provider) 모두에 연결되는 패턴이다. 두 행위자가 같은 이벤트에 참여할 때 나타나는 일반적인 구조로, 그 엔티티가 상호작용의 접점(meeting point)이 된다."
+    },
+    {
+      "id": "10fa02f5-1bee-4027-8420-da1e08dbf15e",
+      "question": "Appointment를 Patient와 Provider 중 한쪽만이 아니라 둘 다에 연결하는 이유는?",
+      "answer": "예약은 본질적으로 환자와 provider가 함께 참여하는 협업 이벤트이기 때문이다. 두 관계를 모두 모델링하면 \"환자의 다음 방문은 언제인가?\"와 \"이 provider는 하루에 몇 명을 보는가?\" 양방향 쿼리가 모두 가능해진다."
+    },
+    {
+      "id": "06469593-8179-4d79-bcbd-ccf7abbee58e",
+      "question": "scheduling triangle(스케줄링 삼각형)이란 무엇을 가리키는가?",
+      "answer": "Patient–Appointment–Provider로 이루어진 구조다. 이 삼각형이 healthcare 온톨로지의 기반(foundation)을 형성한다."
+    },
+    {
+      "id": "0f02eea5-b6ff-4e85-9b59-65d91c1e0609",
+      "question": "Healthcare 1단계에서 얻는 학습 결론(what we learned) 4가지는?",
+      "answer": "공유 엔티티(Appointment)가 두 독립 행위자를 연결한다는 점, duration 속성은 단위를 가진 정수를 쓴다는 점, 도메인 고유 식별자(MRN)와 온톨로지 식별자(patientId)가 공존한다는 점, 스케줄링 삼각형이 healthcare의 기반이라는 점이다."
+    },
+    {
+      "id": "35094b3d-163a-43c5-a0d8-c4221d8ca453",
+      "question": "예약(appointment)에서 산출되는 임상적 결과물은 무엇이며 어떤 엔티티가 담당하는가?",
+      "answer": "임상 소견(clinical findings), 즉 환자가 어떤 상태인지에 대한 판단이다. Diagnosis 엔티티가 이 소견을 표준화된 코딩과 함께 담아낸다."
+    },
+    {
+      "id": "1122d800-42cb-45c0-849a-09c7c8f4806f",
+      "question": "Diagnosis 엔티티를 추가하면 답할 수 있게 되는 질문 예시 3가지는?",
+      "answer": "\"당뇨로 진단받은 환자는 누구인가?\", \"지난 분기에 가장 심각한 상태를 가장 많이 식별한 provider는 누구인가?\", \"부서별로 가장 흔한 진단은 무엇인가?\"다."
+    },
+    {
+      "id": "ce87d226-a88d-49c0-a1eb-b149d2042edc",
+      "question": "Diagnosis 엔티티의 5가지 속성은 무엇인가?",
+      "answer": "`diagnosisId`(string, 식별자), `icdCode`(string), `description`(string), `severity`(string), `diagnosedDate`(date)다."
+    },
+    {
+      "id": "bf8b2b4d-d781-41b9-94c2-f881ecd4b6b6",
+      "question": "ICD 코드란 무엇의 약자이며 어떤 체계인가?",
+      "answer": "International Classification of Diseases(국제질병분류)의 약자다. 의학적 상태를 분류하는 전 세계적으로 통용되는 표준 코딩 체계다."
+    },
+    {
+      "id": "c08e4469-fe74-4006-95bb-7cc9a2f9dfca",
+      "question": "Diagnosis에 `icdCode` 속성을 두는 것이 중요한 이유는?",
+      "answer": "전 세계적으로 표준화된 코딩 체계를 제공하여 보험, 청구(billing), 연구 시스템과의 상호운용성(interoperability)을 확보하기 때문이다. 같은 코드가 EHR·보험 청구·임상시험·공중보건 시스템에서 동일한 상태를 의미하게 된다."
+    }
+  ]
+}

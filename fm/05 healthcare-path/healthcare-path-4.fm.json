@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "3977c961-0f09-4444-a361-c847e9823b26",
+      "question": "\"약을 가장 많이 처방하는 provider는 누구인가?\"는 어떤 경로로 답하는가?",
+      "answer": "`Provider → Prescription`을 따라가며 개수를 집계(count)한다. prescribes 관계 하나만으로 답이 나오는 단순 집계 쿼리다."
+    },
+    {
+      "id": "3ae495c6-f18f-445f-9fec-5079df3d6246",
+      "question": "\"아직 치료가 없는 severe 진단은 무엇인가?\"는 어떤 경로로 답하는가?",
+      "answer": "`Diagnosis (severity=severe)` 중 `→ Prescription`이 없는 것을 찾는다. 관계의 부재(no outgoing edge)를 조건으로 쓰는 쿼리다."
+    },
+    {
+      "id": "93a1024d-3c9c-4878-90d5-2425cf59d6ae",
+      "question": "\"자신이 진단한 상태에 직접 처방까지 하는 전문의는 누구인가?\"는 어떤 경로로 답하는가?",
+      "answer": "`Provider → Diagnosis` AND `Provider → Prescription` 두 경로를 동시에 만족하는 provider를 찾는다. 한 엔티티에서 나가는 두 관계를 교차 조건으로 쓰는 예다."
+    },
+    {
+      "id": "61bcc8c8-14ad-4b66-951b-adf165206225",
+      "question": "관계의 부재를 조건으로 쓰는 쿼리(예: 치료 없는 severe 진단)가 온톨로지에서 유용한 이유는?",
+      "answer": "누락(gap)을 찾아낼 수 있기 때문이다. 진단은 있으나 처방이 연결되지 않은 케이스를 골라내면 미처리 중증 환자를 임상적으로 식별할 수 있다."
+    },
+    {
+      "id": "355336b7-cdcf-46eb-9efa-d174180a260e",
+      "question": "severe 진단 환자 중 처방이 소진되어 가는 사람을 찾는 GQL 쿼리는?",
+      "answer": "```gql\nMATCH (p:Patient)-[:diagnosed_with]->(d:Diagnosis)-[:treated_by]->(rx:Prescription)\nWHERE d.severity = 'severe' AND rx.refillsRemaining <= 1\nRETURN p.patientId, d.description, rx.medication, rx.refillsRemaining\n```"
+    },
+    {
+      "id": "56c39574-9374-4aaa-8ec0-8a0705ed62d9",
+      "question": "위 GQL 쿼리의 MATCH 절 `(p:Patient)-[:diagnosed_with]->(d:Diagnosis)-[:treated_by]->(rx:Prescription)`은 무엇을 표현하는가?",
+      "answer": "Patient에서 diagnosed_with로 Diagnosis에 도달하고, 거기서 treated_by로 Prescription까지 이어지는 3-hop 경로다. 즉 care chain 전체를 한 패턴으로 매칭한다."
+    },
+    {
+      "id": "d6b46a35-3dc4-4b7e-9476-b62a4c5c63b6",
+      "question": "GQL 쿼리에서 `rx.refillsRemaining <= 1` 조건을 쓰는 의도는 무엇인가?",
+      "answer": "리필이 소진되어 가는(running out) 처방을 잡아내기 위함이다. 0뿐 아니라 1까지 포함해서 곧 약이 끊길 환자를 미리 찾는다."
+    },
+    {
+      "id": "567d99a6-73c3-4d0a-b670-71e75ea64b59",
+      "question": "Healthcare 온톨로지 구축 단계별 누적 엔티티 수는 어떻게 변하는가?",
+      "answer": "1단계 Patient·Provider·Appointment로 3개, 2단계 Diagnosis 추가로 4개, 3단계 Prescription 추가로 5개가 된다."
+    },
+    {
+      "id": "879305f2-2ed7-46d5-851a-82e5f47cc5de",
+      "question": "Healthcare 온톨로지에서 shared entity로 분류되는 엔티티는 무엇인가?",
+      "answer": "Appointment와 Diagnosis다. 두 엔티티 모두 여러 행위자(Patient와 Provider)를 연결하는 접점 역할을 한다."
+    },
+    {
+      "id": "59f801ca-6114-4125-819c-3a2151d4ba49",
+      "question": "Healthcare 온톨로지의 5가지 핵심 교훈(key takeaways)은 무엇인가?",
+      "answer": "공유 엔티티(Appointment, Diagnosis)가 복수 행위자를 연결한다, 표준화된 코드(ICD, Rx)가 시스템 간 상호운용성을 만든다, care chain이 임상 워크플로를 모델링한다, Provider가 모든 단계에 연결된다, 정수 속성(refillsRemaining, duration)이 운영 쿼리를 가능하게 한다."
+    },
+    {
+      "id": "d8dfac15-df27-4d4c-bb9b-cfd9bc9cf5e1",
+      "question": "Healthcare 온톨로지에서 정수(integer) 타입 속성 2가지와 각각의 용도는?",
+      "answer": "Appointment의 `duration`(분 단위, 스케줄링 계산과 이용률 분석)과 Prescription의 `refillsRemaining`(리필 추적과 복약 순응도 모니터링)이다. 정수형이기에 비교·집계 기반 운영 쿼리가 가능하다."
+    },
+    {
+      "id": "5d01269b-1e61-4d78-9152-9589b008f486",
+      "question": "온톨로지에서 표준화된 코드(ICD, Rx)를 속성으로 포함하는 것이 주는 이점은?",
+      "answer": "시스템 간 상호운용성(cross-system interoperability)이다. 코드가 표준이므로 EHR, 보험 청구, 임상시험, 공중보건 시스템이 같은 개념을 같은 값으로 참조할 수 있다."
+    },
+    {
+      "id": "9edd1778-ff86-40a6-acde-275873f51ed0",
+      "question": "Healthcare 온톨로지에서 care chain을 명시적으로 모델링하는 것이 중요한 이유는?",
+      "answer": "실제 임상 워크플로(clinical workflow)를 그래프 구조로 그대로 반영하기 때문이다. Patient → Diagnosis → Prescription 경로가 있으면 진료 사이클 전체를 한 번의 탐색으로 질의할 수 있다."
+    },
+    {
+      "id": "5e76ba02-8f9b-4240-8dd2-d51e9f0905ef",
+      "question": "Healthcare 온톨로지의 진료 사이클(care cycle)은 어떤 순서로 닫히는가?",
+      "answer": "appointment → diagnosis → treatment 순서다. 예약에서 시작해 진단을 기록하고, 그 진단에 대한 처방으로 치료가 이어지며 사이클이 완성된다."
+    },
+    {
+      "id": "0635d233-ca73-40a0-a7f0-00e8c8dff477",
+      "question": "Healthcare 온톨로지 3단계의 시각화에서 diff 기능은 무엇을 보여주는가?",
+      "answer": "이전 단계(healthcare-step-2) 대비 새로 추가된 부분을 강조해서 보여준다. 각 단계가 무엇을 더했는지 그래프 상에서 바로 확인할 수 있다."
+    },
+    {
+      "id": "83fc1d9b-45a0-4f59-9486-ea5fe558e2e2",
+      "question": "Healthcare 온톨로지의 엔티티 중 식별자 이름이 `~Id` 형태가 아닌 것은 무엇인가?",
+      "answer": "Prescription의 `rxNumber`다. 나머지는 `patientId`, `providerId`, `appointmentId`, `diagnosisId`로 모두 `~Id` 패턴을 따르는데, Prescription만 약국 업계 표준 식별자 이름을 그대로 채택했다."
+    },
+    {
+      "id": "b5ad43f6-854f-44e9-b52a-a8cee8a6c56f",
+      "question": "온톨로지 식별자를 도메인 표준 식별자(rxNumber)로 삼는 것과 새로 만드는 것(patientId)의 차이는?",
+      "answer": "도메인 표준이 이미 전역적으로 유일하면 그대로 식별자로 쓰는 것이 외부 시스템 연계에 유리하다(rxNumber). 반대로 MRN처럼 병원 내부 한정 식별자라면 온톨로지 식별자는 별도로 두고(patientId) 원래 식별자는 속성으로 보존한다."
+    },
+    {
+      "id": "29e4423a-29e4-466c-8d20-4c292f015f4a",
+      "question": "Healthcare 시나리오와 같은 도메인에서 온톨로지 없이 임상 질문에 답하기 어려운 근본 원인은?",
+      "answer": "데이터가 EHR, 스케줄링, 약국, 청구 등 여러 시스템에 흩어져 있고 각각 자기 스키마와 식별자를 갖기 때문이다. 온톨로지는 이들을 공통 엔티티·관계로 묶어 하나의 그래프 탐색으로 질문에 답하게 만든다."
+    }
+  ]
+}
