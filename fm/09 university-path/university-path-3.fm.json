@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "98b82e8e-d8b5-494d-828c-79b5e53432a5",
+      "question": "`belongs_to` 관계는 무엇을 잇고 카디널리티는?",
+      "answer": "`Professor` → `Department`이며 다대일(many-to-one)이다. 여러 교수가 하나의 학과에 소속된다."
+    },
+    {
+      "id": "30e642e3-3fe6-4cbb-9a51-82f7546d4fd1",
+      "question": "`offers` 관계는 무엇을 잇고 카디널리티는?",
+      "answer": "`Department` → `Course`이며 일대다(one-to-many)다. 학과가 자기 학사 프로그램의 일부로 강좌들을 개설한다."
+    },
+    {
+      "id": "3a0f0e31-da06-4b73-a863-618f0c6d37a3",
+      "question": "Department가 hub entity(허브 엔티티)로 불리는 이유는?",
+      "answer": "`belongs_to`로 Professor와, `offers`로 Course와 아래 방향으로 동시에 연결되기 때문이다. 교수진과 커리큘럼 데이터를 학과 수준에서 합치는 집계 질의의 중심이 된다."
+    },
+    {
+      "id": "4701e0e5-a215-485d-a49f-c3600e0d402f",
+      "question": "\"학과별 평균 학생 GPA가 가장 높은 곳은?\"의 그래프 경로는?",
+      "answer": "Department → Course ← Enrollment ← Student 경로를 타고 GPA를 평균낸다. 학과에서 시작해 강좌·수강기록을 거쳐 학생에 도달한다."
+    },
+    {
+      "id": "909f739a-5d2e-4456-b146-6b1c09ed3d49",
+      "question": "\"자기 학과 강좌 밖에서 가르치는 교수는?\"은 어떻게 판별하는가?",
+      "answer": "Professor → Department(소속)와 Professor → Course → Department(개설 학과)를 비교한다. 두 결과가 다르면 소속 외 강의를 하는 교수다."
+    },
+    {
+      "id": "ac1202db-d9a6-4c3f-a9f0-d560d79f7a7b",
+      "question": "학과별 충원율(enrollment rate)은 어떻게 계산하는가?",
+      "answer": "Department → Course ← Enrollment로 수강 건수를 세고, 이를 Course.maxEnrollment로 나눈다. 정원 대비 실제 등록 비율이 나온다."
+    },
+    {
+      "id": "b00635db-860b-4ae8-99f2-42679de0c990",
+      "question": "\"정년보장 교수가 가장 많은 학과는?\"의 경로는?",
+      "answer": "Department ← Professor 방향으로 역방향 순회하며 `tenured=true`인 교수를 센다. boolean 속성 필터와 집계를 결합한 예다."
+    },
+    {
+      "id": "362fd375-9aa9-438a-b681-a3f2a42fc375",
+      "question": "성적이 부진한 학과를 찾는 GQL 질의는 어떤 형태인가?",
+      "answer": "`MATCH (d:Department)-[:offers]->(c:Course)<-[:for_course]-(e:Enrollment)<-[:enrolls_in]-(s:Student) WHERE e.grade IN ['C','D','F'] RETURN d.name, c.title, COUNT(e) AS struggling_count ORDER BY struggling_count DESC` 형태다."
+    },
+    {
+      "id": "1262e946-d36a-47bc-81e9-d8513f49bad4",
+      "question": "위 GQL 질의에서 화살표 방향이 뒤섞여 있는 이유는?",
+      "answer": "`offers`는 Department에서 Course로 나가지만, `for_course`와 `enrolls_in`은 각각 Enrollment에서 Course로, Student에서 Enrollment로 향하기 때문이다. 관계의 정의된 방향을 그대로 따르면서 경로를 잇기 위해 `<-`로 역방향 순회한다."
+    },
+    {
+      "id": "6a3991b6-e761-4627-8606-adf4e7259144",
+      "question": "University 온톨로지를 단계별로 정리하면?",
+      "answer": "1단계는 Student·Course·Enrollment(누적 3개)로 junction entity와 다대다를, 2단계는 Professor(누적 4개)로 전이 질의와 boolean 속성을, 3단계는 Department(누적 5개)로 조직 계층과 허브 엔티티를 배운다."
+    },
+    {
+      "id": "44edbe75-60f3-4fc0-865c-c5c9a17a491b",
+      "question": "University 학습 경로의 5가지 최종 교훈은?",
+      "answer": "junction entity가 속성 있는 다대다를 해소하고, transitive query가 다중 홉 통찰을 열며, boolean 속성이 범주 필터를 만들고, 조직 계층이 집계 그룹을 제공하며, hub entity가 온톨로지의 여러 갈래를 연결한다는 것이다."
+    },
+    {
+      "id": "3c410b5b-a0ba-48dc-aaf3-0fbd2c19a490",
+      "question": "University 온톨로지의 6개 관계를 모두 나열하면?",
+      "answer": "`enrolls_in`(Student→Enrollment), `for_course`(Enrollment→Course), `teaches`(Professor→Course), `advises`(Professor→Student), `belongs_to`(Professor→Department), `offers`(Department→Course)이다."
+    },
+    {
+      "id": "f8b29a8c-13f1-470b-9f44-0890036cfbef",
+      "question": "University 온톨로지에서 식별자(identifier) 속성으로 지정된 것들은?",
+      "answer": "`studentId`, `courseId`, `enrollmentId`, `professorId`, `departmentId`다. 각 엔티티마다 정확히 하나씩 두어 인스턴스를 고유하게 구분한다."
+    },
+    {
+      "id": "fcd5ad19-8918-4ca3-b82f-c08b8c2edd5c",
+      "question": "이 온톨로지에서 float 타입 속성은 무엇이며 왜 float인가?",
+      "answer": "Student의 `gpa`와 Department의 `budget`이다. 둘 다 소수점 값을 갖고 평균·합계 같은 집계 연산의 대상이 되기 때문이다."
+    },
+    {
+      "id": "53572599-e53f-4f23-ac52-219f747226c5",
+      "question": "이 온톨로지에서 integer 타입 속성과 그 용도는?",
+      "answer": "Student의 `enrollmentYear`, Course의 `credits`와 `maxEnrollment`다. 각각 입학 연도, 학점 수, 정원처럼 개수·연도를 세는 값이다."
+    },
+    {
+      "id": "4a123c12-09a4-4033-9fca-99c64f40ed2f",
+      "question": "Enrollment의 `enrollDate`가 date 타입인 이유는?",
+      "answer": "수강신청이 일어난 시점을 기록해 시간 기반 질의를 가능하게 하기 때문이다. 학기(`semester`) 문자열과 함께 학사 일정의 시간 축을 형성한다."
+    },
+    {
+      "id": "66c75055-d0c8-440b-84ba-18c69eaa25ed",
+      "question": "Student 중심 질의와 Professor 중심 질의를 모두 지원한다는 것은 무슨 뜻인가?",
+      "answer": "그래프의 관계를 양방향으로 순회할 수 있어 출발점을 자유롭게 고를 수 있다는 뜻이다. 학생에서 시작해 성적을 보든, 교수에서 시작해 담당 학생을 보든 같은 그래프를 쓴다."
+    },
+    {
+      "id": "72ef1de2-a6ea-40e8-a7d2-9857722f0538",
+      "question": "Department가 조직 계층의 최상위에 있다는 말의 의미는?",
+      "answer": "Professor와 Course 두 갈래가 모두 Department 아래로 모인다는 뜻이다. 따라서 학과 수준 통계(department-level statistics)를 내기에 가장 적합한 위치다."
+    }
+  ]
+}

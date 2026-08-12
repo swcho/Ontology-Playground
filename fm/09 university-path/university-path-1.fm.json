@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "92204a42-d63a-4c06-aab2-7e6b81babde3",
+      "question": "University System 학습 경로가 모델링하는 대상은 무엇인가?",
+      "answer": "학생, 강좌, 수강신청, 교수, 학과를 연결하는 대학 관리 시스템(university management system)의 데이터 모델이다. 학사 행정 전반을 온톨로지로 표현하는 것이 목표다."
+    },
+    {
+      "id": "59e45a29-d15a-4e30-8246-a40eb29a1f3f",
+      "question": "University System 시나리오에서 대학이 추적하는 5가지 대상은 무엇인가?",
+      "answer": "Students(등록 상태·GPA·학적), Courses(학점·수준·선수과목), Enrollments(수강 기록과 성적), Professors(직급·정년보장·오피스아워), Departments(학사 프로그램과 교수진 조직)이다."
+    },
+    {
+      "id": "249f1acc-192e-45bd-b161-d5ea0fce668a",
+      "question": "대학 데이터는 원래 어떤 시스템들에 흩어져 있는가?",
+      "answer": "학생정보시스템(SIS), 학습관리시스템(LMS), 인사(HR) 시스템, 학사 기획 데이터베이스에 분산되어 있다. 온톨로지는 이 사일로들을 하나의 그래프로 연결한다."
+    },
+    {
+      "id": "8a937122-3e47-48e7-a42d-734118087d92",
+      "question": "\"등록 학생의 50% 이상이 C 미만을 받은 강좌를 가르치는 교수가 속한 학과는?\"이라는 질문이 어려운 이유는?",
+      "answer": "학과 기록, 교수 배정, 강좌 개설, 학생 성적이라는 서로 다른 영역의 데이터를 동시에 가로질러야 하기 때문이다. 단일 테이블이나 단일 시스템으로는 답할 수 없다."
+    },
+    {
+      "id": "4c17777d-717b-411b-a1cb-3c15223d18c4",
+      "question": "위 질문은 온톨로지에서 어떤 그래프 경로로 매핑되는가?",
+      "answer": "`Department → Professor → Course → Enrollment (grade < C) ← Student` 경로다. 관계를 따라 이동하는 것만으로 부서·교수·강좌·성적이 한 번에 연결된다."
+    },
+    {
+      "id": "e340b4c5-a4de-4f14-8a15-22ab1e09eff7",
+      "question": "University 학습 경로는 몇 단계로 구성되며 각 단계에서 추가되는 엔티티는?",
+      "answer": "3단계다. 1단계는 Student·Course·Enrollment, 2단계는 Professor, 3단계는 Department를 추가한다."
+    },
+    {
+      "id": "27f066c9-5dbf-4e7e-b59f-458486e88b8e",
+      "question": "완성된 University 온톨로지의 최종 규모는?",
+      "answer": "5개 엔티티(Student, Course, Enrollment, Professor, Department)와 6개 관계로 구성된다. 학사 행정 모델 전체를 포괄한다."
+    },
+    {
+      "id": "98f8d9a4-233f-4214-9e18-a21f4ee6910a",
+      "question": "University 학습 경로가 다루는 4가지 핵심 개념은?",
+      "answer": "junction entity(Enrollment로 다대다 해소), 학사 계층(Department가 교수·강좌를 조직), 성적 추적(letter grade와 GPA를 속성으로), 시간 데이터(학기·수강일·학년도)이다."
+    },
+    {
+      "id": "7310bc3b-20aa-4c29-b4c8-1a0c6cf0d388",
+      "question": "학사 기록(academic record)의 근본 질문은 무엇이며, 어떤 엔티티들이 답하는가?",
+      "answer": "\"어떤 학생이 어떤 강좌를 듣고 어떤 성과를 내는가?\"이다. Student(누가 배우는가), Course(무엇을 가르치는가), Enrollment(둘을 성적과 함께 잇는 기록) 세 엔티티가 답한다."
+    },
+    {
+      "id": "a85c2122-6271-4717-9478-92228ac0d9c9",
+      "question": "Student 엔티티의 속성 5개와 각 타입은?",
+      "answer": "`studentId`(string, 식별자), `name`(string), `gpa`(float), `enrollmentYear`(integer), `major`(string)이다."
+    },
+    {
+      "id": "8ee9e65a-52c1-4c2f-8b6a-eb634b168dfa",
+      "question": "Student의 `gpa` 속성이 float인 이유는?",
+      "answer": "Grade Point Average가 0.0~4.0 범위의 소수값이기 때문이다. 이 집계 지표로 학사경고 판정이나 우등생(honor roll) 산정 같은 질의가 가능해진다."
+    },
+    {
+      "id": "2af05460-0dd9-42d4-b4ec-28d0700e765e",
+      "question": "Course 엔티티의 속성 5개와 각 타입은?",
+      "answer": "`courseId`(string, 식별자), `title`(string), `credits`(integer), `level`(string), `maxEnrollment`(integer)이다."
+    },
+    {
+      "id": "728c8e87-0d36-43e0-94c5-90115ef9e824",
+      "question": "Course의 `level` 속성은 무엇을 나타내는가?",
+      "answer": "100, 200, 300, 400 같은 값으로 강좌의 난이도와 선수과목 관계를 나타낸다. 예를 들어 400-level은 고급 과정을 의미한다."
+    },
+    {
+      "id": "c3cfdbb9-b8d7-4918-9d08-a618e253fd73",
+      "question": "Course의 `maxEnrollment` 속성의 용도는?",
+      "answer": "강좌의 최대 수강 인원을 정수로 담아 정원 계획(capacity planning)을 가능하게 한다. 실제 수강 건수와 비교하면 학과별 충원율을 계산할 수 있다."
+    },
+    {
+      "id": "2f6ca545-f03f-468f-8387-5e3a91e70d11",
+      "question": "Enrollment 엔티티의 속성 5개와 각 타입은?",
+      "answer": "`enrollmentId`(string, 식별자), `semester`(string), `grade`(string), `enrollDate`(date), `status`(string)이다."
+    },
+    {
+      "id": "ea22aa39-3690-45a2-a6aa-da6b7e04cfd6",
+      "question": "Enrollment가 junction entity라고 불리는 이유는?",
+      "answer": "Student와 Course를 잇기 위해 존재하는 엔티티이면서, 성적·학기·상태 같은 추가 맥락을 스스로 지니기 때문이다. 연결 자체가 일급(first-class) 엔티티가 된다."
+    },
+    {
+      "id": "5228d220-fcea-45a1-8a87-dd18b79039ab",
+      "question": "junction entity 패턴은 언제 사용하는가?",
+      "answer": "두 엔티티가 다대다(many-to-many) 관계이면서 그 관계 자체에 속성이 붙을 때 사용한다. 학생은 여러 강좌를, 강좌는 여러 학생을 갖고, 그 사이에 Enrollment가 성적·학기·상태를 싣는다."
+    },
+    {
+      "id": "8a921a92-e38b-4b15-92e7-3850088c2ae5",
+      "question": "학사 코어의 관계 `enrolls_in`은 무엇을 잇고 카디널리티는?",
+      "answer": "`Student` → `Enrollment`이며 일대다(one-to-many)다. 한 학생이 여러 학기에 걸쳐 여러 수강 기록을 갖는다."
+    }
+  ]
+}

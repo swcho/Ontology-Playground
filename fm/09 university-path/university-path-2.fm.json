@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "8c00d78f-00a7-4cfb-83fe-bf12683bbe25",
+      "question": "학사 코어의 관계 `for_course`는 무엇을 잇고 카디널리티는?",
+      "answer": "`Enrollment` → `Course`이며 다대일(many-to-one)이다. 각 수강 기록은 정확히 하나의 강좌를 가리킨다."
+    },
+    {
+      "id": "2faa8f36-814b-43c4-9866-80da6d790a50",
+      "question": "Enrollment를 Student–Course 직접 관계로 대체할 수 없는 이유는?",
+      "answer": "직접 관계로는 성적·학기·상태 정보를 실을 수 없기 때문이다. \"이 학생이 이번 학기 이 강좌에서 받은 성적은?\" 같은 질의는 연결 자체에 속성이 있어야 답할 수 있다."
+    },
+    {
+      "id": "3e4db2a3-f6dc-4eff-902b-1e79c5707596",
+      "question": "학사 코어 단계에서 배우는 3가지 교훈은?",
+      "answer": "junction entity가 속성 있는 다대다를 해소한다는 것, float 속성(GPA)이 집계·임계값 질의를 가능하게 한다는 것, integer 속성(credits·maxEnrollment)이 정원·수업량 계획을 가능하게 한다는 것이다."
+    },
+    {
+      "id": "a6fe7330-088d-4246-867b-8d74f457aae5",
+      "question": "학사 코어의 데이터 흐름 경로는 어떻게 되는가?",
+      "answer": "Student → Enrollment → Course 순서다. 학생에서 출발해 수강 기록을 거쳐 강좌에 도달한다."
+    },
+    {
+      "id": "d4225601-75e7-40ba-b7d0-6f06a5cae11c",
+      "question": "Professor 엔티티는 온톨로지에 어떤 차원을 더하는가?",
+      "answer": "\"누가 가르치는가\"라는 교수(teaching) 차원을 더한다. 교수진을 강좌에 연결하고, 강좌를 통해 간접적으로 학생과도 연결한다."
+    },
+    {
+      "id": "a42d203c-1de9-4d46-8487-5454250c3dd0",
+      "question": "Professor 추가로 답할 수 있게 되는 질문의 예는?",
+      "answer": "\"400-level 강좌를 가장 많이 가르치는 교수는?\", \"Smith 교수 강좌의 평균 GPA는?\", \"입문 강좌를 가르치는 정년보장 교수는?\" 같은 질문이다."
+    },
+    {
+      "id": "8e4b537b-efb5-4313-8599-a1ae9777ace5",
+      "question": "Professor 엔티티의 속성 5개와 각 타입은?",
+      "answer": "`professorId`(string, 식별자), `name`(string), `rank`(string), `tenured`(boolean), `officeHours`(string)이다."
+    },
+    {
+      "id": "d69ba8f9-4bdf-4ff4-a580-eb2d86ad7bd1",
+      "question": "Professor의 `rank` 속성이 갖는 값과 의미는?",
+      "answer": "Assistant, Associate, Full의 학문적 위계를 나타낸다. 조교수 → 부교수 → 정교수로 이어지는 정해진 순서를 갖는다."
+    },
+    {
+      "id": "c3e6f97c-6ee1-44ce-8de3-eac4e584d889",
+      "question": "Professor의 `tenured` 속성이 boolean인 이유는?",
+      "answer": "정년보장 여부는 예/아니오로 나뉘는 이분 범주이기 때문이다. 고용 안정성이나 기관의 투자 수준을 필터링하는 질의에 바로 쓰인다."
+    },
+    {
+      "id": "33d0abe0-6d27-4111-8b4b-a25ae19acdf8",
+      "question": "`teaches` 관계는 무엇을 잇고 카디널리티는?",
+      "answer": "`Professor` → `Course`이며 일대다(one-to-many)다. 한 교수가 학기당 하나 이상의 강좌를 가르친다."
+    },
+    {
+      "id": "cbd31a7f-e935-43cf-bf4a-8a758a4e53fa",
+      "question": "`advises` 관계는 무엇을 잇고 카디널리티는?",
+      "answer": "`Professor` → `Student`이며 일대다(one-to-many)다. 교수가 자기 프로그램의 학생들을 지도(advising)한다."
+    },
+    {
+      "id": "20a5cc77-922a-4e51-94fd-7c2f73c1aa58",
+      "question": "transitive query(전이 질의)란 무엇인가?",
+      "answer": "직접 관계가 없는 엔티티들을 중간 노드를 거쳐 여러 관계를 연달아 타고 연결하는 질의다. 그래프 기반 온톨로지의 가장 큰 강점 중 하나다."
+    },
+    {
+      "id": "33cd3e3c-c074-444b-8670-c42c52417e5b",
+      "question": "\"정년보장 교수의 강좌를 듣는 학생은?\"은 어떤 경로로 답하는가?",
+      "answer": "Professor → Course → Enrollment → Student 경로를 순회한다. Professor와 Student 사이에 직접 관계가 없어도 중간 노드를 통해 연결된다."
+    },
+    {
+      "id": "393423cd-25ea-4fea-a1e0-d77123329f37",
+      "question": "Professor 추가 단계에서 얻는 학습 포인트는?",
+      "answer": "boolean 속성(tenured)이 예/아니오 범주 필터를 만든다는 것, transitive query가 먼 엔티티를 잇는다는 것, 학문적 rank가 정해진 위계를 따른다는 것이다. 이제 학생 중심·교수 중심 질의 모두가 가능해진다."
+    },
+    {
+      "id": "7558949e-93d3-49c3-ba5d-dd4792ff8544",
+      "question": "Department 엔티티는 대학 조직에서 어떤 역할을 하는가?",
+      "answer": "교수진을 소속시키고 강좌를 개설하며 학위를 수여하는 행정 단위다. 온톨로지에 조직 계층(organizational hierarchy)을 부여해 전체를 묶는다."
+    },
+    {
+      "id": "4a1bbe79-1347-466a-975b-27f985bf76b4",
+      "question": "Department 엔티티의 속성 5개와 각 타입은?",
+      "answer": "`departmentId`(string, 식별자), `name`(string), `building`(string), `budget`(float), `headOfDept`(string)이다."
+    },
+    {
+      "id": "070c0552-848f-4c51-a0be-f9d771d85ef6",
+      "question": "Department의 `budget` 속성이 가능하게 하는 질의는?",
+      "answer": "자원 배분(resource allocation) 관련 질의다. float 타입이므로 학과별 예산 비교나 예산 대비 성과 집계에 쓸 수 있다."
+    },
+    {
+      "id": "16940e4b-0853-4adc-90bd-f38a47344f13",
+      "question": "Department의 `headOfDept` 속성이 보여주는 패턴은?",
+      "answer": "학과장을 맡은 교수를 참조하는 self-referential(자기 참조) 패턴이다. 조직 계층 모델링에서 흔히 등장하는 형태다."
+    }
+  ]
+}
